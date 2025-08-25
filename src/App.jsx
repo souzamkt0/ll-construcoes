@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   User, Phone, Mail, DollarSign, Users, CreditCard, 
   Building2, Home, MapPin, CheckCircle, Send, 
-  ChevronLeft, ChevronRight, ArrowRight, MessageCircle
+  ChevronLeft, ChevronRight, ArrowRight, MessageCircle, Calculator
 } from 'lucide-react';
 
 function App() {
@@ -281,6 +281,7 @@ function App() {
     { title: 'WhatsApp', description: 'Seu número para receber a proposta' },
     { title: 'Renda', description: 'Sua faixa de renda mensal' },
     { title: 'Preferência', description: 'Como prefere comprar?' },
+    { title: 'Valor Disponível', description: 'Quanto você tem para investir?' },
     { title: 'Simulação Completa', description: 'Detalhes da sua proposta' }
   ];
 
@@ -301,29 +302,70 @@ function App() {
   };
 
   const generateRecommendation = () => {
-    const { renda, preferencia } = formData;
+    if (formData.preferencia === 'personalizada' && formData.valorDisponivel) {
+      const valorDisponivel = parseFloat(formData.valorDisponivel);
+      
+      // Calcular qual casa e plano é mais adequado baseado no valor disponível
+      if (valorDisponivel >= 30000) {
+        // Se tem 30k ou mais, pode escolher qualquer plano
+        if (valorDisponivel >= 52000) {
+          // Casa 2q plano financiamento (sinal + 1ª mensal)
+          return {
+            unit: 'casa2quartos',
+            plan: 'plano1',
+            reasoning: `Com R$ ${formatCurrency(valorDisponivel)} você pode iniciar o plano de financiamento da casa de 2 quartos (sinal R$ 20.800 + 1ª mensal R$ 1.679,17 = R$ 22.479,17)`
+          };
+        } else if (valorDisponivel >= 30000) {
+          // Casa 2q plano direto
+          return {
+            unit: 'casa2quartos',
+            plan: 'plano2',
+            reasoning: `Com R$ ${formatCurrency(valorDisponivel)} você pode iniciar o plano direto da casa de 2 quartos (sinal R$ 30.000)`
+          };
+        }
+      } else if (valorDisponivel >= 20000) {
+        // Se tem entre 20k e 30k, recomenda casa 2q com ajustes
+        return {
+          unit: 'casa2quartos',
+          plan: 'plano1',
+          reasoning: `Com R$ ${formatCurrency(valorDisponivel)} você pode dar uma entrada maior no plano de financiamento da casa de 2 quartos`
+        };
+      } else {
+        // Se tem menos de 20k, recomenda economizar mais
+        return {
+          unit: 'casa2quartos',
+          plan: 'plano1',
+          reasoning: `Com R$ ${formatCurrency(valorDisponivel)} recomendamos economizar mais para atingir pelo menos R$ 22.479,17 (sinal + 1ª mensal)`
+        };
+      }
+    }
     
-    let unit = 'casa2quartos';
-    let plan = 'plano1';
-    let reasoning = '';
-
-    // Lógica de recomendação baseada na renda
-    if (renda === 'acima5k') {
-      unit = 'casa3quartos';
-      reasoning = 'Sua renda indica que a casa de 3 quartos seria ideal.';
-    }
-
-    // Escolher o plano baseado na preferência
-    if (preferencia === 'vendaDireta') {
-      plan = 'plano2';
-      reasoning += ' Você prefere venda direta sem financiamento bancário.';
+    // Lógica original para outras preferências
+    if (formData.renda === 'ate2k') {
+      return {
+        unit: 'casa2quartos',
+        plan: 'plano1',
+        reasoning: 'Com sua renda, recomendamos a casa de 2 quartos com financiamento bancário para diluir os custos'
+      };
+    } else if (formData.renda === '2k3k') {
+      return {
+        unit: 'casa2quartos',
+        plan: formData.preferencia === 'vendaDireta' ? 'plano2' : 'plano1',
+        reasoning: 'Sua renda permite escolher entre financiamento ou venda direta na casa de 2 quartos'
+      };
+    } else if (formData.renda === '3k5k') {
+      return {
+        unit: 'casa3quartos',
+        plan: formData.preferencia === 'vendaDireta' ? 'plano2' : 'plano1',
+        reasoning: 'Com sua renda, você pode optar pela casa de 3 quartos em qualquer modalidade'
+      };
     } else {
-      plan = 'plano1';
-      reasoning += ' Recomendamos o plano com financiamento bancário.';
+      return {
+        unit: 'casa3quartos',
+        plan: 'plano1',
+        reasoning: 'Sua renda permite escolher a casa de 3 quartos com financiamento bancário'
+      };
     }
-
-    setRecommendation({ unit, plan, reasoning });
-    return { unit, plan, reasoning };
   };
 
   const formatCurrency = (value) => {
@@ -339,6 +381,11 @@ function App() {
     const unitData = units[unit];
     const planData = unitData[plan === 'plano1' ? 'plano1' : 'plano2'];
     
+    let valorPersonalizadoInfo = '';
+    if (formData.preferencia === 'personalizada' && formData.valorDisponivel) {
+      valorPersonalizadoInfo = `\n💰 *Valor Disponível:* ${formatCurrency(formData.valorDisponivel)}`;
+    }
+    
     const message = `🏠 *PROPOSTA PERSONALIZADA LL CONSTRUÇÕES* 🏠
 
 *${unit === 'casa2quartos' ? 'Casa 2 Quartos' : 'Casa 3 Quartos'}*
@@ -347,7 +394,7 @@ function App() {
 *Dados do Cliente:*
 👤 Nome: ${formData.name}
 📱 WhatsApp: ${formData.whatsapp}
-💵 Renda: ${formData.renda}
+💵 Renda: ${formData.renda}${valorPersonalizadoInfo}
 
 *Recomendação do Sistema:*
 🎯 ${reasoning}
@@ -528,40 +575,98 @@ _Proposta personalizada baseada no seu perfil_`;
 
       case 3: // Preferência
         return (
-          <div className="text-center space-y-6">
-            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
-              <CreditCard className="w-12 h-12 text-white" />
-            </div>
-            <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
-            <p className="text-gray-600">{step.description}</p>
+          <div className="space-y-4">
+            <h3 className="text-xl font-semibold text-gray-800 text-center">Como prefere comprar?</h3>
             
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* Venda Financiada */}
               <button
                 onClick={() => {
-                  handleInputChange('preferencia', 'vendaFinanciada');
+                  setFormData({ ...formData, preferencia: 'vendaFinanciada' });
                   nextStep();
                 }}
-                className="p-6 bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl hover:from-green-200 hover:to-orange-200 hover:border-green-400 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+                className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-6 px-4 rounded-xl transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
-                <h3 className="text-xl font-bold text-gray-800 mb-2">🏦 Venda Financiada</h3>
-                <p className="text-gray-600">Com financiamento bancário</p>
+                <div className="text-center">
+                  <Building2 className="w-12 h-12 mx-auto mb-3" />
+                  <h4 className="text-lg font-bold mb-2">Venda Financiada</h4>
+                  <p className="text-sm opacity-90">Sinal 8% + Mensais + Intercaladas + Financiamento</p>
+                </div>
               </button>
 
+              {/* Venda Direta */}
               <button
                 onClick={() => {
-                  handleInputChange('preferencia', 'vendaDireta');
+                  setFormData({ ...formData, preferencia: 'vendaDireta' });
                   nextStep();
                 }}
-                className="p-6 bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl hover:from-green-200 hover:to-orange-200 hover:border-green-400 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+                className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-6 px-4 rounded-xl transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
-                <h3 className="text-xl font-bold text-gray-800 mb-2">💳 Venda Direta</h3>
-                <p className="text-gray-600">Sem financiamento bancário</p>
+                <div className="text-center">
+                  <CreditCard className="w-12 h-12 mx-auto mb-3" />
+                  <h4 className="text-lg font-bold mb-2">Venda Direta</h4>
+                  <p className="text-sm opacity-90">Sinal R$ 30k + Mensais + Intercaladas</p>
+                </div>
+              </button>
+
+              {/* Personalizada */}
+              <button
+                onClick={() => {
+                  setFormData({ ...formData, preferencia: 'personalizada' });
+                  nextStep();
+                }}
+                className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-bold py-6 px-4 rounded-xl transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                <div className="text-center">
+                  <Calculator className="w-12 h-12 mx-auto mb-3" />
+                  <h4 className="text-lg font-bold mb-2">Personalizada</h4>
+                  <p className="text-sm opacity-90">Digite o valor que tem disponível</p>
+                </div>
               </button>
             </div>
           </div>
         );
 
-      case 4: // Simulação Completa
+      case 4: // Valor Disponível
+        return (
+          <div className="text-center space-y-6">
+            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
+              <DollarSign className="w-12 h-12 text-white" />
+            </div>
+            <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
+            <p className="text-gray-600">{step.description}</p>
+            
+            <div className="space-y-4">
+              <input
+                type="number"
+                value={formData.valorDisponivel}
+                onChange={(e) => handleInputChange('valorDisponivel', e.target.value)}
+                placeholder="Digite o valor disponível"
+                className="w-full px-4 py-3 bg-white border-2 border-green-200 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all"
+              />
+              
+              <button
+                onClick={() => {
+                  if (formData.valorDisponivel.trim()) {
+                    nextStep();
+                  } else {
+                    alert('Por favor, digite o valor disponível!');
+                  }
+                }}
+                disabled={!formData.valorDisponivel.trim()}
+                className={`w-full p-4 rounded-xl font-semibold transition-all ${
+                  formData.valorDisponivel.trim()
+                    ? 'bg-gradient-to-r from-green-500 to-orange-500 hover:from-green-600 hover:to-orange-600 text-white shadow-lg hover:shadow-xl transform hover:scale-105'
+                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                }`}
+              >
+                Continuar
+              </button>
+            </div>
+          </div>
+        );
+
+      case 5: // Simulação Completa
         return (
           <div className="space-y-6">
             <div className="text-center">
@@ -656,7 +761,8 @@ _Proposta personalizada baseada no seu perfil_`;
                     <p className="text-gray-800 font-medium">Nome: <span className="text-green-600">{formData.name}</span></p>
                     <p className="text-gray-800 font-medium">WhatsApp: <span className="text-green-600">{formData.whatsapp}</span></p>
                     <p className="text-gray-800 font-medium">Renda: <span className="text-green-600">{formData.renda === 'ate2k' ? 'Até R$ 2.000' : formData.renda === '2k3k' ? 'R$ 2.000 - R$ 3.000' : formData.renda === '3k5k' ? 'R$ 3.000 - R$ 5.000' : 'Acima de R$ 5.000'}</span></p>
-                    <p className="text-gray-800 font-medium">Preferência: <span className="text-green-600">{formData.preferencia === 'vendaFinanciada' ? 'Venda Financiada' : 'Venda Direta'}</span></p>
+                    <p className="text-gray-800 font-medium">Preferência: <span className="text-green-600">{formData.preferencia === 'vendaFinanciada' ? 'Venda Financiada' : formData.preferencia === 'vendaDireta' ? 'Venda Direta' : 'Personalizada'}</span></p>
+                    <p className="text-gray-800 font-medium">Valor Disponível: <span className="text-green-600">{formData.valorDisponivel ? formatCurrency(formData.valorDisponivel) : 'Não informado'}</span></p>
                   </div>
                 </div>
                 
