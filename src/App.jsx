@@ -16,7 +16,8 @@ function App() {
     preferenciaPagamento: '',
     tipoEntrada: '',
     selectedUnit: '',
-    selectedPlan: ''
+    selectedPlan: '',
+    valorDisponivel: ''
   });
   const [selectedUnit, setSelectedUnit] = useState('');
   const [selectedPlan, setSelectedPlan] = useState('');
@@ -105,6 +106,7 @@ function App() {
     { title: 'Perfil Familiar', description: 'Quantas pessoas na família?' },
     { title: 'Preferência de Pagamento', description: 'Como prefere pagar?' },
     { title: 'Tipo de Entrada', description: 'Qual entrada você prefere?' },
+    { title: 'Valor Disponível', description: 'Quanto você tem para investir?' },
     { title: 'Recomendação', description: 'Sua proposta personalizada' },
     { title: 'Simulação Completa', description: 'Detalhes da sua proposta' }
   ];
@@ -126,25 +128,69 @@ function App() {
   };
 
   const generateRecommendation = () => {
-    const { renda, perfilFamiliar, preferenciaPagamento, tipoEntrada } = formData;
+    const { renda, perfilFamiliar, preferenciaPagamento, tipoEntrada, valorDisponivel } = formData;
     
     let unit = 'casa2quartos';
     let plan = 'plano1';
     let reasoning = '';
+    let valorDisponivelNum = parseFloat(valorDisponivel) || 0;
 
-    // Lógica de recomendação baseada nas respostas
-    if (renda === 'acima5k' || perfilFamiliar === '4ouMais') {
-      unit = 'casa3quartos';
-      reasoning = 'Sua renda e perfil familiar indicam que a casa de 3 quartos seria ideal.';
+    // Lógica de recomendação baseada no valor disponível
+    if (valorDisponivelNum > 0) {
+      // Verificar qual casa o cliente pode pagar
+      if (valorDisponivelNum >= units.casa3quartos.plano1.valorInicio) {
+        unit = 'casa3quartos';
+        reasoning = `Com R$ ${formatCurrency(valorDisponivelNum)} você pode iniciar a casa de 3 quartos!`;
+      } else if (valorDisponivelNum >= units.casa2quartos.plano1.valorInicio) {
+        unit = 'casa2quartos';
+        reasoning = `Com R$ ${formatCurrency(valorDisponivelNum)} você pode iniciar a casa de 2 quartos!`;
+      } else {
+        // Calcular quanto falta para cada opção
+        const falta2q = units.casa2quartos.plano1.valorInicio - valorDisponivelNum;
+        const falta3q = units.casa3quartos.plano1.valorInicio - valorDisponivelNum;
+        
+        if (falta2q < falta3q) {
+          unit = 'casa2quartos';
+          reasoning = `Para a casa de 2 quartos, você precisa de mais R$ ${formatCurrency(falta2q)}. Para a de 3 quartos, R$ ${formatCurrency(falta3q)}.`;
+        } else {
+          unit = 'casa3quartos';
+          reasoning = `Para a casa de 3 quartos, você precisa de mais R$ ${formatCurrency(falta3q)}. Para a de 2 quartos, R$ ${formatCurrency(falta2q)}.`;
+        }
+      }
+    } else {
+      // Lógica original baseada nas outras respostas
+      if (renda === 'acima5k' || perfilFamiliar === '4ouMais') {
+        unit = 'casa3quartos';
+        reasoning = 'Sua renda e perfil familiar indicam que a casa de 3 quartos seria ideal.';
+      }
     }
 
-    if (preferenciaPagamento === 'semFinanciamento') {
-      plan = 'plano2';
-      reasoning += ' Você prefere pagar sem financiamento bancário.';
+    // Escolher o melhor plano baseado no valor disponível
+    if (valorDisponivelNum > 0) {
+      const unitData = units[unit];
+      const plano1ValorInicio = unitData.plano1.valorInicio;
+      const plano2ValorInicio = unitData.plano2.valorInicio;
+      
+      if (valorDisponivelNum >= plano2ValorInicio) {
+        plan = 'plano2';
+        reasoning += ' Recomendamos o plano venda direta para aproveitar melhor seu capital.';
+      } else if (valorDisponivelNum >= plano1ValorInicio) {
+        plan = 'plano1';
+        reasoning += ' Recomendamos o plano com financiamento bancário.';
+      } else {
+        // Calcular plano personalizado
+        plan = 'personalizado';
+        reasoning += ' Vamos criar um plano personalizado para você!';
+      }
+    } else {
+      if (preferenciaPagamento === 'semFinanciamento') {
+        plan = 'plano2';
+        reasoning += ' Você prefere pagar sem financiamento bancário.';
+      }
     }
 
-    setRecommendation({ unit, plan, reasoning });
-    return { unit, plan, reasoning };
+    setRecommendation({ unit, plan, reasoning, valorDisponivel: valorDisponivelNum });
+    return { unit, plan, reasoning, valorDisponivel: valorDisponivelNum };
   };
 
   const formatCurrency = (value) => {
@@ -156,11 +202,11 @@ function App() {
   };
 
   const sendWhatsAppProposal = () => {
-    const { unit, plan } = recommendation || generateRecommendation();
+    const { unit, plan, reasoning, valorDisponivel } = recommendation || generateRecommendation();
     const unitData = units[unit];
-    const planData = unitData.plano1;
+    const planData = unitData[plan === 'plano1' ? 'plano1' : 'plano2'];
     
-    const message = `🏠 *PROPOSTA LL CONSTRUÇÕES* 🏠
+    const message = `🏠 *PROPOSTA PERSONALIZADA LL CONSTRUÇÕES* 🏠
 
 *${unit === 'casa2quartos' ? 'Casa 2 Quartos' : 'Casa 3 Quartos'}*
 💰 Valor: ${formatCurrency(unitData.valor)}
@@ -172,17 +218,25 @@ function App() {
 💵 Renda: ${formData.renda}
 👨‍👩‍👧‍👦 Perfil: ${formData.perfilFamiliar}
 
-*Plano de Pagamento:*
+*Valor Disponível para Investir:*
+💎 R$ ${formatCurrency(valorDisponivel)}
+
+*Recomendação do Sistema:*
+🎯 ${reasoning}
+
+*Plano de Pagamento Recomendado:*
+${plan === 'personalizado' ? '✨ Plano Personalizado' : plan === 'plano1' ? '🏦 Plano Financiamento' : '💳 Plano Venda Direta'}
+
 💳 Sinal: ${formatCurrency(planData.sinal)}
 📅 Mensais (24x): ${formatCurrency(planData.parcelasMensais)}
 🔄 Intercaladas: ${formatCurrency(planData.parcelasIntercaladas)}
-🏦 Financiamento: ${formatCurrency(planData.financiamentoBancario)}
+${plan === 'plano1' ? `🏦 Financiamento: ${formatCurrency(planData.financiamentoBancario)}` : ''}
 🚀 Valor para Início: ${formatCurrency(planData.valorInicio)}
 
 *Entrega: 24 meses*
 📍 Terreno: 20x80m
 
-_Proposta gerada automaticamente pelo simulador LL Construções_`;
+_Proposta personalizada baseada no seu capital disponível_`;
 
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/81993798551?text=${encodedMessage}`;
@@ -334,7 +388,25 @@ _Proposta gerada automaticamente pelo simulador LL Construções_`;
           </div>
         );
 
-      case 7: // Recomendação
+      case 7: // Valor Disponível
+        return (
+          <div className="text-center space-y-6">
+            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-400 to-green-700 rounded-full flex items-center justify-center">
+              <DollarSign className="w-12 h-12 text-white" />
+            </div>
+            <h2 className="text-2xl font-bold text-white">{step.title}</h2>
+            <p className="text-green-100">{step.description}</p>
+            <input
+              type="number"
+              value={formData.valorDisponivel}
+              onChange={(e) => handleInputChange('valorDisponivel', e.target.value)}
+              placeholder="R$ 0,00"
+              className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-green-200 focus:outline-none focus:ring-2 focus:ring-green-400"
+            />
+          </div>
+        );
+
+      case 8: // Recomendação
         return (
           <div className="text-center space-y-6">
             <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-400 to-green-700 rounded-full flex items-center justify-center">
@@ -347,9 +419,22 @@ _Proposta gerada automaticamente pelo simulador LL Construções_`;
               <div className="space-y-4">
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
                   <h3 className="text-lg font-semibold text-white mb-2">
-                    {recommendation.unit === 'casa2quartos' ? '🏠 Casa 2 Quartos' : '🏠 Casa 3 Quartos'}
+                    💎 Seu Capital: {formatCurrency(recommendation.valorDisponivel)}
                   </h3>
+                  <h4 className="text-lg font-semibold text-green-400 mb-2">
+                    {recommendation.unit === 'casa2quartos' ? '🏠 Casa 2 Quartos' : '🏠 Casa 3 Quartos'}
+                  </h4>
                   <p className="text-green-100 text-sm">{recommendation.reasoning}</p>
+                  
+                  <div className="mt-3 pt-3 border-t border-white/20">
+                    <p className="text-white font-medium">
+                      Plano Recomendado: 
+                      <span className="text-green-400 ml-2">
+                        {recommendation.plan === 'personalizado' ? '✨ Personalizado' : 
+                         recommendation.plan === 'plano1' ? '🏦 Financiamento' : '💳 Venda Direta'}
+                      </span>
+                    </p>
+                  </div>
                 </div>
                 
                 <button
@@ -357,7 +442,7 @@ _Proposta gerada automaticamente pelo simulador LL Construções_`;
                   className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-all transform hover:scale-105"
                 >
                   <MessageCircle className="w-5 h-5" />
-                  <span>Enviar Proposta pelo WhatsApp</span>
+                  <span>Enviar Proposta Personalizada pelo WhatsApp</span>
                 </button>
               </div>
             ) : (
@@ -368,14 +453,14 @@ _Proposta gerada automaticamente pelo simulador LL Construções_`;
                 }}
                 className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-all transform hover:scale-105"
               >
-                <span>Gerar Recomendação</span>
+                <span>Gerar Recomendação Personalizada</span>
                 <ArrowRight className="w-5 h-5" />
               </button>
             )}
           </div>
         );
 
-      case 8: // Simulação Completa
+      case 9: // Simulação Completa
         return (
           <div className="space-y-6">
             <div className="text-center">
@@ -461,7 +546,17 @@ _Proposta gerada automaticamente pelo simulador LL Construções_`;
             {/* Simulação */}
             {selectedUnit && selectedPlan && (
               <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-white text-center">Sua Simulação</h3>
+                <h3 className="text-xl font-semibold text-white text-center">Sua Simulação Personalizada</h3>
+                
+                {/* Valor Disponível */}
+                {formData.valorDisponivel && (
+                  <div className="bg-gradient-to-r from-green-500/20 to-green-600/20 border border-green-400/30 rounded-xl p-4 text-center">
+                    <h4 className="text-lg font-semibold text-green-400 mb-2">💎 Seu Capital Disponível</h4>
+                    <p className="text-3xl font-bold text-white">{formatCurrency(parseFloat(formData.valorDisponivel))}</p>
+                    <p className="text-green-100 text-sm mt-1">Valor para investir na casa</p>
+                  </div>
+                )}
+
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 space-y-3">
                   {(() => {
                     const unitData = units[selectedUnit];
@@ -497,6 +592,33 @@ _Proposta gerada automaticamente pelo simulador LL Construções_`;
                             <span className="text-2xl font-bold text-white">{formatCurrency(planData.valorInicio)}</span>
                           </div>
                         </div>
+                        
+                        {/* Análise do Capital */}
+                        {formData.valorDisponivel && (
+                          <div className="pt-3 border-t border-white/20">
+                            {(() => {
+                              const valorDisponivel = parseFloat(formData.valorDisponivel);
+                              const valorInicio = planData.valorInicio;
+                              const diferenca = valorDisponivel - valorInicio;
+                              
+                              if (diferenca >= 0) {
+                                return (
+                                  <div className="text-center">
+                                    <p className="text-green-400 font-semibold">✅ Capital Suficiente!</p>
+                                    <p className="text-white text-sm">Sobra: {formatCurrency(diferenca)}</p>
+                                  </div>
+                                );
+                              } else {
+                                return (
+                                  <div className="text-center">
+                                    <p className="text-yellow-400 font-semibold">⚠️ Capital Insuficiente</p>
+                                    <p className="text-white text-sm">Falta: {formatCurrency(Math.abs(diferenca))}</p>
+                                  </div>
+                                );
+                              }
+                            })()}
+                          </div>
+                        )}
                       </>
                     );
                   })()}
