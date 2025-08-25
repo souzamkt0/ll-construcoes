@@ -23,13 +23,13 @@ function App() {
     casa2quartos: {
       valor: 260000,
       plano1: {
-        sinal: 52000, // 20% do valor total
+        sinal: 20800, // 8% do valor total
         parcelasMensais: 1679.17,
         totalMensais: 40300.08,
         parcelasIntercaladas: 4875,
         totalIntercaladas: 19500,
         financiamentoBancario: 179400,
-        valorInicio: 52000, // Sinal + 1ª mensal
+        valorInicio: 22479.17, // Sinal + 1ª mensal
         // 4 parcelas intercaladas durante 24 meses (a cada 6 meses)
         intercaladasInfo: {
           quantidade: 4,
@@ -149,13 +149,13 @@ function App() {
     casa3quartos: {
       valor: 280000,
       plano1: {
-        sinal: 56000, // 20% do valor total
+        sinal: 22400, // 8% do valor total
         parcelasMensais: 1754,
         totalMensais: 42096,
         parcelasIntercaladas: 5250,
         totalIntercaladas: 21000,
         financiamentoBancario: 193200,
-        valorInicio: 56000, // Sinal + 1ª mensal
+        valorInicio: 24154, // Sinal + 1ª mensal
         // 4 parcelas intercaladas durante 24 meses (a cada 6 meses)
         intercaladasInfo: {
           quantidade: 4,
@@ -355,7 +355,7 @@ function App() {
 *Plano de Pagamento Recomendado:*
 ${plan === 'plano1' ? '🏦 Plano Financiamento' : '💳 Plano Venda Direta'}
 
-💳 Sinal (20%): ${formatCurrency(planData.sinal)}
+💳 Sinal (8%): ${formatCurrency(planData.sinal)}
 📅 Mensais (24x): ${formatCurrency(planData.parcelasMensais)}
 🔄 Intercaladas (4x): ${formatCurrency(planData.parcelasIntercaladas)}
 
@@ -672,7 +672,7 @@ _Proposta personalizada baseada no seu perfil_`;
                           <span className="text-xl font-bold text-gray-800">{formatCurrency(unitData.valor)}</span>
                         </div>
                         <div className="flex justify-between items-center">
-                          <span className="text-gray-700 font-medium">Sinal (20%):</span>
+                          <span className="text-gray-700 font-medium">Sinal (8%):</span>
                           <span className="text-gray-800">{formatCurrency(planData.sinal)}</span>
                         </div>
                         <div className="flex justify-between items-center">
