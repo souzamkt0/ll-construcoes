@@ -183,7 +183,9 @@ ${plan === 'plano1' ? `🏦 Financiamento: ${formatCurrency(planData.financiamen
 _Proposta personalizada baseada no seu perfil_`;
 
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/81993798551?text=${encodedMessage}`;
+    
+    // Enviar para o WhatsApp do cliente
+    const whatsappUrl = `https://wa.me/${formData.whatsapp.replace(/\D/g, '')}?text=${encodedMessage}`;
     
     window.open(whatsappUrl, '_blank');
   };
@@ -201,16 +203,31 @@ _Proposta personalizada baseada no seu perfil_`;
             <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
             <p className="text-gray-600">{step.description}</p>
             
-            <div className="grid grid-cols-1 gap-4">
+            <div className="space-y-4">
+              <input
+                type="text"
+                value={formData.name}
+                onChange={(e) => handleInputChange('name', e.target.value)}
+                placeholder="Digite seu nome completo"
+                className="w-full px-4 py-3 bg-white border-2 border-green-200 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all"
+              />
+              
               <button
                 onClick={() => {
-                  handleInputChange('name', 'Cliente');
-                  nextStep();
+                  if (formData.name.trim()) {
+                    nextStep();
+                  } else {
+                    alert('Por favor, digite seu nome!');
+                  }
                 }}
-                className="p-6 bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl hover:from-green-200 hover:to-orange-200 hover:border-green-400 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+                disabled={!formData.name.trim()}
+                className={`w-full p-4 rounded-xl font-semibold transition-all ${
+                  formData.name.trim()
+                    ? 'bg-gradient-to-r from-green-500 to-orange-500 hover:from-green-600 hover:to-orange-600 text-white shadow-lg hover:shadow-xl transform hover:scale-105'
+                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                }`}
               >
-                <h3 className="text-xl font-bold text-gray-800 mb-2">👤 Cliente</h3>
-                <p className="text-gray-600">Clique para continuar</p>
+                Continuar
               </button>
             </div>
           </div>
@@ -225,16 +242,31 @@ _Proposta personalizada baseada no seu perfil_`;
             <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
             <p className="text-gray-600">{step.description}</p>
             
-            <div className="grid grid-cols-1 gap-4">
+            <div className="space-y-4">
+              <input
+                type="tel"
+                value={formData.whatsapp}
+                onChange={(e) => handleInputChange('whatsapp', e.target.value)}
+                placeholder="(81) 99999-9999"
+                className="w-full px-4 py-3 bg-white border-2 border-green-200 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all"
+              />
+              
               <button
                 onClick={() => {
-                  handleInputChange('whatsapp', '(81) 99999-9999');
-                  nextStep();
+                  if (formData.whatsapp.trim()) {
+                    nextStep();
+                  } else {
+                    alert('Por favor, digite seu WhatsApp!');
+                  }
                 }}
-                className="p-6 bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl hover:from-green-200 hover:to-orange-200 hover:border-green-400 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+                disabled={!formData.whatsapp.trim()}
+                className={`w-full p-4 rounded-xl font-semibold transition-all ${
+                  formData.whatsapp.trim()
+                    ? 'bg-gradient-to-r from-green-500 to-orange-500 hover:from-green-600 hover:to-orange-600 text-white shadow-lg hover:shadow-xl transform hover:scale-105'
+                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                }`}
               >
-                <h3 className="text-xl font-bold text-gray-800 mb-2">📱 (81) 99999-9999</h3>
-                <p className="text-gray-600">Clique para continuar</p>
+                Continuar
               </button>
             </div>
           </div>
@@ -419,6 +451,17 @@ _Proposta personalizada baseada no seu perfil_`;
             {selectedUnit && selectedPlan && (
               <div className="space-y-4">
                 <h3 className="text-xl font-semibold text-gray-800 text-center">Sua Simulação</h3>
+                
+                {/* Dados do Cliente */}
+                <div className="bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl p-4 text-center shadow-lg">
+                  <h4 className="text-lg font-semibold text-green-700 mb-2">👤 Seus Dados</h4>
+                  <div className="space-y-2">
+                    <p className="text-gray-800 font-medium">Nome: <span className="text-green-600">{formData.name}</span></p>
+                    <p className="text-gray-800 font-medium">WhatsApp: <span className="text-green-600">{formData.whatsapp}</span></p>
+                    <p className="text-gray-800 font-medium">Renda: <span className="text-green-600">{formData.renda === 'ate2k' ? 'Até R$ 2.000' : formData.renda === '2k3k' ? 'R$ 2.000 - R$ 3.000' : formData.renda === '3k5k' ? 'R$ 3.000 - R$ 5.000' : 'Acima de R$ 5.000'}</span></p>
+                    <p className="text-gray-800 font-medium">Preferência: <span className="text-green-600">{formData.preferencia === 'vendaFinanciada' ? 'Venda Financiada' : 'Venda Direta'}</span></p>
+                  </div>
+                </div>
                 
                 <div className="bg-white border-2 border-green-200 rounded-xl p-4 space-y-3 shadow-lg">
                   {(() => {
