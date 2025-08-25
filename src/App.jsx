@@ -251,17 +251,17 @@ _Proposta personalizada baseada no seu capital disponível_`;
       case 0: // Nome
         return (
           <div className="text-center space-y-6">
-            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-400 to-green-700 rounded-full flex items-center justify-center">
+            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
               <User className="w-12 h-12 text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-white">{step.title}</h2>
-            <p className="text-green-100">{step.description}</p>
+            <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
+            <p className="text-gray-600">{step.description}</p>
             <input
               type="text"
               value={formData.name}
               onChange={(e) => handleInputChange('name', e.target.value)}
               placeholder="Digite seu nome completo"
-              className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-green-200 focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="w-full px-4 py-3 bg-white border-2 border-green-200 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all"
             />
           </div>
         );
@@ -269,17 +269,17 @@ _Proposta personalizada baseada no seu capital disponível_`;
       case 1: // Telefone
         return (
           <div className="text-center space-y-6">
-            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-400 to-green-700 rounded-full flex items-center justify-center">
+            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
               <Phone className="w-12 h-12 text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-white">{step.title}</h2>
-            <p className="text-green-100">{step.description}</p>
+            <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
+            <p className="text-gray-600">{step.description}</p>
             <input
               type="tel"
               value={formData.phone}
               onChange={(e) => handleInputChange('phone', e.target.value)}
               placeholder="(11) 99999-9999"
-              className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-green-200 focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="w-full px-4 py-3 bg-white border-2 border-green-200 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all"
             />
           </div>
         );
@@ -287,17 +287,17 @@ _Proposta personalizada baseada no seu capital disponível_`;
       case 2: // Email
         return (
           <div className="text-center space-y-6">
-            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-400 to-green-700 rounded-full flex items-center justify-center">
+            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
               <Mail className="w-12 h-12 text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-white">{step.title}</h2>
-            <p className="text-green-100">{step.description}</p>
+            <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
+            <p className="text-gray-600">{step.description}</p>
             <input
               type="email"
               value={formData.email}
               onChange={(e) => handleInputChange('email', e.target.value)}
               placeholder="seu@email.com"
-              className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-green-200 focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="w-full px-4 py-3 bg-white border-2 border-green-200 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all"
             />
           </div>
         );
@@ -305,21 +305,21 @@ _Proposta personalizada baseada no seu capital disponível_`;
       case 3: // Renda
         return (
           <div className="text-center space-y-6">
-            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-400 to-green-700 rounded-full flex items-center justify-center">
+            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
               <DollarSign className="w-12 h-12 text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-white">{step.title}</h2>
-            <p className="text-green-100">{step.description}</p>
+            <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
+            <p className="text-gray-600">{step.description}</p>
             <select
               value={formData.renda}
               onChange={(e) => handleInputChange('renda', e.target.value)}
-              className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="w-full px-4 py-3 bg-white border-2 border-green-200 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all"
             >
-              <option value="" className="bg-green-800 text-white">Selecione sua renda</option>
-              <option value="ate2k" className="bg-green-800 text-white">Até R$ 2.000</option>
-              <option value="2k3k" className="bg-green-800 text-white">R$ 2.000 - R$ 3.000</option>
-              <option value="3k5k" className="bg-green-800 text-white">R$ 3.000 - R$ 5.000</option>
-              <option value="acima5k" className="bg-green-800 text-white">Acima de R$ 5.000</option>
+              <option value="" className="bg-white text-gray-800">Selecione sua renda</option>
+              <option value="ate2k" className="bg-white text-gray-800">Até R$ 2.000</option>
+              <option value="2k3k" className="bg-white text-gray-800">R$ 2.000 - R$ 3.000</option>
+              <option value="3k5k" className="bg-white text-gray-800">R$ 3.000 - R$ 5.000</option>
+              <option value="acima5k" className="bg-white text-gray-800">Acima de R$ 5.000</option>
             </select>
           </div>
         );
@@ -327,21 +327,21 @@ _Proposta personalizada baseada no seu capital disponível_`;
       case 4: // Perfil Familiar
         return (
           <div className="text-center space-y-6">
-            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-400 to-green-700 rounded-full flex items-center justify-center">
+            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
               <Users className="w-12 h-12 text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-white">{step.title}</h2>
-            <p className="text-green-100">{step.description}</p>
+            <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
+            <p className="text-gray-600">{step.description}</p>
             <select
               value={formData.perfilFamiliar}
               onChange={(e) => handleInputChange('perfilFamiliar', e.target.value)}
-              className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="w-full px-4 py-3 bg-white border-2 border-green-200 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all"
             >
-              <option value="" className="bg-green-800 text-white">Selecione o perfil</option>
-              <option value="solteiro" className="bg-green-800 text-white">Solteiro(a)</option>
-              <option value="casal" className="bg-green-800 text-white">Casal</option>
-              <option value="familia3" className="bg-green-800 text-white">Família (3 pessoas)</option>
-              <option value="4ouMais" className="bg-green-800 text-white">4 ou mais pessoas</option>
+              <option value="" className="bg-white text-gray-800">Selecione o perfil</option>
+              <option value="solteiro" className="bg-white text-gray-800">Solteiro(a)</option>
+              <option value="casal" className="bg-white text-gray-800">Casal</option>
+              <option value="familia3" className="bg-white text-gray-800">Família (3 pessoas)</option>
+              <option value="4ouMais" className="bg-white text-gray-800">4 ou mais pessoas</option>
             </select>
           </div>
         );
@@ -349,20 +349,20 @@ _Proposta personalizada baseada no seu capital disponível_`;
       case 5: // Preferência de Pagamento
         return (
           <div className="text-center space-y-6">
-            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-400 to-green-700 rounded-full flex items-center justify-center">
+            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
               <CreditCard className="w-12 h-12 text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-white">{step.title}</h2>
-            <p className="text-green-100">{step.description}</p>
+            <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
+            <p className="text-gray-600">{step.description}</p>
             <select
               value={formData.preferenciaPagamento}
               onChange={(e) => handleInputChange('preferenciaPagamento', e.target.value)}
-              className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="w-full px-4 py-3 bg-white border-2 border-green-200 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all"
             >
-              <option value="" className="bg-green-800 text-white">Selecione a preferência</option>
-              <option value="comFinanciamento" className="bg-green-800 text-white">Com financiamento bancário</option>
-              <option value="semFinanciamento" className="bg-green-800 text-white">Sem financiamento bancário</option>
-              <option value="flexivel" className="bg-green-800 text-white">Flexível</option>
+              <option value="" className="bg-white text-gray-800">Selecione a preferência</option>
+              <option value="comFinanciamento" className="bg-white text-gray-800">Com financiamento bancário</option>
+              <option value="semFinanciamento" className="bg-white text-gray-800">Sem financiamento bancário</option>
+              <option value="flexivel" className="bg-white text-gray-800">Flexível</option>
             </select>
           </div>
         );
@@ -370,20 +370,20 @@ _Proposta personalizada baseada no seu capital disponível_`;
       case 6: // Tipo de Entrada
         return (
           <div className="text-center space-y-6">
-            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-400 to-green-700 rounded-full flex items-center justify-center">
+            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
               <Building2 className="w-12 h-12 text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-white">{step.title}</h2>
-            <p className="text-green-100">{step.description}</p>
+            <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
+            <p className="text-gray-600">{step.description}</p>
             <select
               value={formData.tipoEntrada}
               onChange={(e) => handleInputChange('tipoEntrada', e.target.value)}
-              className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="w-full px-4 py-3 bg-white border-2 border-green-200 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all"
             >
-              <option value="" className="bg-green-800 text-white">Selecione o tipo</option>
-              <option value="sinal" className="bg-green-800 text-white">Sinal + Mensais</option>
-              <option value="entradaMaior" className="bg-green-800 text-white">Entrada maior</option>
-              <option value="parcelado" className="bg-green-800 text-white">Tudo parcelado</option>
+              <option value="" className="bg-white text-gray-800">Selecione o tipo</option>
+              <option value="sinal" className="bg-white text-gray-800">Sinal + Mensais</option>
+              <option value="entradaMaior" className="bg-white text-gray-800">Entrada maior</option>
+              <option value="parcelado" className="bg-white text-gray-800">Tudo parcelado</option>
             </select>
           </div>
         );
@@ -391,17 +391,17 @@ _Proposta personalizada baseada no seu capital disponível_`;
       case 7: // Valor Disponível
         return (
           <div className="text-center space-y-6">
-            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-400 to-green-700 rounded-full flex items-center justify-center">
+            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
               <DollarSign className="w-12 h-12 text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-white">{step.title}</h2>
-            <p className="text-green-100">{step.description}</p>
+            <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
+            <p className="text-gray-600">{step.description}</p>
             <input
               type="number"
               value={formData.valorDisponivel}
               onChange={(e) => handleInputChange('valorDisponivel', e.target.value)}
               placeholder="R$ 0,00"
-              className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-green-200 focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="w-full px-4 py-3 bg-white border-2 border-green-200 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all"
             />
           </div>
         );
@@ -409,27 +409,27 @@ _Proposta personalizada baseada no seu capital disponível_`;
       case 8: // Recomendação
         return (
           <div className="text-center space-y-6">
-            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-400 to-green-700 rounded-full flex items-center justify-center">
+            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
               <CheckCircle className="w-12 h-12 text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-white">{step.title}</h2>
-            <p className="text-green-100">{step.description}</p>
+            <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
+            <p className="text-gray-600">{step.description}</p>
             
             {recommendation ? (
               <div className="space-y-4">
-                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
-                  <h3 className="text-lg font-semibold text-white mb-2">
+                <div className="bg-gradient-to-r from-green-50 to-orange-50 border-2 border-green-200 rounded-xl p-4 shadow-lg">
+                  <h3 className="text-lg font-semibold text-gray-800 mb-2">
                     💎 Seu Capital: {formatCurrency(recommendation.valorDisponivel)}
                   </h3>
-                  <h4 className="text-lg font-semibold text-green-400 mb-2">
+                  <h4 className="text-lg font-semibold text-green-600 mb-2">
                     {recommendation.unit === 'casa2quartos' ? '🏠 Casa 2 Quartos' : '🏠 Casa 3 Quartos'}
                   </h4>
-                  <p className="text-green-100 text-sm">{recommendation.reasoning}</p>
+                  <p className="text-gray-700 text-sm">{recommendation.reasoning}</p>
                   
-                  <div className="mt-3 pt-3 border-t border-white/20">
-                    <p className="text-white font-medium">
+                  <div className="mt-3 pt-3 border-t border-green-200">
+                    <p className="text-gray-800 font-medium">
                       Plano Recomendado: 
-                      <span className="text-green-400 ml-2">
+                      <span className="text-orange-600 ml-2">
                         {recommendation.plan === 'personalizado' ? '✨ Personalizado' : 
                          recommendation.plan === 'plano1' ? '🏦 Financiamento' : '💳 Venda Direta'}
                       </span>
@@ -439,7 +439,7 @@ _Proposta personalizada baseada no seu capital disponível_`;
                 
                 <button
                   onClick={sendWhatsAppProposal}
-                  className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-all transform hover:scale-105"
+                  className="w-full bg-gradient-to-r from-green-500 to-orange-500 hover:from-green-600 hover:to-orange-600 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
                 >
                   <MessageCircle className="w-5 h-5" />
                   <span>Enviar Proposta Personalizada pelo WhatsApp</span>
@@ -451,7 +451,7 @@ _Proposta personalizada baseada no seu capital disponível_`;
                   generateRecommendation();
                   nextStep();
                 }}
-                className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-all transform hover:scale-105"
+                className="w-full bg-gradient-to-r from-green-500 to-orange-500 hover:from-green-600 hover:to-orange-600 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
                 <span>Gerar Recomendação Personalizada</span>
                 <ArrowRight className="w-5 h-5" />
@@ -464,29 +464,29 @@ _Proposta personalizada baseada no seu capital disponível_`;
         return (
           <div className="space-y-6">
             <div className="text-center">
-              <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-400 to-green-700 rounded-full flex items-center justify-center">
+              <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
                 <Home className="w-12 h-12 text-white" />
               </div>
-              <h2 className="text-2xl font-bold text-white mt-4">{step.title}</h2>
-              <p className="text-green-100">{step.description}</p>
+              <h2 className="text-2xl font-bold text-gray-800 mt-4">{step.title}</h2>
+              <p className="text-gray-600">{step.description}</p>
             </div>
 
             {/* Seleção de Unidade */}
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-white text-center">Escolha sua Casa</h3>
+              <h3 className="text-xl font-semibold text-gray-800 text-center">Escolha sua Casa</h3>
               <div className="grid grid-cols-1 gap-4">
                 <button
                   onClick={() => setSelectedUnit('casa2quartos')}
                   className={`p-4 rounded-xl border-2 transition-all ${
                     selectedUnit === 'casa2quartos'
-                      ? 'border-green-400 bg-green-500/20'
-                      : 'border-white/20 bg-white/5 hover:bg-white/10'
+                      ? 'border-orange-400 bg-gradient-to-r from-green-100 to-orange-100 shadow-lg'
+                      : 'border-green-200 bg-white hover:bg-green-50 hover:border-green-300'
                   }`}
                 >
                   <div className="text-center">
-                    <h4 className="text-lg font-semibold text-white">🏠 Casa 2 Quartos</h4>
-                    <p className="text-2xl font-bold text-green-400">{formatCurrency(units.casa2quartos.valor)}</p>
-                    <p className="text-green-100 text-sm">Terreno 20x80m • 42m²</p>
+                    <h4 className="text-lg font-semibold text-gray-800">🏠 Casa 2 Quartos</h4>
+                    <p className="text-2xl font-bold text-green-600">{formatCurrency(units.casa2quartos.valor)}</p>
+                    <p className="text-gray-600 text-sm">Terreno 20x80m • 42m²</p>
                   </div>
                 </button>
 
@@ -494,14 +494,14 @@ _Proposta personalizada baseada no seu capital disponível_`;
                   onClick={() => setSelectedUnit('casa3quartos')}
                   className={`p-4 rounded-xl border-2 transition-all ${
                     selectedUnit === 'casa3quartos'
-                      ? 'border-green-400 bg-green-500/20'
-                      : 'border-white/20 bg-white/5 hover:bg-white/10'
+                      ? 'border-orange-400 bg-gradient-to-r from-green-100 to-orange-100 shadow-lg'
+                      : 'border-green-200 bg-white hover:bg-green-50 hover:border-green-300'
                   }`}
                 >
                   <div className="text-center">
-                    <h4 className="text-lg font-semibold text-white">🏠 Casa 3 Quartos</h4>
-                    <p className="text-2xl font-bold text-green-400">{formatCurrency(units.casa3quartos.valor)}</p>
-                    <p className="text-green-100 text-sm">Terreno 20x80m • 48m²</p>
+                    <h4 className="text-lg font-semibold text-gray-800">🏠 Casa 3 Quartos</h4>
+                    <p className="text-2xl font-bold text-green-600">{formatCurrency(units.casa3quartos.valor)}</p>
+                    <p className="text-gray-600 text-sm">Terreno 20x80m • 48m²</p>
                   </div>
                 </button>
               </div>
@@ -510,19 +510,19 @@ _Proposta personalizada baseada no seu capital disponível_`;
             {/* Seleção de Plano */}
             {selectedUnit && (
               <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-white text-center">Escolha seu Plano</h3>
+                <h3 className="text-xl font-semibold text-gray-800 text-center">Escolha seu Plano</h3>
                 <div className="grid grid-cols-1 gap-4">
                   <button
                     onClick={() => setSelectedPlan('plano1')}
                     className={`p-4 rounded-xl border-2 transition-all ${
                       selectedPlan === 'plano1'
-                        ? 'border-green-400 bg-green-500/20'
-                        : 'border-white/20 bg-white/5 hover:bg-white/10'
+                        ? 'border-orange-400 bg-gradient-to-r from-green-100 to-orange-100 shadow-lg'
+                        : 'border-green-200 bg-white hover:bg-green-50 hover:border-green-300'
                     }`}
                   >
                     <div className="text-center">
-                      <h4 className="text-lg font-semibold text-white">🏦 Plano Financiamento</h4>
-                      <p className="text-green-100 text-sm">Sinal + Mensais + Financiamento</p>
+                      <h4 className="text-lg font-semibold text-gray-800">🏦 Plano Financiamento</h4>
+                      <p className="text-gray-600 text-sm">Sinal + Mensais + Financiamento</p>
                     </div>
                   </button>
 
@@ -530,13 +530,13 @@ _Proposta personalizada baseada no seu capital disponível_`;
                     onClick={() => setSelectedPlan('plano2')}
                     className={`p-4 rounded-xl border-2 transition-all ${
                       selectedPlan === 'plano2'
-                        ? 'border-green-400 bg-green-500/20'
-                        : 'border-white/20 bg-white/5 hover:bg-white/10'
+                        ? 'border-orange-400 bg-gradient-to-r from-green-100 to-orange-100 shadow-lg'
+                        : 'border-green-200 bg-white hover:bg-green-50 hover:border-green-300'
                     }`}
                   >
                     <div className="text-center">
-                      <h4 className="text-lg font-semibold text-white">💳 Plano Venda Direta</h4>
-                      <p className="text-green-100 text-sm">Sinal + Intercaladas + Mensais</p>
+                      <h4 className="text-lg font-semibold text-gray-800">💳 Plano Venda Direta</h4>
+                      <p className="text-gray-600 text-sm">Sinal + Intercaladas + Mensais</p>
                     </div>
                   </button>
                 </div>
@@ -546,18 +546,18 @@ _Proposta personalizada baseada no seu capital disponível_`;
             {/* Simulação */}
             {selectedUnit && selectedPlan && (
               <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-white text-center">Sua Simulação Personalizada</h3>
+                <h3 className="text-xl font-semibold text-gray-800 text-center">Sua Simulação Personalizada</h3>
                 
                 {/* Valor Disponível */}
                 {formData.valorDisponivel && (
-                  <div className="bg-gradient-to-r from-green-500/20 to-green-600/20 border border-green-400/30 rounded-xl p-4 text-center">
-                    <h4 className="text-lg font-semibold text-green-400 mb-2">💎 Seu Capital Disponível</h4>
-                    <p className="text-3xl font-bold text-white">{formatCurrency(parseFloat(formData.valorDisponivel))}</p>
-                    <p className="text-green-100 text-sm mt-1">Valor para investir na casa</p>
+                  <div className="bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl p-4 text-center shadow-lg">
+                    <h4 className="text-lg font-semibold text-green-700 mb-2">💎 Seu Capital Disponível</h4>
+                    <p className="text-3xl font-bold text-gray-800">{formatCurrency(parseFloat(formData.valorDisponivel))}</p>
+                    <p className="text-gray-600 text-sm mt-1">Valor para investir na casa</p>
                   </div>
                 )}
 
-                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 space-y-3">
+                <div className="bg-white border-2 border-green-200 rounded-xl p-4 space-y-3 shadow-lg">
                   {(() => {
                     const unitData = units[selectedUnit];
                     const planData = unitData[selectedPlan === 'plano1' ? 'plano1' : 'plano2'];
@@ -565,37 +565,37 @@ _Proposta personalizada baseada no seu capital disponível_`;
                     return (
                       <>
                         <div className="flex justify-between items-center">
-                          <span className="text-green-100">Valor Total:</span>
-                          <span className="text-xl font-bold text-white">{formatCurrency(unitData.valor)}</span>
+                          <span className="text-gray-700 font-medium">Valor Total:</span>
+                          <span className="text-xl font-bold text-gray-800">{formatCurrency(unitData.valor)}</span>
                         </div>
                         <div className="flex justify-between items-center">
-                          <span className="text-green-100">Sinal (8%):</span>
-                          <span className="text-white">{formatCurrency(planData.sinal)}</span>
+                          <span className="text-gray-700 font-medium">Sinal (8%):</span>
+                          <span className="text-gray-800">{formatCurrency(planData.sinal)}</span>
                         </div>
                         <div className="flex justify-between items-center">
-                          <span className="text-green-100">Mensais (24x):</span>
-                          <span className="text-white">{formatCurrency(planData.parcelasMensais)}</span>
+                          <span className="text-gray-700 font-medium">Mensais (24x):</span>
+                          <span className="text-gray-800">{formatCurrency(planData.parcelasMensais)}</span>
                         </div>
                         <div className="flex justify-between items-center">
-                          <span className="text-green-100">Intercaladas:</span>
-                          <span className="text-white">{formatCurrency(planData.parcelasIntercaladas)}</span>
+                          <span className="text-gray-700 font-medium">Intercaladas:</span>
+                          <span className="text-gray-800">{formatCurrency(planData.parcelasIntercaladas)}</span>
                         </div>
                         {selectedPlan === 'plano1' && (
                           <div className="flex justify-between items-center">
-                            <span className="text-green-100">Financiamento:</span>
-                            <span className="text-white">{formatCurrency(planData.financiamentoBancario)}</span>
+                            <span className="text-gray-700 font-medium">Financiamento:</span>
+                            <span className="text-gray-800">{formatCurrency(planData.financiamentoBancario)}</span>
                           </div>
                         )}
-                        <div className="pt-3 border-t border-white/20">
+                        <div className="pt-3 border-t border-green-200">
                           <div className="flex justify-between items-center">
-                            <span className="text-lg font-semibold text-green-400">Valor para Início:</span>
-                            <span className="text-2xl font-bold text-white">{formatCurrency(planData.valorInicio)}</span>
+                            <span className="text-lg font-semibold text-green-600">Valor para Início:</span>
+                            <span className="text-2xl font-bold text-gray-800">{formatCurrency(planData.valorInicio)}</span>
                           </div>
                         </div>
                         
                         {/* Análise do Capital */}
                         {formData.valorDisponivel && (
-                          <div className="pt-3 border-t border-white/20">
+                          <div className="pt-3 border-t border-green-200">
                             {(() => {
                               const valorDisponivel = parseFloat(formData.valorDisponivel);
                               const valorInicio = planData.valorInicio;
@@ -604,15 +604,15 @@ _Proposta personalizada baseada no seu capital disponível_`;
                               if (diferenca >= 0) {
                                 return (
                                   <div className="text-center">
-                                    <p className="text-green-400 font-semibold">✅ Capital Suficiente!</p>
-                                    <p className="text-white text-sm">Sobra: {formatCurrency(diferenca)}</p>
+                                    <p className="text-green-600 font-semibold">✅ Capital Suficiente!</p>
+                                    <p className="text-gray-700 text-sm">Sobra: {formatCurrency(diferenca)}</p>
                                   </div>
                                 );
                               } else {
                                 return (
                                   <div className="text-center">
-                                    <p className="text-yellow-400 font-semibold">⚠️ Capital Insuficiente</p>
-                                    <p className="text-white text-sm">Falta: {formatCurrency(Math.abs(diferenca))}</p>
+                                    <p className="text-orange-600 font-semibold">⚠️ Capital Insuficiente</p>
+                                    <p className="text-gray-700 text-sm">Falta: {formatCurrency(Math.abs(diferenca))}</p>
                                   </div>
                                 );
                               }
@@ -627,7 +627,7 @@ _Proposta personalizada baseada no seu capital disponível_`;
                 {/* Botão WhatsApp */}
                 <button
                   onClick={sendWhatsAppProposal}
-                  className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-all transform hover:scale-105"
+                  className="w-full bg-gradient-to-r from-green-500 to-orange-500 hover:from-green-600 hover:to-orange-600 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
                 >
                   <MessageCircle className="w-5 h-5" />
                   <span>Enviar Proposta Completa pelo WhatsApp</span>
@@ -636,7 +636,7 @@ _Proposta personalizada baseada no seu capital disponível_`;
                 {/* Botão Planta */}
                 <button
                   onClick={() => setShowFloorPlan(!showFloorPlan)}
-                  className="w-full bg-white/10 hover:bg-white/20 text-white font-semibold py-3 px-6 rounded-xl border border-white/20 transition-all"
+                  className="w-full bg-white hover:bg-green-50 text-gray-800 font-semibold py-3 px-6 rounded-xl border-2 border-green-200 hover:border-green-300 transition-all shadow-md hover:shadow-lg"
                 >
                   {showFloorPlan ? 'Ocultar Planta' : 'Ver Planta da Casa'}
                 </button>
@@ -646,23 +646,23 @@ _Proposta personalizada baseada no seu capital disponível_`;
             {/* Planta da Casa */}
             {showFloorPlan && selectedUnit && (
               <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-white text-center">Planta da Casa</h3>
-                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
+                <h3 className="text-xl font-semibold text-gray-800 text-center">Planta da Casa</h3>
+                <div className="bg-white border-2 border-green-200 rounded-xl p-4 shadow-lg">
                   <div className="text-center mb-4">
-                    <h4 className="text-lg font-semibold text-white">
+                    <h4 className="text-lg font-semibold text-gray-800">
                       {selectedUnit === 'casa2quartos' ? 'Casa 2 Quartos' : 'Casa 3 Quartos'}
                     </h4>
-                    <p className="text-green-100">
+                    <p className="text-gray-600">
                       Área: {units[selectedUnit].floorPlan.area} • Terreno: {units[selectedUnit].floorPlan.dimensoes}
                     </p>
                   </div>
                   
                   <div className="grid grid-cols-2 gap-3 text-sm">
                     {Object.entries(units[selectedUnit].floorPlan.especificacoes).map(([room, specs]) => (
-                      <div key={room} className="bg-white/5 rounded-lg p-3 text-center">
-                        <h5 className="font-semibold text-white capitalize mb-1">{room}</h5>
-                        <p className="text-green-200">{specs.area}</p>
-                        <p className="text-green-100 text-xs">{specs.dimensoes}</p>
+                      <div key={room} className="bg-gradient-to-r from-green-50 to-orange-50 rounded-lg p-3 text-center border border-green-200">
+                        <h5 className="font-semibold text-gray-800 capitalize mb-1">{room}</h5>
+                        <p className="text-green-700 font-medium">{specs.area}</p>
+                        <p className="text-gray-600 text-xs">{specs.dimensoes}</p>
                       </div>
                     ))}
                   </div>
@@ -678,15 +678,15 @@ _Proposta personalizada baseada no seu capital disponível_`;
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-600 via-green-700 to-green-900">
+    <div className="min-h-screen bg-gradient-to-br from-green-400 via-green-500 to-orange-500">
       {/* Header */}
-      <header className="bg-gradient-to-r from-green-800 to-green-900 shadow-lg">
+      <header className="bg-gradient-to-r from-green-600 to-orange-600 shadow-xl">
         <div className="max-w-md mx-auto px-6 py-4">
           <div className="flex items-center justify-center space-x-3">
             <Building2 className="w-8 h-8 text-white" />
             <div>
               <h1 className="text-xl font-bold text-white">LL Construções</h1>
-              <p className="text-green-200 text-sm">Simulador de Financiamento</p>
+              <p className="text-white/90 text-sm">Simulador de Financiamento</p>
             </div>
           </div>
         </div>
@@ -694,7 +694,7 @@ _Proposta personalizada baseada no seu capital disponível_`;
 
       {/* Main Content */}
       <main className="max-w-md mx-auto px-6 py-8">
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 shadow-xl">
+        <div className="bg-white/95 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-2xl">
           {renderStep()}
         </div>
 
@@ -705,8 +705,8 @@ _Proposta personalizada baseada no seu capital disponível_`;
             disabled={currentStep === 0}
             className={`px-6 py-3 rounded-xl font-semibold transition-all ${
               currentStep === 0
-                ? 'bg-white/10 text-white/50 cursor-not-allowed'
-                : 'bg-white/20 hover:bg-white/30 text-white'
+                ? 'bg-white/20 text-gray-500 cursor-not-allowed'
+                : 'bg-gradient-to-r from-green-500 to-orange-500 hover:from-green-600 hover:to-orange-600 text-white shadow-lg hover:shadow-xl transform hover:scale-105'
             }`}
           >
             <ChevronLeft className="w-5 h-5 inline mr-2" />
@@ -718,8 +718,8 @@ _Proposta personalizada baseada no seu capital disponível_`;
             disabled={currentStep === steps.length - 1}
             className={`px-6 py-3 rounded-xl font-semibold transition-all ${
               currentStep === steps.length - 1
-                ? 'bg-white/10 text-white/50 cursor-not-allowed'
-                : 'bg-white/20 hover:bg-white/30 text-white'
+                ? 'bg-white/20 text-gray-500 cursor-not-allowed'
+                : 'bg-gradient-to-r from-green-500 to-orange-500 hover:from-green-600 hover:to-orange-600 text-white shadow-lg hover:shadow-xl transform hover:scale-105'
             }`}
           >
             Próximo
@@ -729,7 +729,7 @@ _Proposta personalizada baseada no seu capital disponível_`;
 
         {/* Step Indicator */}
         <div className="mt-6 text-center">
-          <p className="text-green-200 text-sm">
+          <p className="text-white font-medium text-sm drop-shadow-lg">
             Passo {currentStep + 1} de {steps.length}
           </p>
         </div>
@@ -737,10 +737,10 @@ _Proposta personalizada baseada no seu capital disponível_`;
 
       {/* Footer */}
       <footer className="max-w-md mx-auto px-6 py-4 text-center">
-        <p className="text-green-200 text-sm">
+        <p className="text-white font-medium text-sm drop-shadow-lg">
           © 2024 LL Construções • Entrega em 24 meses
         </p>
-        <p className="text-green-300 text-xs mt-1">
+        <p className="text-white/90 text-xs mt-1 drop-shadow-lg">
           WhatsApp: (81) 99379-8551
         </p>
       </footer>
