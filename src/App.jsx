@@ -643,51 +643,6 @@ function App() {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Progress Bar com Design Moderno */}
-        <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-8 mb-12 border border-white/20">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-bold text-white">Seu Progresso</h2>
-            <div className="bg-gradient-to-r from-cyan-400 to-blue-500 text-white px-6 py-3 rounded-2xl font-semibold shadow-lg">
-              Etapa {currentStep} de {steps.length}
-            </div>
-          </div>
-          
-          <div className="relative">
-            {/* Linha de Progresso */}
-            <div className="absolute top-6 left-0 right-0 h-3 bg-white/20 rounded-full"></div>
-            <div 
-              className="absolute top-6 left-0 h-3 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full transition-all duration-500 ease-in-out shadow-lg"
-              style={{ width: `${(currentStep - 1) / (steps.length - 1) * 100}%` }}
-            ></div>
-            
-            {/* Steps */}
-            <div className="relative flex items-center justify-between">
-              {steps.map((step, index) => (
-                <div key={step.id} className="flex flex-col items-center">
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 transform ${
-                    currentStep > step.id 
-                      ? 'bg-gradient-to-br from-green-400 to-green-500 text-white scale-110 shadow-2xl' 
-                      : currentStep === step.id
-                      ? 'bg-gradient-to-br from-cyan-400 to-blue-500 text-white scale-110 shadow-2xl ring-4 ring-cyan-300/50'
-                      : 'bg-white/20 text-white/60 backdrop-blur-sm'
-                  }`}>
-                    {currentStep > step.id ? (
-                      <CheckCircle className="w-7 h-7" />
-                    ) : (
-                      <step.icon className="w-7 h-7" />
-                    )}
-                  </div>
-                  <span className={`mt-4 text-sm font-medium text-center max-w-28 ${
-                    currentStep >= step.id ? 'text-white' : 'text-white/60'
-                  }`}>
-                    {step.title}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
         {/* Conteúdo da Etapa com Design Moderno */}
         <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-10 mb-12 border border-white/20">
           {renderStep()}
