@@ -11,7 +11,8 @@ function App() {
     name: '',
     whatsapp: '',
     renda: '',
-    preferencia: ''
+    preferencia: '',
+    valorDisponivel: ''
   });
   const [selectedUnit, setSelectedUnit] = useState('');
   const [selectedPlan, setSelectedPlan] = useState('');
@@ -583,7 +584,7 @@ _Proposta personalizada baseada no seu perfil_`;
               <button
                 onClick={() => {
                   setFormData({ ...formData, preferencia: 'vendaFinanciada' });
-                  nextStep();
+                  setCurrentStep(5); // Vai direto para simulação
                 }}
                 className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-6 px-4 rounded-xl transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
@@ -598,7 +599,7 @@ _Proposta personalizada baseada no seu perfil_`;
               <button
                 onClick={() => {
                   setFormData({ ...formData, preferencia: 'vendaDireta' });
-                  nextStep();
+                  setCurrentStep(5); // Vai direto para simulação
                 }}
                 className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-6 px-4 rounded-xl transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
@@ -613,7 +614,7 @@ _Proposta personalizada baseada no seu perfil_`;
               <button
                 onClick={() => {
                   setFormData({ ...formData, preferencia: 'personalizada' });
-                  nextStep();
+                  nextStep(); // Vai para a próxima etapa (valor disponível)
                 }}
                 className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-bold py-6 px-4 rounded-xl transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
