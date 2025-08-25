@@ -23,13 +23,13 @@ function App() {
     casa2quartos: {
       valor: 260000,
       plano1: {
-        sinal: 20800,
+        sinal: 52000, // 20% do valor total
         parcelasMensais: 1679.17,
         totalMensais: 40300.08,
         parcelasIntercaladas: 4875,
         totalIntercaladas: 19500,
         financiamentoBancario: 179400,
-        valorInicio: 22479.17,
+        valorInicio: 52000, // Sinal + 1ª mensal
         // 4 parcelas intercaladas durante 24 meses (a cada 6 meses)
         intercaladasInfo: {
           quantidade: 4,
@@ -37,21 +37,54 @@ function App() {
           valorParcela: 4875,
           total: 19500,
           cronograma: [
-            { mes: 6, valor: 4875, descricao: '6º mês' },
-            { mes: 12, valor: 4875, descricao: '12º mês' },
-            { mes: 18, valor: 4875, descricao: '18º mês' },
-            { mes: 24, valor: 4875, descricao: '24º mês' }
+            { mes: 6, valor: 4875, descricao: '6º mês', data: 'Julho 2024' },
+            { mes: 12, valor: 4875, descricao: '12º mês', data: 'Janeiro 2025' },
+            { mes: 18, valor: 4875, descricao: '18º mês', data: 'Julho 2025' },
+            { mes: 24, valor: 4875, descricao: '24º mês', data: 'Janeiro 2026' }
+          ]
+        },
+        // 24 parcelas mensais com datas
+        mensaisInfo: {
+          quantidade: 24,
+          frequencia: 'Mensal',
+          valorParcela: 1679.17,
+          total: 40300.08,
+          cronograma: [
+            { mes: 1, valor: 1679.17, data: 'Janeiro 2024' },
+            { mes: 2, valor: 1679.17, data: 'Fevereiro 2024' },
+            { mes: 3, valor: 1679.17, data: 'Março 2024' },
+            { mes: 4, valor: 1679.17, data: 'Abril 2024' },
+            { mes: 5, valor: 1679.17, data: 'Maio 2024' },
+            { mes: 6, valor: 1679.17, data: 'Junho 2024' },
+            { mes: 7, valor: 1679.17, data: 'Julho 2024' },
+            { mes: 8, valor: 1679.17, data: 'Agosto 2024' },
+            { mes: 9, valor: 1679.17, data: 'Setembro 2024' },
+            { mes: 10, valor: 1679.17, data: 'Outubro 2024' },
+            { mes: 11, valor: 1679.17, data: 'Novembro 2024' },
+            { mes: 12, valor: 1679.17, data: 'Dezembro 2024' },
+            { mes: 13, valor: 1679.17, data: 'Janeiro 2025' },
+            { mes: 14, valor: 1679.17, data: 'Fevereiro 2025' },
+            { mes: 15, valor: 1679.17, data: 'Março 2025' },
+            { mes: 16, valor: 1679.17, data: 'Abril 2025' },
+            { mes: 17, valor: 1679.17, data: 'Maio 2025' },
+            { mes: 18, valor: 1679.17, data: 'Junho 2025' },
+            { mes: 19, valor: 1679.17, data: 'Julho 2025' },
+            { mes: 20, valor: 1679.17, data: 'Agosto 2025' },
+            { mes: 21, valor: 1679.17, data: 'Setembro 2025' },
+            { mes: 22, valor: 1679.17, data: 'Outubro 2025' },
+            { mes: 23, valor: 1679.17, data: 'Novembro 2025' },
+            { mes: 24, valor: 1679.17, data: 'Dezembro 2025' }
           ]
         }
       },
       plano2: {
-        sinal: 20800,
+        sinal: 30000, // Valor fixo de 30k para plano direto
         parcelasIntercaladas: 4800,
         totalIntercaladas: 48000,
         saldoMensais: 191200,
         parcelasMensais: 7966.67,
         totalMensais: 191200,
-        valorInicio: 28766.67,
+        valorInicio: 30000, // Sinal de 30k
         financiamentoBancario: 0,
         // 4 parcelas intercaladas durante 24 meses (a cada 6 meses)
         intercaladasInfo: {
@@ -60,10 +93,43 @@ function App() {
           valorParcela: 4800,
           total: 48000,
           cronograma: [
-            { mes: 6, valor: 4800, descricao: '6º mês' },
-            { mes: 12, valor: 4800, descricao: '12º mês' },
-            { mes: 18, valor: 4800, descricao: '18º mês' },
-            { mes: 24, valor: 4800, descricao: '24º mês' }
+            { mes: 6, valor: 4800, descricao: '6º mês', data: 'Julho 2024' },
+            { mes: 12, valor: 4800, descricao: '12º mês', data: 'Janeiro 2025' },
+            { mes: 18, valor: 4800, descricao: '18º mês', data: 'Julho 2025' },
+            { mes: 24, valor: 4800, descricao: '24º mês', data: 'Janeiro 2026' }
+          ]
+        },
+        // 24 parcelas mensais com datas
+        mensaisInfo: {
+          quantidade: 24,
+          frequencia: 'Mensal',
+          valorParcela: 7966.67,
+          total: 191200,
+          cronograma: [
+            { mes: 1, valor: 7966.67, data: 'Janeiro 2024' },
+            { mes: 2, valor: 7966.67, data: 'Fevereiro 2024' },
+            { mes: 3, valor: 7966.67, data: 'Março 2024' },
+            { mes: 4, valor: 7966.67, data: 'Abril 2024' },
+            { mes: 5, valor: 7966.67, data: 'Maio 2024' },
+            { mes: 6, valor: 7966.67, data: 'Junho 2024' },
+            { mes: 7, valor: 7966.67, data: 'Julho 2024' },
+            { mes: 8, valor: 7966.67, data: 'Agosto 2024' },
+            { mes: 9, valor: 7966.67, data: 'Setembro 2024' },
+            { mes: 10, valor: 7966.67, data: 'Outubro 2024' },
+            { mes: 11, valor: 7966.67, data: 'Novembro 2024' },
+            { mes: 12, valor: 7966.67, data: 'Dezembro 2024' },
+            { mes: 13, valor: 7966.67, data: 'Janeiro 2025' },
+            { mes: 14, valor: 7966.67, data: 'Fevereiro 2025' },
+            { mes: 15, valor: 7966.67, data: 'Março 2025' },
+            { mes: 16, valor: 7966.67, data: 'Abril 2025' },
+            { mes: 17, valor: 7966.67, data: 'Maio 2025' },
+            { mes: 18, valor: 7966.67, data: 'Junho 2025' },
+            { mes: 19, valor: 7966.67, data: 'Julho 2025' },
+            { mes: 20, valor: 7966.67, data: 'Agosto 2025' },
+            { mes: 21, valor: 7966.67, data: 'Setembro 2025' },
+            { mes: 22, valor: 7966.67, data: 'Outubro 2025' },
+            { mes: 23, valor: 7966.67, data: 'Novembro 2025' },
+            { mes: 24, valor: 7966.67, data: 'Dezembro 2025' }
           ]
         }
       },
@@ -83,13 +149,13 @@ function App() {
     casa3quartos: {
       valor: 280000,
       plano1: {
-        sinal: 22400,
+        sinal: 56000, // 20% do valor total
         parcelasMensais: 1754,
         totalMensais: 42096,
         parcelasIntercaladas: 5250,
         totalIntercaladas: 21000,
         financiamentoBancario: 193200,
-        valorInicio: 24154,
+        valorInicio: 56000, // Sinal + 1ª mensal
         // 4 parcelas intercaladas durante 24 meses (a cada 6 meses)
         intercaladasInfo: {
           quantidade: 4,
@@ -97,21 +163,54 @@ function App() {
           valorParcela: 5250,
           total: 21000,
           cronograma: [
-            { mes: 6, valor: 5250, descricao: '6º mês' },
-            { mes: 12, valor: 5250, descricao: '12º mês' },
-            { mes: 18, valor: 5250, descricao: '18º mês' },
-            { mes: 24, valor: 5250, descricao: '24º mês' }
+            { mes: 6, valor: 5250, descricao: '6º mês', data: 'Julho 2024' },
+            { mes: 12, valor: 5250, descricao: '12º mês', data: 'Janeiro 2025' },
+            { mes: 18, valor: 5250, descricao: '18º mês', data: 'Julho 2025' },
+            { mes: 24, valor: 5250, descricao: '24º mês', data: 'Janeiro 2026' }
+          ]
+        },
+        // 24 parcelas mensais com datas
+        mensaisInfo: {
+          quantidade: 24,
+          frequencia: 'Mensal',
+          valorParcela: 1754,
+          total: 42096,
+          cronograma: [
+            { mes: 1, valor: 1754, data: 'Janeiro 2024' },
+            { mes: 2, valor: 1754, data: 'Fevereiro 2024' },
+            { mes: 3, valor: 1754, data: 'Março 2024' },
+            { mes: 4, valor: 1754, data: 'Abril 2024' },
+            { mes: 5, valor: 1754, data: 'Maio 2024' },
+            { mes: 6, valor: 1754, data: 'Junho 2024' },
+            { mes: 7, valor: 1754, data: 'Julho 2024' },
+            { mes: 8, valor: 1754, data: 'Agosto 2024' },
+            { mes: 9, valor: 1754, data: 'Setembro 2024' },
+            { mes: 10, valor: 1754, data: 'Outubro 2024' },
+            { mes: 11, valor: 1754, data: 'Novembro 2024' },
+            { mes: 12, valor: 1754, data: 'Dezembro 2024' },
+            { mes: 13, valor: 1754, data: 'Janeiro 2025' },
+            { mes: 14, valor: 1754, data: 'Fevereiro 2025' },
+            { mes: 15, valor: 1754, data: 'Março 2025' },
+            { mes: 16, valor: 1754, data: 'Abril 2025' },
+            { mes: 17, valor: 1754, data: 'Maio 2025' },
+            { mes: 18, valor: 1754, data: 'Junho 2025' },
+            { mes: 19, valor: 1754, data: 'Julho 2025' },
+            { mes: 20, valor: 1754, data: 'Agosto 2025' },
+            { mes: 21, valor: 1754, data: 'Setembro 2025' },
+            { mes: 22, valor: 1754, data: 'Outubro 2025' },
+            { mes: 23, valor: 1754, data: 'Novembro 2025' },
+            { mes: 24, valor: 1754, data: 'Dezembro 2025' }
           ]
         }
       },
       plano2: {
-        sinal: 22400,
+        sinal: 30000, // Valor fixo de 30k para plano direto
         parcelasIntercaladas: 5200,
         totalIntercaladas: 52000,
         saldoMensais: 205600,
         parcelasMensais: 8566.67,
         totalMensais: 205600,
-        valorInicio: 30966.67,
+        valorInicio: 30000, // Sinal de 30k
         financiamentoBancario: 0,
         // 4 parcelas intercaladas durante 24 meses (a cada 6 meses)
         intercaladasInfo: {
@@ -120,10 +219,43 @@ function App() {
           valorParcela: 5200,
           total: 52000,
           cronograma: [
-            { mes: 6, valor: 5200, descricao: '6º mês' },
-            { mes: 12, valor: 5200, descricao: '12º mês' },
-            { mes: 18, valor: 5200, descricao: '18º mês' },
-            { mes: 24, valor: 5200, descricao: '24º mês' }
+            { mes: 6, valor: 5200, descricao: '6º mês', data: 'Julho 2024' },
+            { mes: 12, valor: 5200, descricao: '12º mês', data: 'Janeiro 2025' },
+            { mes: 18, valor: 5200, descricao: '18º mês', data: 'Julho 2025' },
+            { mes: 24, valor: 5200, descricao: '24º mês', data: 'Janeiro 2026' }
+          ]
+        },
+        // 24 parcelas mensais com datas
+        mensaisInfo: {
+          quantidade: 24,
+          frequencia: 'Mensal',
+          valorParcela: 8566.67,
+          total: 205600,
+          cronograma: [
+            { mes: 1, valor: 8566.67, data: 'Janeiro 2024' },
+            { mes: 2, valor: 8566.67, data: 'Fevereiro 2024' },
+            { mes: 3, valor: 8566.67, data: 'Março 2024' },
+            { mes: 4, valor: 8566.67, data: 'Abril 2024' },
+            { mes: 5, valor: 8566.67, data: 'Maio 2024' },
+            { mes: 6, valor: 8566.67, data: 'Junho 2024' },
+            { mes: 7, valor: 8566.67, data: 'Julho 2024' },
+            { mes: 8, valor: 8566.67, data: 'Agosto 2024' },
+            { mes: 9, valor: 8566.67, data: 'Setembro 2024' },
+            { mes: 10, valor: 8566.67, data: 'Outubro 2024' },
+            { mes: 11, valor: 8566.67, data: 'Novembro 2024' },
+            { mes: 12, valor: 8566.67, data: 'Dezembro 2024' },
+            { mes: 13, valor: 8566.67, data: 'Janeiro 2025' },
+            { mes: 14, valor: 8566.67, data: 'Fevereiro 2025' },
+            { mes: 15, valor: 8566.67, data: 'Março 2025' },
+            { mes: 16, valor: 8566.67, data: 'Abril 2025' },
+            { mes: 17, valor: 8566.67, data: 'Maio 2025' },
+            { mes: 18, valor: 8566.67, data: 'Junho 2025' },
+            { mes: 19, valor: 8566.67, data: 'Julho 2025' },
+            { mes: 20, valor: 8566.67, data: 'Agosto 2025' },
+            { mes: 21, valor: 8566.67, data: 'Setembro 2025' },
+            { mes: 22, valor: 8566.67, data: 'Outubro 2025' },
+            { mes: 23, valor: 8566.67, data: 'Novembro 2025' },
+            { mes: 24, valor: 8566.67, data: 'Dezembro 2025' }
           ]
         }
       },
@@ -223,20 +355,26 @@ function App() {
 *Plano de Pagamento Recomendado:*
 ${plan === 'plano1' ? '🏦 Plano Financiamento' : '💳 Plano Venda Direta'}
 
-💳 Sinal (8%): ${formatCurrency(planData.sinal)}
+💳 Sinal (20%): ${formatCurrency(planData.sinal)}
 📅 Mensais (24x): ${formatCurrency(planData.parcelasMensais)}
 🔄 Intercaladas (4x): ${formatCurrency(planData.parcelasIntercaladas)}
 
 *📅 Cronograma das Intercaladas (24 meses):*
-• 6º mês: ${formatCurrency(planData.intercaladasInfo.cronograma[0].valor)}
-• 12º mês: ${formatCurrency(planData.intercaladasInfo.cronograma[1].valor)}
-• 18º mês: ${formatCurrency(planData.intercaladasInfo.cronograma[2].valor)}
-• 24º mês: ${formatCurrency(planData.intercaladasInfo.cronograma[3].valor)}
+• 6º mês (Julho 2024): ${formatCurrency(planData.intercaladasInfo.cronograma[0].valor)}
+• 12º mês (Janeiro 2025): ${formatCurrency(planData.intercaladasInfo.cronograma[1].valor)}
+• 18º mês (Julho 2025): ${formatCurrency(planData.intercaladasInfo.cronograma[2].valor)}
+• 24º mês (Janeiro 2026): ${formatCurrency(planData.intercaladasInfo.cronograma[3].valor)}
+
+*📅 Cronograma das Mensais (24 meses):*
+• 1º mês (Jan 2024) até 24º mês (Dez 2025): ${formatCurrency(planData.parcelasMensais)} cada
 
 ${plan === 'plano1' ? `🏦 Financiamento: ${formatCurrency(planData.financiamentoBancario)}` : ''}
 🚀 Valor para Início: ${formatCurrency(planData.valorInicio)}
 
-*Entrega: 24 meses*
+*Cronograma da Obra:*
+🏗️ Início: Janeiro 2024
+📅 Duração: 24 meses
+🏠 Entrega: Janeiro 2026
 📍 Terreno: 20x80m
 
 _Proposta personalizada baseada no seu perfil_`;
@@ -534,7 +672,7 @@ _Proposta personalizada baseada no seu perfil_`;
                           <span className="text-xl font-bold text-gray-800">{formatCurrency(unitData.valor)}</span>
                         </div>
                         <div className="flex justify-between items-center">
-                          <span className="text-gray-700 font-medium">Sinal (8%):</span>
+                          <span className="text-gray-700 font-medium">Sinal (20%):</span>
                           <span className="text-gray-800">{formatCurrency(planData.sinal)}</span>
                         </div>
                         <div className="flex justify-between items-center">
@@ -574,6 +712,7 @@ _Proposta personalizada baseada no seu perfil_`;
                         <div key={index} className="bg-white rounded-lg p-3 text-center border border-blue-200">
                           <p className="text-blue-600 font-bold text-sm">{item.descricao}</p>
                           <p className="text-gray-800 font-semibold">{formatCurrency(item.valor)}</p>
+                          <p className="text-blue-500 font-medium text-xs">{item.data}</p>
                           <p className="text-gray-500 text-xs">Obra: {item.mes} meses</p>
                         </div>
                       ));
@@ -588,6 +727,36 @@ _Proposta personalizada baseada no seu perfil_`;
                       })()}
                     </p>
                     <p className="text-blue-600 text-sm">4 parcelas semestrais durante 24 meses</p>
+                    <p className="text-blue-500 text-xs mt-1">Início da obra: Janeiro 2024 • Entrega: Janeiro 2026</p>
+                  </div>
+                </div>
+
+                {/* Cronograma das Mensais */}
+                <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-4 shadow-lg">
+                  <h4 className="text-lg font-semibold text-green-700 mb-3 text-center">📅 Cronograma das Mensais (24x)</h4>
+                  <div className="grid grid-cols-3 gap-2 max-h-48 overflow-y-auto">
+                    {(() => {
+                      const unitData = units[selectedUnit];
+                      const planData = unitData[selectedPlan === 'plano1' ? 'plano1' : 'plano2'];
+                      
+                      return planData.mensaisInfo.cronograma.map((item, index) => (
+                        <div key={index} className="bg-white rounded-lg p-2 text-center border border-green-200">
+                          <p className="text-green-600 font-bold text-xs">{item.mes}º</p>
+                          <p className="text-gray-800 font-semibold text-xs">{formatCurrency(item.valor)}</p>
+                          <p className="text-green-500 font-medium text-xs">{item.data}</p>
+                        </div>
+                      ));
+                    })()}
+                  </div>
+                  <div className="mt-3 pt-3 border-t border-green-200 text-center">
+                    <p className="text-green-700 font-medium">
+                      Total Mensais: {(() => {
+                        const unitData = units[selectedUnit];
+                        const planData = unitData[selectedPlan === 'plano1' ? 'plano1' : 'plano2'];
+                        return formatCurrency(planData.mensaisInfo.total);
+                      })()}
+                    </p>
+                    <p className="text-green-600 text-sm">24 parcelas mensais durante a obra</p>
                   </div>
                 </div>
 
