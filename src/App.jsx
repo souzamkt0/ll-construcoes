@@ -369,6 +369,94 @@ function App() {
     }
   };
 
+  // Função para calcular plano personalizado baseado no valor de entrada
+  const calculatePersonalizedPlan = (unit, valorEntrada) => {
+    const unitData = units[unit];
+    const valorTotal = unitData.valor;
+    
+    // Se a entrada for maior que o valor total, erro
+    if (valorEntrada >= valorTotal) {
+      return {
+        error: true,
+        message: 'O valor de entrada não pode ser maior ou igual ao valor total do imóvel'
+      };
+    }
+    
+    // Calcular o saldo restante
+    const saldoRestante = valorTotal - valorEntrada;
+    
+    // Distribuir o saldo restante entre mensais e intercaladas
+    // 70% para mensais (24x) e 30% para intercaladas (4x)
+    const valorMensais = saldoRestante * 0.7;
+    const valorIntercaladas = saldoRestante * 0.3;
+    
+    // Calcular parcelas
+    const parcelasMensais = valorMensais / 24;
+    const parcelasIntercaladas = valorIntercaladas / 4;
+    
+    // Calcular financiamento (se aplicável)
+    const financiamentoBancario = valorEntrada >= 52000 ? 0 : saldoRestante * 0.69;
+    
+    return {
+      error: false,
+      valorTotal,
+      valorEntrada,
+      saldoRestante,
+      parcelasMensais: Math.round(parcelasMensais * 100) / 100,
+      totalMensais: Math.round(valorMensais * 100) / 100,
+      parcelasIntercaladas: Math.round(parcelasIntercaladas * 100) / 100,
+      totalIntercaladas: Math.round(valorIntercaladas * 100) / 100,
+      financiamentoBancario: Math.round(financiamentoBancario * 100) / 100,
+      valorInicio: valorEntrada,
+      // Cronograma das mensais
+      mensaisInfo: {
+        quantidade: 24,
+        frequencia: 'Mensal',
+        valorParcela: Math.round(parcelasMensais * 100) / 100,
+        total: Math.round(valorMensais * 100) / 100,
+        cronograma: [
+          { mes: 1, valor: Math.round(parcelasMensais * 100) / 100, data: 'Janeiro 2024' },
+          { mes: 2, valor: Math.round(parcelasMensais * 100) / 100, data: 'Fevereiro 2024' },
+          { mes: 3, valor: Math.round(parcelasMensais * 100) / 100, data: 'Março 2024' },
+          { mes: 4, valor: Math.round(parcelasMensais * 100) / 100, data: 'Abril 2024' },
+          { mes: 5, valor: Math.round(parcelasMensais * 100) / 100, data: 'Maio 2024' },
+          { mes: 6, valor: Math.round(parcelasMensais * 100) / 100, data: 'Junho 2024' },
+          { mes: 7, valor: Math.round(parcelasMensais * 100) / 100, data: 'Julho 2024' },
+          { mes: 8, valor: Math.round(parcelasMensais * 100) / 100, data: 'Agosto 2024' },
+          { mes: 9, valor: Math.round(parcelasMensais * 100) / 100, data: 'Setembro 2024' },
+          { mes: 10, valor: Math.round(parcelasMensais * 100) / 100, data: 'Outubro 2024' },
+          { mes: 11, valor: Math.round(parcelasMensais * 100) / 100, data: 'Novembro 2024' },
+          { mes: 12, valor: Math.round(parcelasMensais * 100) / 100, data: 'Dezembro 2024' },
+          { mes: 13, valor: Math.round(parcelasMensais * 100) / 100, data: 'Janeiro 2025' },
+          { mes: 14, valor: Math.round(parcelasMensais * 100) / 100, data: 'Fevereiro 2025' },
+          { mes: 15, valor: Math.round(parcelasMensais * 100) / 100, data: 'Março 2025' },
+          { mes: 16, valor: Math.round(parcelasMensais * 100) / 100, data: 'Abril 2025' },
+          { mes: 17, valor: Math.round(parcelasMensais * 100) / 100, data: 'Maio 2025' },
+          { mes: 18, valor: Math.round(parcelasMensais * 100) / 100, data: 'Junho 2025' },
+          { mes: 19, valor: Math.round(parcelasMensais * 100) / 100, data: 'Julho 2025' },
+          { mes: 20, valor: Math.round(parcelasMensais * 100) / 100, data: 'Agosto 2025' },
+          { mes: 21, valor: Math.round(parcelasMensais * 100) / 100, data: 'Setembro 2025' },
+          { mes: 22, valor: Math.round(parcelasMensais * 100) / 100, data: 'Outubro 2025' },
+          { mes: 23, valor: Math.round(parcelasMensais * 100) / 100, data: 'Novembro 2025' },
+          { mes: 24, valor: Math.round(parcelasMensais * 100) / 100, data: 'Dezembro 2025' }
+        ]
+      },
+      // Cronograma das intercaladas
+      intercaladasInfo: {
+        quantidade: 4,
+        frequencia: 'Semestral',
+        valorParcela: Math.round(parcelasIntercaladas * 100) / 100,
+        total: Math.round(valorIntercaladas * 100) / 100,
+        cronograma: [
+          { mes: 6, valor: Math.round(parcelasIntercaladas * 100) / 100, descricao: '6º mês', data: 'Julho 2024' },
+          { mes: 12, valor: Math.round(parcelasIntercaladas * 100) / 100, descricao: '12º mês', data: 'Janeiro 2025' },
+          { mes: 18, valor: Math.round(parcelasIntercaladas * 100) / 100, descricao: '18º mês', data: 'Julho 2025' },
+          { mes: 24, valor: Math.round(parcelasIntercaladas * 100) / 100, descricao: '24º mês', data: 'Janeiro 2026' }
+        ]
+      }
+    };
+  };
+
   const formatCurrency = (value) => {
     if (isNaN(value) || value === 0) return 'R$ 0,00';
     return new Intl.NumberFormat('pt-BR', {
@@ -379,8 +467,23 @@ function App() {
 
   const sendWhatsAppProposal = () => {
     const { unit, plan, reasoning } = recommendation || generateRecommendation();
-    const unitData = units[unit];
-    const planData = unitData[plan === 'plano1' ? 'plano1' : 'plano2'];
+    let unitData, planData;
+    
+    if (formData.preferencia === 'personalizada' && formData.valorDisponivel) {
+      // Usar plano personalizado calculado
+      const personalizedPlan = calculatePersonalizedPlan(unit, parseFloat(formData.valorDisponivel));
+      if (!personalizedPlan.error) {
+        unitData = { valor: personalizedPlan.valorTotal };
+        planData = personalizedPlan;
+      } else {
+        alert('Erro no cálculo personalizado: ' + personalizedPlan.message);
+        return;
+      }
+    } else {
+      // Usar plano padrão
+      unitData = units[unit];
+      planData = unitData[plan === 'plano1' ? 'plano1' : 'plano2'];
+    }
     
     let valorPersonalizadoInfo = '';
     if (formData.preferencia === 'personalizada' && formData.valorDisponivel) {
@@ -403,7 +506,10 @@ function App() {
 *Plano de Pagamento Recomendado:*
 ${plan === 'plano1' ? '🏦 Plano Financiamento' : '💳 Plano Venda Direta'}
 
-💳 Sinal (8%): ${formatCurrency(planData.sinal)}
+${formData.preferencia === 'personalizada' ? 
+  `💳 Entrada Personalizada: ${formatCurrency(planData.valorEntrada)}` : 
+  `💳 Sinal (8%): ${formatCurrency(planData.sinal)}`
+}
 📅 Mensais (24x): ${formatCurrency(planData.parcelasMensais)}
 🔄 Intercaladas (4x): ${formatCurrency(planData.parcelasIntercaladas)}
 
@@ -769,8 +875,27 @@ _Proposta personalizada baseada no seu perfil_`;
                 
                 <div className="bg-white border-2 border-green-200 rounded-xl p-4 space-y-3 shadow-lg">
                   {(() => {
-                    const unitData = units[selectedUnit];
-                    const planData = unitData[selectedPlan === 'plano1' ? 'plano1' : 'plano2'];
+                    let unitData, planData;
+                    
+                    if (formData.preferencia === 'personalizada' && formData.valorDisponivel) {
+                      // Usar plano personalizado calculado
+                      const personalizedPlan = calculatePersonalizedPlan(selectedUnit, parseFloat(formData.valorDisponivel));
+                      
+                      if (personalizedPlan.error) {
+                        return (
+                          <div className="text-center text-red-600 font-semibold">
+                            {personalizedPlan.message}
+                          </div>
+                        );
+                      }
+                      
+                      unitData = { valor: personalizedPlan.valorTotal };
+                      planData = personalizedPlan;
+                    } else {
+                      // Usar plano padrão
+                      unitData = units[selectedUnit];
+                      planData = unitData[selectedPlan === 'plano1' ? 'plano1' : 'plano2'];
+                    }
                     
                     return (
                       <>
@@ -779,8 +904,10 @@ _Proposta personalizada baseada no seu perfil_`;
                           <span className="text-xl font-bold text-gray-800">{formatCurrency(unitData.valor)}</span>
                         </div>
                         <div className="flex justify-between items-center">
-                          <span className="text-gray-700 font-medium">Sinal (8%):</span>
-                          <span className="text-gray-800">{formatCurrency(planData.sinal)}</span>
+                          <span className="text-gray-700 font-medium">
+                            {formData.preferencia === 'personalizada' ? 'Entrada Personalizada:' : 'Sinal (8%):'}
+                          </span>
+                          <span className="text-gray-800">{formatCurrency(planData.valorEntrada || planData.sinal)}</span>
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-gray-700 font-medium">Mensais (24x):</span>
@@ -812,8 +939,19 @@ _Proposta personalizada baseada no seu perfil_`;
                   <h4 className="text-lg font-semibold text-blue-700 mb-3 text-center">📅 Cronograma das Intercaladas</h4>
                   <div className="grid grid-cols-2 gap-3">
                     {(() => {
-                      const unitData = units[selectedUnit];
-                      const planData = unitData[selectedPlan === 'plano1' ? 'plano1' : 'plano2'];
+                      let planData;
+                      
+                      if (formData.preferencia === 'personalizada' && formData.valorDisponivel) {
+                        const personalizedPlan = calculatePersonalizedPlan(selectedUnit, parseFloat(formData.valorDisponivel));
+                        if (!personalizedPlan.error) {
+                          planData = personalizedPlan;
+                        }
+                      } else {
+                        const unitData = units[selectedUnit];
+                        planData = unitData[selectedPlan === 'plano1' ? 'plano1' : 'plano2'];
+                      }
+                      
+                      if (!planData) return null;
                       
                       return planData.intercaladasInfo.cronograma.map((item, index) => (
                         <div key={index} className="bg-white rounded-lg p-3 text-center border border-blue-200">
@@ -828,8 +966,19 @@ _Proposta personalizada baseada no seu perfil_`;
                   <div className="mt-3 pt-3 border-t border-blue-200 text-center">
                     <p className="text-blue-700 font-medium">
                       Total Intercaladas: {(() => {
-                        const unitData = units[selectedUnit];
-                        const planData = unitData[selectedPlan === 'plano1' ? 'plano1' : 'plano2'];
+                        let planData;
+                        
+                        if (formData.preferencia === 'personalizada' && formData.valorDisponivel) {
+                          const personalizedPlan = calculatePersonalizedPlan(selectedUnit, parseFloat(formData.valorDisponivel));
+                          if (!personalizedPlan.error) {
+                            planData = personalizedPlan;
+                          }
+                        } else {
+                          const unitData = units[selectedUnit];
+                          planData = unitData[selectedPlan === 'plano1' ? 'plano1' : 'plano2'];
+                        }
+                        
+                        if (!planData) return 'R$ 0,00';
                         return formatCurrency(planData.intercaladasInfo.total);
                       })()}
                     </p>
@@ -843,8 +992,19 @@ _Proposta personalizada baseada no seu perfil_`;
                   <h4 className="text-lg font-semibold text-green-700 mb-3 text-center">📅 Cronograma das Mensais (24x)</h4>
                   <div className="grid grid-cols-3 gap-2 max-h-48 overflow-y-auto">
                     {(() => {
-                      const unitData = units[selectedUnit];
-                      const planData = unitData[selectedPlan === 'plano1' ? 'plano1' : 'plano2'];
+                      let planData;
+                      
+                      if (formData.preferencia === 'personalizada' && formData.valorDisponivel) {
+                        const personalizedPlan = calculatePersonalizedPlan(selectedUnit, parseFloat(formData.valorDisponivel));
+                        if (!personalizedPlan.error) {
+                          planData = personalizedPlan;
+                        }
+                      } else {
+                        const unitData = units[selectedUnit];
+                        planData = unitData[selectedPlan === 'plano1' ? 'plano1' : 'plano2'];
+                      }
+                      
+                      if (!planData) return null;
                       
                       return planData.mensaisInfo.cronograma.map((item, index) => (
                         <div key={index} className="bg-white rounded-lg p-2 text-center border border-green-200">
@@ -858,8 +1018,19 @@ _Proposta personalizada baseada no seu perfil_`;
                   <div className="mt-3 pt-3 border-t border-green-200 text-center">
                     <p className="text-green-700 font-medium">
                       Total Mensais: {(() => {
-                        const unitData = units[selectedUnit];
-                        const planData = unitData[selectedPlan === 'plano1' ? 'plano1' : 'plano2'];
+                        let planData;
+                        
+                        if (formData.preferencia === 'personalizada' && formData.valorDisponivel) {
+                          const personalizedPlan = calculatePersonalizedPlan(selectedUnit, parseFloat(formData.valorDisponivel));
+                          if (!personalizedPlan.error) {
+                            planData = personalizedPlan;
+                          }
+                        } else {
+                          const unitData = units[selectedUnit];
+                          planData = unitData[selectedPlan === 'plano1' ? 'plano1' : 'plano2'];
+                        }
+                        
+                        if (!planData) return 'R$ 0,00';
                         return formatCurrency(planData.mensaisInfo.total);
                       })()}
                     </p>
