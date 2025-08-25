@@ -256,13 +256,19 @@ _Proposta personalizada baseada no seu capital disponível_`;
             </div>
             <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
             <p className="text-gray-600">{step.description}</p>
-            <input
-              type="text"
-              value={formData.name}
-              onChange={(e) => handleInputChange('name', e.target.value)}
-              placeholder="Digite seu nome completo"
-              className="w-full px-4 py-3 bg-white border-2 border-green-200 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all"
-            />
+            
+            <div className="grid grid-cols-1 gap-4">
+              <button
+                onClick={() => {
+                  handleInputChange('name', 'Cliente');
+                  nextStep();
+                }}
+                className="p-6 bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl hover:from-green-200 hover:to-orange-200 hover:border-green-400 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                <h3 className="text-xl font-bold text-gray-800 mb-2">👤 Cliente</h3>
+                <p className="text-gray-600">Clique para continuar</p>
+              </button>
+            </div>
           </div>
         );
 
@@ -274,13 +280,19 @@ _Proposta personalizada baseada no seu capital disponível_`;
             </div>
             <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
             <p className="text-gray-600">{step.description}</p>
-            <input
-              type="tel"
-              value={formData.phone}
-              onChange={(e) => handleInputChange('phone', e.target.value)}
-              placeholder="(11) 99999-9999"
-              className="w-full px-4 py-3 bg-white border-2 border-green-200 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all"
-            />
+            
+            <div className="grid grid-cols-1 gap-4">
+              <button
+                onClick={() => {
+                  handleInputChange('phone', '(81) 99999-9999');
+                  nextStep();
+                }}
+                className="p-6 bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl hover:from-green-200 hover:to-orange-200 hover:border-green-400 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                <h3 className="text-xl font-bold text-gray-800 mb-2">📱 (81) 99999-9999</h3>
+                <p className="text-gray-600">Clique para continuar</p>
+              </button>
+            </div>
           </div>
         );
 
@@ -292,13 +304,19 @@ _Proposta personalizada baseada no seu capital disponível_`;
             </div>
             <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
             <p className="text-gray-600">{step.description}</p>
-            <input
-              type="email"
-              value={formData.email}
-              onChange={(e) => handleInputChange('email', e.target.value)}
-              placeholder="seu@email.com"
-              className="w-full px-4 py-3 bg-white border-2 border-green-200 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all"
-            />
+            
+            <div className="grid grid-cols-1 gap-4">
+              <button
+                onClick={() => {
+                  handleInputChange('email', 'cliente@email.com');
+                  nextStep();
+                }}
+                className="p-6 bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl hover:from-green-200 hover:to-orange-200 hover:border-green-400 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                <h3 className="text-xl font-bold text-gray-800 mb-2">📧 cliente@email.com</h3>
+                <p className="text-gray-600">Clique para continuar</p>
+              </button>
+            </div>
           </div>
         );
 
@@ -310,17 +328,19 @@ _Proposta personalizada baseada no seu capital disponível_`;
             </div>
             <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
             <p className="text-gray-600">{step.description}</p>
-            <select
-              value={formData.renda}
-              onChange={(e) => handleInputChange('renda', e.target.value)}
-              className="w-full px-4 py-3 bg-white border-2 border-green-200 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all"
-            >
-              <option value="" className="bg-white text-gray-800">Selecione sua renda</option>
-              <option value="ate2k" className="bg-white text-gray-800">Até R$ 2.000</option>
-              <option value="2k3k" className="bg-white text-gray-800">R$ 2.000 - R$ 3.000</option>
-              <option value="3k5k" className="bg-white text-gray-800">R$ 3.000 - R$ 5.000</option>
-              <option value="acima5k" className="bg-white text-gray-800">Acima de R$ 5.000</option>
-            </select>
+            
+            <div className="grid grid-cols-1 gap-4">
+              <button
+                onClick={() => {
+                  handleInputChange('renda', 'acima5k');
+                  nextStep();
+                }}
+                className="p-6 bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl hover:from-green-200 hover:to-orange-200 hover:border-green-400 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                <h3 className="text-xl font-bold text-gray-800 mb-2">💰 Acima de R$ 5.000</h3>
+                <p className="text-gray-600">Clique para continuar</p>
+              </button>
+            </div>
           </div>
         );
 
@@ -332,17 +352,19 @@ _Proposta personalizada baseada no seu capital disponível_`;
             </div>
             <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
             <p className="text-gray-600">{step.description}</p>
-            <select
-              value={formData.perfilFamiliar}
-              onChange={(e) => handleInputChange('perfilFamiliar', e.target.value)}
-              className="w-full px-4 py-3 bg-white border-2 border-green-200 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all"
-            >
-              <option value="" className="bg-white text-gray-800">Selecione o perfil</option>
-              <option value="solteiro" className="bg-white text-gray-800">Solteiro(a)</option>
-              <option value="casal" className="bg-white text-gray-800">Casal</option>
-              <option value="familia3" className="bg-white text-gray-800">Família (3 pessoas)</option>
-              <option value="4ouMais" className="bg-white text-gray-800">4 ou mais pessoas</option>
-            </select>
+            
+            <div className="grid grid-cols-1 gap-4">
+              <button
+                onClick={() => {
+                  handleInputChange('perfilFamiliar', 'familia3');
+                  nextStep();
+                }}
+                className="p-6 bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl hover:from-green-200 hover:to-orange-200 hover:border-green-400 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                <h3 className="text-xl font-bold text-gray-800 mb-2">👨‍👩‍👧‍👦 Família (3 pessoas)</h3>
+                <p className="text-gray-600">Clique para continuar</p>
+              </button>
+            </div>
           </div>
         );
 
@@ -354,16 +376,19 @@ _Proposta personalizada baseada no seu capital disponível_`;
             </div>
             <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
             <p className="text-gray-600">{step.description}</p>
-            <select
-              value={formData.preferenciaPagamento}
-              onChange={(e) => handleInputChange('preferenciaPagamento', e.target.value)}
-              className="w-full px-4 py-3 bg-white border-2 border-green-200 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all"
-            >
-              <option value="" className="bg-white text-gray-800">Selecione a preferência</option>
-              <option value="comFinanciamento" className="bg-white text-gray-800">Com financiamento bancário</option>
-              <option value="semFinanciamento" className="bg-white text-gray-800">Sem financiamento bancário</option>
-              <option value="flexivel" className="bg-white text-gray-800">Flexível</option>
-            </select>
+            
+            <div className="grid grid-cols-1 gap-4">
+              <button
+                onClick={() => {
+                  handleInputChange('preferenciaPagamento', 'comFinanciamento');
+                  nextStep();
+                }}
+                className="p-6 bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl hover:from-green-200 hover:to-orange-200 hover:border-green-400 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                <h3 className="text-xl font-bold text-gray-800 mb-2">🏦 Com Financiamento Bancário</h3>
+                <p className="text-gray-600">Clique para continuar</p>
+              </button>
+            </div>
           </div>
         );
 
@@ -375,16 +400,19 @@ _Proposta personalizada baseada no seu capital disponível_`;
             </div>
             <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
             <p className="text-gray-600">{step.description}</p>
-            <select
-              value={formData.tipoEntrada}
-              onChange={(e) => handleInputChange('tipoEntrada', e.target.value)}
-              className="w-full px-4 py-3 bg-white border-2 border-green-200 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all"
-            >
-              <option value="" className="bg-white text-gray-800">Selecione o tipo</option>
-              <option value="sinal" className="bg-white text-gray-800">Sinal + Mensais</option>
-              <option value="entradaMaior" className="bg-white text-gray-800">Entrada maior</option>
-              <option value="parcelado" className="bg-white text-gray-800">Tudo parcelado</option>
-            </select>
+            
+            <div className="grid grid-cols-1 gap-4">
+              <button
+                onClick={() => {
+                  handleInputChange('tipoEntrada', 'sinal');
+                  nextStep();
+                }}
+                className="p-6 bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl hover:from-green-200 hover:to-orange-200 hover:border-green-400 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                <h3 className="text-xl font-bold text-gray-800 mb-2">💳 Sinal + Mensais</h3>
+                <p className="text-gray-600">Clique para continuar</p>
+              </button>
+            </div>
           </div>
         );
 
@@ -396,13 +424,19 @@ _Proposta personalizada baseada no seu capital disponível_`;
             </div>
             <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
             <p className="text-gray-600">{step.description}</p>
-            <input
-              type="number"
-              value={formData.valorDisponivel}
-              onChange={(e) => handleInputChange('valorDisponivel', e.target.value)}
-              placeholder="R$ 0,00"
-              className="w-full px-4 py-3 bg-white border-2 border-green-200 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all"
-            />
+            
+            <div className="grid grid-cols-1 gap-4">
+              <button
+                onClick={() => {
+                  handleInputChange('valorDisponivel', '30000');
+                  nextStep();
+                }}
+                className="p-6 bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl hover:from-green-200 hover:to-orange-200 hover:border-green-400 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                <h3 className="text-xl font-bold text-gray-800 mb-2">💎 R$ 30.000,00</h3>
+                <p className="text-gray-600">Clique para continuar</p>
+              </button>
+            </div>
           </div>
         );
 
@@ -415,48 +449,18 @@ _Proposta personalizada baseada no seu capital disponível_`;
             <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
             <p className="text-gray-600">{step.description}</p>
             
-            {recommendation ? (
-              <div className="space-y-4">
-                <div className="bg-gradient-to-r from-green-50 to-orange-50 border-2 border-green-200 rounded-xl p-4 shadow-lg">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                    💎 Seu Capital: {formatCurrency(recommendation.valorDisponivel)}
-                  </h3>
-                  <h4 className="text-lg font-semibold text-green-600 mb-2">
-                    {recommendation.unit === 'casa2quartos' ? '🏠 Casa 2 Quartos' : '🏠 Casa 3 Quartos'}
-                  </h4>
-                  <p className="text-gray-700 text-sm">{recommendation.reasoning}</p>
-                  
-                  <div className="mt-3 pt-3 border-t border-green-200">
-                    <p className="text-gray-800 font-medium">
-                      Plano Recomendado: 
-                      <span className="text-orange-600 ml-2">
-                        {recommendation.plan === 'personalizado' ? '✨ Personalizado' : 
-                         recommendation.plan === 'plano1' ? '🏦 Financiamento' : '💳 Venda Direta'}
-                      </span>
-                    </p>
-                  </div>
-                </div>
-                
-                <button
-                  onClick={sendWhatsAppProposal}
-                  className="w-full bg-gradient-to-r from-green-500 to-orange-500 hover:from-green-600 hover:to-orange-600 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
-                >
-                  <MessageCircle className="w-5 h-5" />
-                  <span>Enviar Proposta Personalizada pelo WhatsApp</span>
-                </button>
-              </div>
-            ) : (
+            <div className="grid grid-cols-1 gap-4">
               <button
                 onClick={() => {
                   generateRecommendation();
                   nextStep();
                 }}
-                className="w-full bg-gradient-to-r from-green-500 to-orange-500 hover:from-green-600 hover:to-orange-600 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+                className="p-6 bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl hover:from-green-200 hover:to-orange-200 hover:border-green-400 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
-                <span>Gerar Recomendação Personalizada</span>
-                <ArrowRight className="w-5 h-5" />
+                <h3 className="text-xl font-bold text-gray-800 mb-2">🎯 Gerar Recomendação</h3>
+                <p className="text-gray-600">Clique para continuar</p>
               </button>
-            )}
+            </div>
           </div>
         );
 
@@ -639,6 +643,17 @@ _Proposta personalizada baseada no seu capital disponível_`;
                   className="w-full bg-white hover:bg-green-50 text-gray-800 font-semibold py-3 px-6 rounded-xl border-2 border-green-200 hover:border-green-300 transition-all shadow-md hover:shadow-lg"
                 >
                   {showFloorPlan ? 'Ocultar Planta' : 'Ver Planta da Casa'}
+                </button>
+
+                {/* Nova Opção: Montar Proposta */}
+                <button
+                  onClick={() => {
+                    // Aqui você pode adicionar lógica para montar uma proposta personalizada
+                    alert('Proposta personalizada sendo montada!');
+                  }}
+                  className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+                >
+                  <span>🎯 Montar Proposta Personalizada</span>
                 </button>
               </div>
             )}
