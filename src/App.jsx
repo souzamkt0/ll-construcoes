@@ -9,15 +9,9 @@ function App() {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
     name: '',
-    phone: '',
-    email: '',
+    whatsapp: '',
     renda: '',
-    perfilFamiliar: '',
-    preferenciaPagamento: '',
-    tipoEntrada: '',
-    selectedUnit: '',
-    selectedPlan: '',
-    valorDisponivel: ''
+    preferencia: ''
   });
   const [selectedUnit, setSelectedUnit] = useState('');
   const [selectedPlan, setSelectedPlan] = useState('');
@@ -100,14 +94,9 @@ function App() {
 
   const steps = [
     { title: 'Nome', description: 'Como podemos te chamar?' },
-    { title: 'Telefone', description: 'Seu número para contato' },
-    { title: 'Email', description: 'Para envio da proposta' },
+    { title: 'WhatsApp', description: 'Seu número para receber a proposta' },
     { title: 'Renda', description: 'Sua faixa de renda mensal' },
-    { title: 'Perfil Familiar', description: 'Quantas pessoas na família?' },
-    { title: 'Preferência de Pagamento', description: 'Como prefere pagar?' },
-    { title: 'Tipo de Entrada', description: 'Qual entrada você prefere?' },
-    { title: 'Valor Disponível', description: 'Quanto você tem para investir?' },
-    { title: 'Recomendação', description: 'Sua proposta personalizada' },
+    { title: 'Preferência', description: 'Como prefere comprar?' },
     { title: 'Simulação Completa', description: 'Detalhes da sua proposta' }
   ];
 
@@ -128,69 +117,29 @@ function App() {
   };
 
   const generateRecommendation = () => {
-    const { renda, perfilFamiliar, preferenciaPagamento, tipoEntrada, valorDisponivel } = formData;
+    const { renda, preferencia } = formData;
     
     let unit = 'casa2quartos';
     let plan = 'plano1';
     let reasoning = '';
-    let valorDisponivelNum = parseFloat(valorDisponivel) || 0;
 
-    // Lógica de recomendação baseada no valor disponível
-    if (valorDisponivelNum > 0) {
-      // Verificar qual casa o cliente pode pagar
-      if (valorDisponivelNum >= units.casa3quartos.plano1.valorInicio) {
-        unit = 'casa3quartos';
-        reasoning = `Com R$ ${formatCurrency(valorDisponivelNum)} você pode iniciar a casa de 3 quartos!`;
-      } else if (valorDisponivelNum >= units.casa2quartos.plano1.valorInicio) {
-        unit = 'casa2quartos';
-        reasoning = `Com R$ ${formatCurrency(valorDisponivelNum)} você pode iniciar a casa de 2 quartos!`;
-      } else {
-        // Calcular quanto falta para cada opção
-        const falta2q = units.casa2quartos.plano1.valorInicio - valorDisponivelNum;
-        const falta3q = units.casa3quartos.plano1.valorInicio - valorDisponivelNum;
-        
-        if (falta2q < falta3q) {
-          unit = 'casa2quartos';
-          reasoning = `Para a casa de 2 quartos, você precisa de mais R$ ${formatCurrency(falta2q)}. Para a de 3 quartos, R$ ${formatCurrency(falta3q)}.`;
-        } else {
-          unit = 'casa3quartos';
-          reasoning = `Para a casa de 3 quartos, você precisa de mais R$ ${formatCurrency(falta3q)}. Para a de 2 quartos, R$ ${formatCurrency(falta2q)}.`;
-        }
-      }
-    } else {
-      // Lógica original baseada nas outras respostas
-      if (renda === 'acima5k' || perfilFamiliar === '4ouMais') {
-        unit = 'casa3quartos';
-        reasoning = 'Sua renda e perfil familiar indicam que a casa de 3 quartos seria ideal.';
-      }
+    // Lógica de recomendação baseada na renda
+    if (renda === 'acima5k') {
+      unit = 'casa3quartos';
+      reasoning = 'Sua renda indica que a casa de 3 quartos seria ideal.';
     }
 
-    // Escolher o melhor plano baseado no valor disponível
-    if (valorDisponivelNum > 0) {
-      const unitData = units[unit];
-      const plano1ValorInicio = unitData.plano1.valorInicio;
-      const plano2ValorInicio = unitData.plano2.valorInicio;
-      
-      if (valorDisponivelNum >= plano2ValorInicio) {
-        plan = 'plano2';
-        reasoning += ' Recomendamos o plano venda direta para aproveitar melhor seu capital.';
-      } else if (valorDisponivelNum >= plano1ValorInicio) {
-        plan = 'plano1';
-        reasoning += ' Recomendamos o plano com financiamento bancário.';
-      } else {
-        // Calcular plano personalizado
-        plan = 'personalizado';
-        reasoning += ' Vamos criar um plano personalizado para você!';
-      }
+    // Escolher o plano baseado na preferência
+    if (preferencia === 'vendaDireta') {
+      plan = 'plano2';
+      reasoning += ' Você prefere venda direta sem financiamento bancário.';
     } else {
-      if (preferenciaPagamento === 'semFinanciamento') {
-        plan = 'plano2';
-        reasoning += ' Você prefere pagar sem financiamento bancário.';
-      }
+      plan = 'plano1';
+      reasoning += ' Recomendamos o plano com financiamento bancário.';
     }
 
-    setRecommendation({ unit, plan, reasoning, valorDisponivel: valorDisponivelNum });
-    return { unit, plan, reasoning, valorDisponivel: valorDisponivelNum };
+    setRecommendation({ unit, plan, reasoning });
+    return { unit, plan, reasoning };
   };
 
   const formatCurrency = (value) => {
@@ -202,7 +151,7 @@ function App() {
   };
 
   const sendWhatsAppProposal = () => {
-    const { unit, plan, reasoning, valorDisponivel } = recommendation || generateRecommendation();
+    const { unit, plan, reasoning } = recommendation || generateRecommendation();
     const unitData = units[unit];
     const planData = unitData[plan === 'plano1' ? 'plano1' : 'plano2'];
     
@@ -213,21 +162,16 @@ function App() {
 
 *Dados do Cliente:*
 👤 Nome: ${formData.name}
-📱 Telefone: ${formData.phone}
-📧 Email: ${formData.email}
+📱 WhatsApp: ${formData.whatsapp}
 💵 Renda: ${formData.renda}
-👨‍👩‍👧‍👦 Perfil: ${formData.perfilFamiliar}
-
-*Valor Disponível para Investir:*
-💎 R$ ${formatCurrency(valorDisponivel)}
 
 *Recomendação do Sistema:*
 🎯 ${reasoning}
 
 *Plano de Pagamento Recomendado:*
-${plan === 'personalizado' ? '✨ Plano Personalizado' : plan === 'plano1' ? '🏦 Plano Financiamento' : '💳 Plano Venda Direta'}
+${plan === 'plano1' ? '🏦 Plano Financiamento' : '💳 Plano Venda Direta'}
 
-💳 Sinal: ${formatCurrency(planData.sinal)}
+💳 Sinal (8%): ${formatCurrency(planData.sinal)}
 📅 Mensais (24x): ${formatCurrency(planData.parcelasMensais)}
 🔄 Intercaladas: ${formatCurrency(planData.parcelasIntercaladas)}
 ${plan === 'plano1' ? `🏦 Financiamento: ${formatCurrency(planData.financiamentoBancario)}` : ''}
@@ -236,7 +180,7 @@ ${plan === 'plano1' ? `🏦 Financiamento: ${formatCurrency(planData.financiamen
 *Entrega: 24 meses*
 📍 Terreno: 20x80m
 
-_Proposta personalizada baseada no seu capital disponível_`;
+_Proposta personalizada baseada no seu perfil_`;
 
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/81993798551?text=${encodedMessage}`;
@@ -272,11 +216,11 @@ _Proposta personalizada baseada no seu capital disponível_`;
           </div>
         );
 
-      case 1: // Telefone
+      case 1: // WhatsApp
         return (
           <div className="text-center space-y-6">
             <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
-              <Phone className="w-12 h-12 text-white" />
+              <MessageCircle className="w-12 h-12 text-white" />
             </div>
             <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
             <p className="text-gray-600">{step.description}</p>
@@ -284,7 +228,7 @@ _Proposta personalizada baseada no seu capital disponível_`;
             <div className="grid grid-cols-1 gap-4">
               <button
                 onClick={() => {
-                  handleInputChange('phone', '(81) 99999-9999');
+                  handleInputChange('whatsapp', '(81) 99999-9999');
                   nextStep();
                 }}
                 className="p-6 bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl hover:from-green-200 hover:to-orange-200 hover:border-green-400 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
@@ -296,31 +240,7 @@ _Proposta personalizada baseada no seu capital disponível_`;
           </div>
         );
 
-      case 2: // Email
-        return (
-          <div className="text-center space-y-6">
-            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
-              <Mail className="w-12 h-12 text-white" />
-            </div>
-            <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
-            <p className="text-gray-600">{step.description}</p>
-            
-            <div className="grid grid-cols-1 gap-4">
-              <button
-                onClick={() => {
-                  handleInputChange('email', 'cliente@email.com');
-                  nextStep();
-                }}
-                className="p-6 bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl hover:from-green-200 hover:to-orange-200 hover:border-green-400 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
-              >
-                <h3 className="text-xl font-bold text-gray-800 mb-2">📧 cliente@email.com</h3>
-                <p className="text-gray-600">Clique para continuar</p>
-              </button>
-            </div>
-          </div>
-        );
-
-      case 3: // Renda
+      case 2: // Renda
         return (
           <div className="text-center space-y-6">
             <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
@@ -330,6 +250,39 @@ _Proposta personalizada baseada no seu capital disponível_`;
             <p className="text-gray-600">{step.description}</p>
             
             <div className="grid grid-cols-1 gap-4">
+              <button
+                onClick={() => {
+                  handleInputChange('renda', 'ate2k');
+                  nextStep();
+                }}
+                className="p-6 bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl hover:from-green-200 hover:to-orange-200 hover:border-green-400 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                <h3 className="text-xl font-bold text-gray-800 mb-2">💰 Até R$ 2.000</h3>
+                <p className="text-gray-600">Clique para continuar</p>
+              </button>
+
+              <button
+                onClick={() => {
+                  handleInputChange('renda', '2k3k');
+                  nextStep();
+                }}
+                className="p-6 bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl hover:from-green-200 hover:to-orange-200 hover:border-green-400 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                <h3 className="text-xl font-bold text-gray-800 mb-2">💰 R$ 2.000 - R$ 3.000</h3>
+                <p className="text-gray-600">Clique para continuar</p>
+              </button>
+
+              <button
+                onClick={() => {
+                  handleInputChange('renda', '3k5k');
+                  nextStep();
+                }}
+                className="p-6 bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl hover:from-green-200 hover:to-orange-200 hover:border-green-400 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                <h3 className="text-xl font-bold text-gray-800 mb-2">💰 R$ 3.000 - R$ 5.000</h3>
+                <p className="text-gray-600">Clique para continuar</p>
+              </button>
+
               <button
                 onClick={() => {
                   handleInputChange('renda', 'acima5k');
@@ -344,31 +297,7 @@ _Proposta personalizada baseada no seu capital disponível_`;
           </div>
         );
 
-      case 4: // Perfil Familiar
-        return (
-          <div className="text-center space-y-6">
-            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
-              <Users className="w-12 h-12 text-white" />
-            </div>
-            <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
-            <p className="text-gray-600">{step.description}</p>
-            
-            <div className="grid grid-cols-1 gap-4">
-              <button
-                onClick={() => {
-                  handleInputChange('perfilFamiliar', 'familia3');
-                  nextStep();
-                }}
-                className="p-6 bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl hover:from-green-200 hover:to-orange-200 hover:border-green-400 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
-              >
-                <h3 className="text-xl font-bold text-gray-800 mb-2">👨‍👩‍👧‍👦 Família (3 pessoas)</h3>
-                <p className="text-gray-600">Clique para continuar</p>
-              </button>
-            </div>
-          </div>
-        );
-
-      case 5: // Preferência de Pagamento
+      case 3: // Preferência
         return (
           <div className="text-center space-y-6">
             <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
@@ -380,91 +309,30 @@ _Proposta personalizada baseada no seu capital disponível_`;
             <div className="grid grid-cols-1 gap-4">
               <button
                 onClick={() => {
-                  handleInputChange('preferenciaPagamento', 'comFinanciamento');
+                  handleInputChange('preferencia', 'vendaFinanciada');
                   nextStep();
                 }}
                 className="p-6 bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl hover:from-green-200 hover:to-orange-200 hover:border-green-400 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
-                <h3 className="text-xl font-bold text-gray-800 mb-2">🏦 Com Financiamento Bancário</h3>
-                <p className="text-gray-600">Clique para continuar</p>
+                <h3 className="text-xl font-bold text-gray-800 mb-2">🏦 Venda Financiada</h3>
+                <p className="text-gray-600">Com financiamento bancário</p>
               </button>
-            </div>
-          </div>
-        );
 
-      case 6: // Tipo de Entrada
-        return (
-          <div className="text-center space-y-6">
-            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
-              <Building2 className="w-12 h-12 text-white" />
-            </div>
-            <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
-            <p className="text-gray-600">{step.description}</p>
-            
-            <div className="grid grid-cols-1 gap-4">
               <button
                 onClick={() => {
-                  handleInputChange('tipoEntrada', 'sinal');
+                  handleInputChange('preferencia', 'vendaDireta');
                   nextStep();
                 }}
                 className="p-6 bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl hover:from-green-200 hover:to-orange-200 hover:border-green-400 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
-                <h3 className="text-xl font-bold text-gray-800 mb-2">💳 Sinal + Mensais</h3>
-                <p className="text-gray-600">Clique para continuar</p>
+                <h3 className="text-xl font-bold text-gray-800 mb-2">💳 Venda Direta</h3>
+                <p className="text-gray-600">Sem financiamento bancário</p>
               </button>
             </div>
           </div>
         );
 
-      case 7: // Valor Disponível
-        return (
-          <div className="text-center space-y-6">
-            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
-              <DollarSign className="w-12 h-12 text-white" />
-            </div>
-            <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
-            <p className="text-gray-600">{step.description}</p>
-            
-            <div className="grid grid-cols-1 gap-4">
-              <button
-                onClick={() => {
-                  handleInputChange('valorDisponivel', '30000');
-                  nextStep();
-                }}
-                className="p-6 bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl hover:from-green-200 hover:to-orange-200 hover:border-green-400 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
-              >
-                <h3 className="text-xl font-bold text-gray-800 mb-2">💎 R$ 30.000,00</h3>
-                <p className="text-gray-600">Clique para continuar</p>
-              </button>
-            </div>
-          </div>
-        );
-
-      case 8: // Recomendação
-        return (
-          <div className="text-center space-y-6">
-            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
-              <CheckCircle className="w-12 h-12 text-white" />
-            </div>
-            <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
-            <p className="text-gray-600">{step.description}</p>
-            
-            <div className="grid grid-cols-1 gap-4">
-              <button
-                onClick={() => {
-                  generateRecommendation();
-                  nextStep();
-                }}
-                className="p-6 bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl hover:from-green-200 hover:to-orange-200 hover:border-green-400 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
-              >
-                <h3 className="text-xl font-bold text-gray-800 mb-2">🎯 Gerar Recomendação</h3>
-                <p className="text-gray-600">Clique para continuar</p>
-              </button>
-            </div>
-          </div>
-        );
-
-      case 9: // Simulação Completa
+      case 4: // Simulação Completa
         return (
           <div className="space-y-6">
             <div className="text-center">
@@ -550,17 +418,8 @@ _Proposta personalizada baseada no seu capital disponível_`;
             {/* Simulação */}
             {selectedUnit && selectedPlan && (
               <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-gray-800 text-center">Sua Simulação Personalizada</h3>
+                <h3 className="text-xl font-semibold text-gray-800 text-center">Sua Simulação</h3>
                 
-                {/* Valor Disponível */}
-                {formData.valorDisponivel && (
-                  <div className="bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl p-4 text-center shadow-lg">
-                    <h4 className="text-lg font-semibold text-green-700 mb-2">💎 Seu Capital Disponível</h4>
-                    <p className="text-3xl font-bold text-gray-800">{formatCurrency(parseFloat(formData.valorDisponivel))}</p>
-                    <p className="text-gray-600 text-sm mt-1">Valor para investir na casa</p>
-                  </div>
-                )}
-
                 <div className="bg-white border-2 border-green-200 rounded-xl p-4 space-y-3 shadow-lg">
                   {(() => {
                     const unitData = units[selectedUnit];
@@ -596,33 +455,6 @@ _Proposta personalizada baseada no seu capital disponível_`;
                             <span className="text-2xl font-bold text-gray-800">{formatCurrency(planData.valorInicio)}</span>
                           </div>
                         </div>
-                        
-                        {/* Análise do Capital */}
-                        {formData.valorDisponivel && (
-                          <div className="pt-3 border-t border-green-200">
-                            {(() => {
-                              const valorDisponivel = parseFloat(formData.valorDisponivel);
-                              const valorInicio = planData.valorInicio;
-                              const diferenca = valorDisponivel - valorInicio;
-                              
-                              if (diferenca >= 0) {
-                                return (
-                                  <div className="text-center">
-                                    <p className="text-green-600 font-semibold">✅ Capital Suficiente!</p>
-                                    <p className="text-gray-700 text-sm">Sobra: {formatCurrency(diferenca)}</p>
-                                  </div>
-                                );
-                              } else {
-                                return (
-                                  <div className="text-center">
-                                    <p className="text-orange-600 font-semibold">⚠️ Capital Insuficiente</p>
-                                    <p className="text-gray-700 text-sm">Falta: {formatCurrency(Math.abs(diferenca))}</p>
-                                  </div>
-                                );
-                              }
-                            })()}
-                          </div>
-                        )}
                       </>
                     );
                   })()}
@@ -634,7 +466,7 @@ _Proposta personalizada baseada no seu capital disponível_`;
                   className="w-full bg-gradient-to-r from-green-500 to-orange-500 hover:from-green-600 hover:to-orange-600 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
                 >
                   <MessageCircle className="w-5 h-5" />
-                  <span>Enviar Proposta Completa pelo WhatsApp</span>
+                  <span>Enviar Proposta pelo WhatsApp</span>
                 </button>
 
                 {/* Botão Planta */}
