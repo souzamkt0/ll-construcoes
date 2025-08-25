@@ -1,605 +1,552 @@
 import React, { useState } from 'react';
-import { Home, MapPin, Phone, Mail, Clock, Calculator, FileText, Eye, EyeOff, ChevronDown, ChevronUp, TrendingUp, Building2, Info, ArrowRight, ArrowLeft, CheckCircle, Star, Users, Target, Award } from 'lucide-react';
+import { 
+  User, Phone, Mail, DollarSign, Users, CreditCard, 
+  Building2, Home, MapPin, CheckCircle, Send, 
+  ChevronLeft, ChevronRight, ArrowRight, MessageCircle
+} from 'lucide-react';
 
 function App() {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
-    nome: '',
+    name: '',
+    phone: '',
     email: '',
-    telefone: '',
     renda: '',
-    perfil: '',
-    preferencia: '',
-    disponibilidade: ''
+    perfilFamiliar: '',
+    preferenciaPagamento: '',
+    tipoEntrada: '',
+    selectedUnit: '',
+    selectedPlan: ''
   });
-  const [selectedUnit, setSelectedUnit] = useState(null);
-  const [selectedPlan, setSelectedPlan] = useState('plano1');
+  const [selectedUnit, setSelectedUnit] = useState('');
+  const [selectedPlan, setSelectedPlan] = useState('');
   const [showFloorPlan, setShowFloorPlan] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [recommendation, setRecommendation] = useState(null);
 
-  // Dados das unidades
   const units = {
     casa2quartos: {
-      name: 'Casa 2 Quartos',
-      price: 260000,
-      area: '20x80m²',
-      popular: true,
+      valor: 260000,
       plano1: {
-        sinal: 260000 * 0.08,
+        sinal: 20800,
         parcelasMensais: 1679.17,
-        totalMensais: 1679.17 * 24,
-        parcelasIntercaladas: 4875.00,
-        totalIntercaladas: 4875.00 * 4,
-        financiamentoBancario: 260000 * 0.69,
-        valorInicio: (260000 * 0.08) + 1679.17
+        totalMensais: 40300.08,
+        parcelasIntercaladas: 4875,
+        totalIntercaladas: 19500,
+        financiamentoBancario: 179400,
+        valorInicio: 22479.17
       },
       plano2: {
-        sinal: 260000 * 0.08,
-        parcelasIntercaladas: 4800.00,
-        totalIntercaladas: 4800.00 * 10,
-        saldoMensais: 260000 - (260000 * 0.08) - (4800.00 * 10),
-        parcelasMensais: (260000 - (260000 * 0.08) - (4800.00 * 10)) / 24,
-        totalMensais: 260000 - (260000 * 0.08) - (4800.00 * 10),
-        valorInicio: (260000 * 0.08) + ((260000 - (260000 * 0.08) - (4800.00 * 10)) / 24),
+        sinal: 20800,
+        parcelasIntercaladas: 4800,
+        totalIntercaladas: 48000,
+        saldoMensais: 191200,
+        parcelasMensais: 7966.67,
+        totalMensais: 191200,
+        valorInicio: 28766.67,
         financiamentoBancario: 0
       },
       floorPlan: {
-        rooms: [
-          { id: 1, name: 'SALA DE ESTAR', dimensions: '4,20 x 3,60m', area: '15,12m²', color: 'blue', colSpan: 2, rowSpan: 2 },
-          { id: 2, name: 'COZINHA', dimensions: '3,20 x 2,80m', area: '8,96m²', color: 'green', colSpan: 2, rowSpan: 1 },
-          { id: 3, name: 'QUARTO 1', dimensions: '3,00 x 2,80m', area: '8,40m²', color: 'purple', colSpan: 1, rowSpan: 1 },
-          { id: 4, name: 'QUARTO 2', dimensions: '3,00 x 2,80m', area: '8,40m²', color: 'orange', colSpan: 1, rowSpan: 1 },
-          { id: 5, name: 'BANHEIRO', dimensions: '2,20 x 2,00m', area: '4,40m²', color: 'red', colSpan: 1, rowSpan: 1 },
-          { id: 6, name: 'ÁREA SERVIÇOS', dimensions: '2,00 x 1,80m', area: '3,60m²', color: 'yellow', colSpan: 1, rowSpan: 1 },
-          { id: 7, name: 'CORREDOR', dimensions: '1,20 x 2,80m', area: '3,36m²', color: 'gray', colSpan: 1, rowSpan: 1 }
-        ],
-        totalArea: '52,20m²',
-        terrainDimensions: '20,00 x 80,00m',
-        finishingStandard: 'Alto Padrão'
+        quartos: 2,
+        area: '42m²',
+        dimensoes: '20x80',
+        especificacoes: {
+          sala: { area: '12m²', dimensoes: '4x3m' },
+          cozinha: { area: '8m²', dimensoes: '4x2m' },
+          quarto1: { area: '10m²', dimensoes: '3.3x3m' },
+          quarto2: { area: '9m²', dimensoes: '3x3m' },
+          banheiro: { area: '3m²', dimensoes: '2x1.5m' }
+        }
       }
     },
     casa3quartos: {
-      name: 'Casa 3 Quartos',
-      price: 280000,
-      area: '20x80m²',
-      popular: false,
+      valor: 280000,
       plano1: {
-        sinal: 280000 * 0.08,
-        parcelasMensais: 1754.00,
-        totalMensais: 1754.00 * 24,
-        parcelasIntercaladas: 5250.00,
-        totalIntercaladas: 5250.00 * 4,
-        financiamentoBancario: 280000 * 0.69,
-        valorInicio: (280000 * 0.08) + 1754.00
+        sinal: 22400,
+        parcelasMensais: 1754,
+        totalMensais: 42096,
+        parcelasIntercaladas: 5250,
+        totalIntercaladas: 21000,
+        financiamentoBancario: 193200,
+        valorInicio: 24154
       },
       plano2: {
-        sinal: 280000 * 0.08,
-        parcelasIntercaladas: 5200.00,
-        totalIntercaladas: 5200.00 * 10,
-        saldoMensais: 280000 - (280000 * 0.08) - (5200.00 * 10),
-        parcelasMensais: (280000 - (280000 * 0.08) - (5200.00 * 10)) / 24,
-        totalMensais: 280000 - (280000 * 0.08) - (5200.00 * 10),
-        valorInicio: (280000 * 0.08) + ((280000 - (280000 * 0.08) - (5200.00 * 10)) / 24),
+        sinal: 22400,
+        parcelasIntercaladas: 5200,
+        totalIntercaladas: 52000,
+        saldoMensais: 205600,
+        parcelasMensais: 8566.67,
+        totalMensais: 205600,
+        valorInicio: 30966.67,
         financiamentoBancario: 0
       },
       floorPlan: {
-        rooms: [
-          { id: 1, name: 'SALA DE ESTAR', dimensions: '4,50 x 3,80m', area: '17,10m²', color: 'blue', colSpan: 2, rowSpan: 2 },
-          { id: 2, name: 'COZINHA', dimensions: '3,50 x 3,00m', area: '10,50m²', color: 'green', colSpan: 2, rowSpan: 1 },
-          { id: 3, name: 'QUARTO 1', dimensions: '3,20 x 3,00m', area: '9,60m²', color: 'purple', colSpan: 1, rowSpan: 1 },
-          { id: 4, name: 'QUARTO 2', dimensions: '3,20 x 3,00m', area: '9,60m²', color: 'orange', colSpan: 1, rowSpan: 1 },
-          { id: 5, name: 'QUARTO 3', dimensions: '3,00 x 2,80m', area: '8,40m²', color: 'pink', colSpan: 1, rowSpan: 1 },
-          { id: 6, name: 'BANHEIRO 1', dimensions: '2,50 x 2,20m', area: '5,50m²', color: 'red', colSpan: 1, rowSpan: 1 },
-          { id: 7, name: 'BANHEIRO 2', dimensions: '2,20 x 2,00m', area: '4,40m²', color: 'indigo', colSpan: 1, rowSpan: 1 },
-          { id: 8, name: 'ÁREA SERVIÇOS', dimensions: '2,20 x 2,00m', area: '4,40m²', color: 'yellow', colSpan: 1, rowSpan: 1 },
-          { id: 9, name: 'CORREDOR', dimensions: '1,50 x 3,00m', area: '4,50m²', color: 'gray', colSpan: 1, rowSpan: 1 }
-        ],
-        totalArea: '73,60m²',
-        terrainDimensions: '20,00 x 80,00m',
-        finishingStandard: 'Alto Padrão'
+        quartos: 3,
+        area: '48m²',
+        dimensoes: '20x80',
+        especificacoes: {
+          sala: { area: '14m²', dimensoes: '4.5x3m' },
+          cozinha: { area: '9m²', dimensoes: '4.5x2m' },
+          quarto1: { area: '11m²', dimensoes: '3.5x3m' },
+          quarto2: { area: '10m²', dimensoes: '3.3x3m' },
+          quarto3: { area: '9m²', dimensoes: '3x3m' },
+          banheiro: { area: '3m²', dimensoes: '2x1.5m' },
+          suite: { area: '4m²', dimensoes: '2x2m' }
+        }
       }
     }
   };
 
-  const currentUnit = selectedUnit || units.casa2quartos;
-  const currentPlan = currentUnit[selectedPlan] || currentUnit.plano1;
+  const steps = [
+    { title: 'Nome', description: 'Como podemos te chamar?' },
+    { title: 'Telefone', description: 'Seu número para contato' },
+    { title: 'Email', description: 'Para envio da proposta' },
+    { title: 'Renda', description: 'Sua faixa de renda mensal' },
+    { title: 'Perfil Familiar', description: 'Quantas pessoas na família?' },
+    { title: 'Preferência de Pagamento', description: 'Como prefere pagar?' },
+    { title: 'Tipo de Entrada', description: 'Qual entrada você prefere?' },
+    { title: 'Recomendação', description: 'Sua proposta personalizada' },
+    { title: 'Simulação Completa', description: 'Detalhes da sua proposta' }
+  ];
 
-  const formatCurrency = (value) => {
-    if (value === undefined || value === null || isNaN(value)) {
-      return 'R$ 0,00';
+  const nextStep = () => {
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(currentStep + 1);
     }
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
-    }).format(value);
+  };
+
+  const prevStep = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    }
   };
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const nextStep = () => {
-    if (currentStep < 9) {
-      setCurrentStep(currentStep + 1);
-    }
-  };
-
-  const prevStep = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-    }
-  };
-
   const generateRecommendation = () => {
-    // Lógica para gerar recomendação baseada no perfil do cliente
-    const { renda, perfil, preferencia, disponibilidade } = formData;
+    const { renda, perfilFamiliar, preferenciaPagamento, tipoEntrada } = formData;
     
-    let recommendedUnit = units.casa2quartos;
-    let recommendedPlan = 'plano1';
-    let reasoning = [];
+    let unit = 'casa2quartos';
+    let plan = 'plano1';
+    let reasoning = '';
 
-    // Recomendação baseada na renda
-    if (parseFloat(renda) >= 8000) {
-      recommendedUnit = units.casa3quartos;
-      reasoning.push('Renda compatível com casa de 3 quartos');
-    } else {
-      reasoning.push('Renda ideal para casa de 2 quartos');
+    // Lógica de recomendação baseada nas respostas
+    if (renda === 'acima5k' || perfilFamiliar === '4ouMais') {
+      unit = 'casa3quartos';
+      reasoning = 'Sua renda e perfil familiar indicam que a casa de 3 quartos seria ideal.';
     }
 
-    // Recomendação baseada no perfil
-    if (perfil === 'familia') {
-      recommendedUnit = units.casa3quartos;
-      reasoning.push('Perfil familiar ideal para 3 quartos');
-    } else if (perfil === 'casal') {
-      recommendedUnit = units.casa2quartos;
-      reasoning.push('Perfil de casal ideal para 2 quartos');
+    if (preferenciaPagamento === 'semFinanciamento') {
+      plan = 'plano2';
+      reasoning += ' Você prefere pagar sem financiamento bancário.';
     }
 
-    // Recomendação baseada na preferência de pagamento
-    if (preferencia === 'parcelas_menores') {
-      recommendedPlan = 'plano1';
-      reasoning.push('Preferência por parcelas menores durante a obra');
-    } else if (preferencia === 'quitar_rapido') {
-      recommendedPlan = 'plano2';
-      reasoning.push('Objetivo de quitar o imóvel rapidamente');
-    }
-
-    // Recomendação baseada na disponibilidade de entrada
-    if (disponibilidade === 'entrada_baixa') {
-      recommendedPlan = 'plano1';
-      reasoning.push('Entrada menor com financiamento bancário');
-    } else if (disponibilidade === 'entrada_alta') {
-      recommendedPlan = 'plano2';
-      reasoning.push('Maior entrada para quitação direta');
-    }
-
-    setRecommendation({
-      unit: recommendedUnit,
-      plan: recommendedPlan,
-      reasoning: reasoning
-    });
-
-    setSelectedUnit(recommendedUnit);
-    setSelectedPlan(recommendedPlan);
+    setRecommendation({ unit, plan, reasoning });
+    return { unit, plan, reasoning };
   };
 
-  const steps = [
-    { id: 1, title: 'Nome', icon: Users },
-    { id: 2, title: 'Telefone', icon: Phone },
-    { id: 3, title: 'Email', icon: Mail },
-    { id: 4, title: 'Renda', icon: Target },
-    { id: 5, title: 'Perfil Familiar', icon: Users },
-    { id: 6, title: 'Preferência de Pagamento', icon: Star },
-    { id: 7, title: 'Tipo de Entrada', icon: Building2 },
-    { id: 8, title: 'Recomendação', icon: Award },
-    { id: 9, title: 'Simulação', icon: Calculator }
-  ];
+  const formatCurrency = (value) => {
+    if (isNaN(value) || value === 0) return 'R$ 0,00';
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(value);
+  };
+
+  const sendWhatsAppProposal = () => {
+    const { unit, plan } = recommendation || generateRecommendation();
+    const unitData = units[unit];
+    const planData = unitData.plano1;
+    
+    const message = `🏠 *PROPOSTA LL CONSTRUÇÕES* 🏠
+
+*${unit === 'casa2quartos' ? 'Casa 2 Quartos' : 'Casa 3 Quartos'}*
+💰 Valor: ${formatCurrency(unitData.valor)}
+
+*Dados do Cliente:*
+👤 Nome: ${formData.name}
+📱 Telefone: ${formData.phone}
+📧 Email: ${formData.email}
+💵 Renda: ${formData.renda}
+👨‍👩‍👧‍👦 Perfil: ${formData.perfilFamiliar}
+
+*Plano de Pagamento:*
+💳 Sinal: ${formatCurrency(planData.sinal)}
+📅 Mensais (24x): ${formatCurrency(planData.parcelasMensais)}
+🔄 Intercaladas: ${formatCurrency(planData.parcelasIntercaladas)}
+🏦 Financiamento: ${formatCurrency(planData.financiamentoBancario)}
+🚀 Valor para Início: ${formatCurrency(planData.valorInicio)}
+
+*Entrega: 24 meses*
+📍 Terreno: 20x80m
+
+_Proposta gerada automaticamente pelo simulador LL Construções_`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/81993798551?text=${encodedMessage}`;
+    
+    window.open(whatsappUrl, '_blank');
+  };
 
   const renderStep = () => {
+    const step = steps[currentStep];
+    
     switch (currentStep) {
-      case 1:
+      case 0: // Nome
         return (
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="mb-16">
-              <div className="w-32 h-32 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl">
-                <Users className="w-16 h-16 text-white" />
-              </div>
-              <h2 className="text-5xl font-bold text-white mb-6">Como podemos te chamar?</h2>
-              <p className="text-xl text-cyan-100 max-w-2xl mx-auto">
-                Vamos começar conhecendo você para oferecer a melhor opção de financiamento
-              </p>
+          <div className="text-center space-y-6">
+            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-400 to-green-700 rounded-full flex items-center justify-center">
+              <User className="w-12 h-12 text-white" />
             </div>
-            
-            <div className="max-w-lg mx-auto">
-              <div className="text-left mb-8">
-                <label className="block text-sm font-medium text-cyan-100 mb-4 text-lg">Nome Completo</label>
-                <input
-                  type="text"
-                  value={formData.nome}
-                  onChange={(e) => handleInputChange('nome', e.target.value)}
-                  className="w-full px-8 py-6 bg-white/20 backdrop-blur-sm border-2 border-white/30 rounded-3xl focus:ring-4 focus:ring-cyan-400/30 focus:border-cyan-400 transition-all text-xl text-center text-white placeholder-white/60"
-                  placeholder="Digite seu nome completo"
-                  autoFocus
-                />
-              </div>
-              
-              <div className="text-center">
-                <p className="text-cyan-200 text-sm">
-                  Digite seu nome completo como aparece nos documentos
-                </p>
-              </div>
-            </div>
+            <h2 className="text-2xl font-bold text-white">{step.title}</h2>
+            <p className="text-green-100">{step.description}</p>
+            <input
+              type="text"
+              value={formData.name}
+              onChange={(e) => handleInputChange('name', e.target.value)}
+              placeholder="Digite seu nome completo"
+              className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-green-200 focus:outline-none focus:ring-2 focus:ring-green-400"
+            />
           </div>
         );
 
-      case 2:
+      case 1: // Telefone
         return (
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="mb-16">
-              <div className="w-32 h-32 bg-gradient-to-br from-green-400 to-green-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl">
-                <Phone className="w-16 h-16 text-white" />
-              </div>
-              <h2 className="text-5xl font-bold text-white mb-6">Qual é o seu telefone?</h2>
-              <p className="text-xl text-cyan-100 max-w-2xl mx-auto">
-                Para entrarmos em contato e enviar sua simulação personalizada
-              </p>
+          <div className="text-center space-y-6">
+            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-400 to-green-700 rounded-full flex items-center justify-center">
+              <Phone className="w-12 h-12 text-white" />
             </div>
-            
-            <div className="max-w-lg mx-auto">
-              <div className="text-left mb-8">
-                <label className="block text-sm font-medium text-cyan-100 mb-4 text-lg">Telefone</label>
-                <input
-                  type="tel"
-                  value={formData.telefone}
-                  onChange={(e) => handleInputChange('telefone', e.target.value)}
-                  className="w-full px-8 py-6 bg-white/20 backdrop-blur-sm border-2 border-white/30 rounded-3xl focus:ring-4 focus:ring-green-400/30 focus:border-green-400 transition-all text-xl text-center text-white placeholder-white/60"
-                  placeholder="(81) 99999-9999"
-                  autoFocus
-                />
-              </div>
-              
-              <div className="text-center">
-                <p className="text-cyan-200 text-sm">
-                  WhatsApp ou telefone para contato
-                </p>
-              </div>
-            </div>
+            <h2 className="text-2xl font-bold text-white">{step.title}</h2>
+            <p className="text-green-100">{step.description}</p>
+            <input
+              type="tel"
+              value={formData.phone}
+              onChange={(e) => handleInputChange('phone', e.target.value)}
+              placeholder="(11) 99999-9999"
+              className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-green-200 focus:outline-none focus:ring-2 focus:ring-green-400"
+            />
           </div>
         );
 
-      case 3:
+      case 2: // Email
         return (
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="mb-16">
-              <div className="w-32 h-32 bg-gradient-to-br from-purple-400 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl">
-                <Mail className="w-16 h-16 text-white" />
-              </div>
-              <h2 className="text-5xl font-bold text-white mb-6">Qual é o seu email?</h2>
-              <p className="text-xl text-cyan-100 max-w-2xl mx-auto">
-                Para enviarmos sua simulação completa e acompanharmos o processo
-              </p>
+          <div className="text-center space-y-6">
+            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-400 to-green-700 rounded-full flex items-center justify-center">
+              <Mail className="w-12 h-12 text-white" />
             </div>
-            
-            <div className="max-w-lg mx-auto">
-              <div className="text-left mb-8">
-                <label className="block text-sm font-medium text-cyan-100 mb-4 text-lg">Email</label>
-                <input
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => handleInputChange('email', e.target.value)}
-                  className="w-full px-8 py-6 bg-white/20 backdrop-blur-sm border-2 border-white/30 rounded-3xl focus:ring-4 focus:ring-purple-400/30 focus:border-purple-400 transition-all text-xl text-center text-white placeholder-white/60"
-                  placeholder="seu@email.com"
-                  autoFocus
-                />
-              </div>
-              
-              <div className="text-center">
-                <p className="text-cyan-200 text-sm">
-                  Email válido para receber informações
-                </p>
-              </div>
-            </div>
+            <h2 className="text-2xl font-bold text-white">{step.title}</h2>
+            <p className="text-green-100">{step.description}</p>
+            <input
+              type="email"
+              value={formData.email}
+              onChange={(e) => handleInputChange('email', e.target.value)}
+              placeholder="seu@email.com"
+              className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-green-200 focus:outline-none focus:ring-2 focus:ring-green-400"
+            />
           </div>
         );
 
-      case 4:
+      case 3: // Renda
         return (
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="mb-16">
-              <div className="w-32 h-32 bg-gradient-to-br from-orange-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl">
-                <Target className="w-16 h-16 text-white" />
-              </div>
-              <h2 className="text-5xl font-bold text-white mb-6">Qual é a sua renda mensal?</h2>
-              <p className="text-xl text-cyan-100 max-w-2xl mx-auto">
-                Para encontrarmos o financiamento ideal para o seu perfil
-              </p>
+          <div className="text-center space-y-6">
+            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-400 to-green-700 rounded-full flex items-center justify-center">
+              <DollarSign className="w-12 h-12 text-white" />
             </div>
+            <h2 className="text-2xl font-bold text-white">{step.title}</h2>
+            <p className="text-green-100">{step.description}</p>
+            <select
+              value={formData.renda}
+              onChange={(e) => handleInputChange('renda', e.target.value)}
+              className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-green-400"
+            >
+              <option value="" className="bg-green-800 text-white">Selecione sua renda</option>
+              <option value="ate2k" className="bg-green-800 text-white">Até R$ 2.000</option>
+              <option value="2k3k" className="bg-green-800 text-white">R$ 2.000 - R$ 3.000</option>
+              <option value="3k5k" className="bg-green-800 text-white">R$ 3.000 - R$ 5.000</option>
+              <option value="acima5k" className="bg-green-800 text-white">Acima de R$ 5.000</option>
+            </select>
+          </div>
+        );
+
+      case 4: // Perfil Familiar
+        return (
+          <div className="text-center space-y-6">
+            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-400 to-green-700 rounded-full flex items-center justify-center">
+              <Users className="w-12 h-12 text-white" />
+            </div>
+            <h2 className="text-2xl font-bold text-white">{step.title}</h2>
+            <p className="text-green-100">{step.description}</p>
+            <select
+              value={formData.perfilFamiliar}
+              onChange={(e) => handleInputChange('perfilFamiliar', e.target.value)}
+              className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-green-400"
+            >
+              <option value="" className="bg-green-800 text-white">Selecione o perfil</option>
+              <option value="solteiro" className="bg-green-800 text-white">Solteiro(a)</option>
+              <option value="casal" className="bg-green-800 text-white">Casal</option>
+              <option value="familia3" className="bg-green-800 text-white">Família (3 pessoas)</option>
+              <option value="4ouMais" className="bg-green-800 text-white">4 ou mais pessoas</option>
+            </select>
+          </div>
+        );
+
+      case 5: // Preferência de Pagamento
+        return (
+          <div className="text-center space-y-6">
+            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-400 to-green-700 rounded-full flex items-center justify-center">
+              <CreditCard className="w-12 h-12 text-white" />
+            </div>
+            <h2 className="text-2xl font-bold text-white">{step.title}</h2>
+            <p className="text-green-100">{step.description}</p>
+            <select
+              value={formData.preferenciaPagamento}
+              onChange={(e) => handleInputChange('preferenciaPagamento', e.target.value)}
+              className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-green-400"
+            >
+              <option value="" className="bg-green-800 text-white">Selecione a preferência</option>
+              <option value="comFinanciamento" className="bg-green-800 text-white">Com financiamento bancário</option>
+              <option value="semFinanciamento" className="bg-green-800 text-white">Sem financiamento bancário</option>
+              <option value="flexivel" className="bg-green-800 text-white">Flexível</option>
+            </select>
+          </div>
+        );
+
+      case 6: // Tipo de Entrada
+        return (
+          <div className="text-center space-y-6">
+            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-400 to-green-700 rounded-full flex items-center justify-center">
+              <Building2 className="w-12 h-12 text-white" />
+            </div>
+            <h2 className="text-2xl font-bold text-white">{step.title}</h2>
+            <p className="text-green-100">{step.description}</p>
+            <select
+              value={formData.tipoEntrada}
+              onChange={(e) => handleInputChange('tipoEntrada', e.target.value)}
+              className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-green-400"
+            >
+              <option value="" className="bg-green-800 text-white">Selecione o tipo</option>
+              <option value="sinal" className="bg-green-800 text-white">Sinal + Mensais</option>
+              <option value="entradaMaior" className="bg-green-800 text-white">Entrada maior</option>
+              <option value="parcelado" className="bg-green-800 text-white">Tudo parcelado</option>
+            </select>
+          </div>
+        );
+
+      case 7: // Recomendação
+        return (
+          <div className="text-center space-y-6">
+            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-400 to-green-700 rounded-full flex items-center justify-center">
+              <CheckCircle className="w-12 h-12 text-white" />
+            </div>
+            <h2 className="text-2xl font-bold text-white">{step.title}</h2>
+            <p className="text-green-100">{step.description}</p>
             
-            <div className="max-w-lg mx-auto">
-              <div className="text-left mb-8">
-                <label className="block text-sm font-medium text-cyan-100 mb-4 text-lg">Renda Mensal (R$)</label>
-                <div className="relative">
-                  <span className="absolute left-8 top-1/2 transform -translate-y-1/2 text-cyan-200 text-xl">R$</span>
-                  <input
-                    type="number"
-                    value={formData.renda}
-                    onChange={(e) => handleInputChange('renda', e.target.value)}
-                    className="w-full pl-16 pr-8 py-6 bg-white/20 backdrop-blur-sm border-2 border-white/30 rounded-3xl focus:ring-4 focus:ring-orange-400/30 focus:border-orange-400 transition-all text-xl text-center text-white placeholder-white/60"
-                    placeholder="5000"
-                    autoFocus
-                  />
+            {recommendation ? (
+              <div className="space-y-4">
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
+                  <h3 className="text-lg font-semibold text-white mb-2">
+                    {recommendation.unit === 'casa2quartos' ? '🏠 Casa 2 Quartos' : '🏠 Casa 3 Quartos'}
+                  </h3>
+                  <p className="text-green-100 text-sm">{recommendation.reasoning}</p>
                 </div>
-              </div>
-              
-              <div className="text-center">
-                <p className="text-cyan-200 text-sm">
-                  Informe sua renda bruta mensal
-                </p>
-              </div>
-            </div>
-          </div>
-        );
-
-      case 5:
-        return (
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="mb-16">
-              <div className="w-32 h-32 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl">
-                <Users className="w-16 h-16 text-white" />
-              </div>
-              <h2 className="text-5xl font-bold text-slate-800 mb-6">Qual é o seu perfil familiar?</h2>
-              <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-                Para recomendarmos a unidade ideal para suas necessidades
-              </p>
-            </div>
-            
-            <div className="max-w-4xl mx-auto">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                {[
-                  { value: 'solteiro', label: 'Solteiro(a)', icon: '👤', desc: 'Pessoa sozinha' },
-                  { value: 'casal', label: 'Casal', icon: '👫', desc: 'Sem filhos' },
-                  { value: 'familia', label: 'Família', icon: '👨‍👩‍👧‍👦', desc: 'Com filhos' },
-                  { value: 'investidor', label: 'Investidor', icon: '💰', desc: 'Para investimento' }
-                ].map((option) => (
-                  <div
-                    key={option.value}
-                    onClick={() => handleInputChange('perfil', option.value)}
-                    className={`p-8 rounded-3xl border-2 cursor-pointer transition-all transform hover:scale-105 ${
-                      formData.perfil === option.value
-                        ? 'border-red-500 bg-red-50 ring-4 ring-red-500/20'
-                        : 'border-slate-200 hover:border-red-300'
-                    }`}
-                  >
-                    <div className="text-4xl mb-4">{option.icon}</div>
-                    <div className="font-bold text-slate-800 mb-2 text-lg">{option.label}</div>
-                    <div className="text-sm text-slate-600">{option.desc}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        );
-
-      case 6:
-        return (
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="mb-16">
-              <div className="w-32 h-32 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl">
-                <Star className="w-16 h-16 text-white" />
-              </div>
-              <h2 className="text-5xl font-bold text-slate-800 mb-6">Como você prefere pagar?</h2>
-              <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-                Escolha a opção que mais se adequa ao seu planejamento
-              </p>
-            </div>
-            
-            <div className="max-w-4xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {[
-                  { 
-                    value: 'parcelas_menores', 
-                    label: 'Parcelas Menores', 
-                    icon: '📅', 
-                    desc: 'Parcelas menores durante a obra',
-                    detail: 'Ideal para quem quer comprometer menos da renda mensal'
-                  },
-                  { 
-                    value: 'quitar_rapido', 
-                    label: 'Quitar Rápido', 
-                    icon: '⚡', 
-                    desc: 'Quitar o imóvel rapidamente',
-                    detail: 'Para quem tem mais disponibilidade financeira'
-                  },
-                  { 
-                    value: 'flexibilidade', 
-                    label: 'Flexibilidade', 
-                    icon: '🔄', 
-                    desc: 'Flexibilidade nos pagamentos',
-                    detail: 'Opções adaptáveis conforme sua situação'
-                  }
-                ].map((option) => (
-                  <div
-                    key={option.value}
-                    onClick={() => handleInputChange('preferencia', option.value)}
-                    className={`p-8 rounded-3xl border-2 cursor-pointer transition-all transform hover:scale-105 ${
-                      formData.preferencia === option.value
-                        ? 'border-indigo-500 bg-indigo-50 ring-4 ring-indigo-500/20'
-                        : 'border-slate-200 hover:border-indigo-300'
-                    }`}
-                  >
-                    <div className="text-4xl mb-4">{option.icon}</div>
-                    <div className="font-bold text-slate-800 mb-3 text-lg">{option.label}</div>
-                    <div className="text-sm text-slate-700 mb-3">{option.desc}</div>
-                    <div className="text-xs text-slate-600">{option.detail}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        );
-
-      case 7:
-        return (
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="mb-16">
-              <div className="w-32 h-32 bg-gradient-to-br from-pink-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl">
-                <Building2 className="w-16 h-16 text-white" />
-              </div>
-              <h2 className="text-5xl font-bold text-slate-800 mb-6">Qual entrada você prefere?</h2>
-              <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-                Escolha a opção que se adequa à sua disponibilidade financeira
-              </p>
-            </div>
-            
-            <div className="max-w-4xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {[
-                  { 
-                    value: 'entrada_baixa', 
-                    label: 'Entrada Menor', 
-                    icon: '💳', 
-                    desc: '8% do valor total',
-                    detail: 'R$ 20.800 para casa de 2 quartos'
-                  },
-                  { 
-                    value: 'entrada_alta', 
-                    label: 'Entrada Maior', 
-                    icon: '🏦', 
-                    desc: '20% ou mais',
-                    detail: 'Para quem tem mais recursos disponíveis'
-                  },
-                  { 
-                    value: 'flexivel', 
-                    label: 'Flexível', 
-                    icon: '⚖️', 
-                    desc: 'Conforme necessário',
-                    detail: 'Adaptável à sua situação atual'
-                  }
-                ].map((option) => (
-                  <div
-                    key={option.value}
-                    onClick={() => handleInputChange('disponibilidade', option.value)}
-                    className={`p-8 rounded-3xl border-2 cursor-pointer transition-all transform hover:scale-105 ${
-                      formData.disponibilidade === option.value
-                        ? 'border-pink-500 bg-pink-50 ring-4 ring-pink-500/20'
-                        : 'border-slate-200 hover:border-pink-300'
-                    }`}
-                  >
-                    <div className="text-4xl mb-4">{option.icon}</div>
-                    <div className="font-bold text-slate-800 mb-3 text-lg">{option.label}</div>
-                    <div className="text-sm text-slate-700 mb-3">{option.desc}</div>
-                    <div className="text-xs text-slate-600">{option.detail}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        );
-
-      case 8:
-        return (
-          <div className="max-w-5xl mx-auto text-center">
-            <div className="mb-16">
-              <div className="w-32 h-32 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl">
-                <Award className="w-16 h-16 text-white" />
-              </div>
-              <h2 className="text-5xl font-bold text-slate-800 mb-6">Sua Recomendação Personalizada</h2>
-              <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-                Com base nas suas respostas, preparamos a melhor opção para você
-              </p>
-            </div>
-            
-            {!recommendation ? (
-              <div className="text-center">
-                <div className="w-40 h-40 bg-gradient-to-br from-amber-100 to-orange-100 rounded-full flex items-center justify-center mx-auto mb-10">
-                  <div className="w-32 h-32 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center animate-pulse">
-                    <Award className="w-16 h-16 text-white" />
-                  </div>
-                </div>
+                
                 <button
-                  onClick={generateRecommendation}
-                  className="bg-gradient-to-r from-amber-500 to-orange-600 text-white px-16 py-8 rounded-3xl font-bold text-2xl hover:from-amber-600 hover:to-orange-700 transition-all transform hover:scale-105 shadow-2xl"
+                  onClick={sendWhatsAppProposal}
+                  className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-all transform hover:scale-105"
                 >
-                  🎯 Gerar Minha Recomendação
+                  <MessageCircle className="w-5 h-5" />
+                  <span>Enviar Proposta pelo WhatsApp</span>
                 </button>
-                <p className="text-slate-500 mt-6 text-lg">Clique no botão para receber sua recomendação personalizada</p>
               </div>
             ) : (
-              <div className="space-y-8">
-                {/* Card de Recomendação Principal */}
-                <div className="bg-gradient-to-br from-amber-50 to-orange-100 rounded-3xl p-12 border-2 border-amber-200 shadow-2xl">
-                  <div className="flex items-center justify-center mb-10">
-                    <div className="w-24 h-24 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center mr-8">
-                      <Award className="w-12 h-12 text-white" />
-                    </div>
-                    <h3 className="text-4xl font-bold text-amber-800">🏆 Recomendação Principal</h3>
-                  </div>
-                  
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    <div className="bg-white rounded-3xl p-10 border-2 border-amber-200 shadow-lg">
-                      <h4 className="text-3xl font-bold text-amber-800 mb-8 text-center">Unidade Recomendada</h4>
-                      <div className="text-center">
-                        <h5 className="text-4xl font-bold text-amber-800 mb-4">{recommendation.unit.name}</h5>
-                        <p className="text-amber-600 text-xl mb-8">{recommendation.unit.area}</p>
-                        <div className="text-5xl font-bold text-amber-800 mb-4">
-                          {formatCurrency(recommendation.unit.price)}
-                        </div>
-                        <p className="text-amber-600 text-lg">Valor total</p>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-white rounded-3xl p-10 border-2 border-amber-200 shadow-lg">
-                      <h4 className="text-3xl font-bold text-amber-800 mb-8 text-center">Plano Recomendado</h4>
-                      <div className="text-center">
-                        <h5 className="text-4xl font-bold text-amber-800 mb-4">
-                          {recommendation.plan === 'plano1' ? 'Plano Financiamento' : 'Plano Direto'}
-                        </h5>
-                        <div className="space-y-4 text-amber-700 text-xl">
-                          <p>• Sinal: {formatCurrency(recommendation.unit[recommendation.plan].sinal)}</p>
-                          <p>• Valor para início: {formatCurrency(recommendation.unit[recommendation.plan].valorInicio)}</p>
-                          <p>• Entrega: 24 meses</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="mt-12 pt-10 border-t-2 border-amber-200">
-                    <h4 className="text-3xl font-bold text-amber-800 mb-8 text-center">Por que esta recomendação?</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {recommendation.reasoning.map((reason, index) => (
-                        <div key={index} className="flex items-center space-x-4 bg-white/70 rounded-2xl p-6 border border-amber-200">
-                          <CheckCircle className="w-8 h-8 text-amber-600 flex-shrink-0" />
-                          <span className="text-amber-800 font-medium text-xl">{reason}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <button
+                onClick={() => {
+                  generateRecommendation();
+                  nextStep();
+                }}
+                className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-all transform hover:scale-105"
+              >
+                <span>Gerar Recomendação</span>
+                <ArrowRight className="w-5 h-5" />
+              </button>
             )}
           </div>
         );
 
-      case 9:
+      case 8: // Simulação Completa
         return (
-          <div className="max-w-6xl mx-auto text-center">
-            <div className="mb-16">
-              <div className="w-32 h-32 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl">
-                <Calculator className="w-16 h-16 text-white" />
-              </div>
-              <h2 className="text-5xl font-bold text-slate-800 mb-6">Simulação Completa</h2>
-              <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-                Explore todas as opções e detalhes do seu financiamento recomendado
-              </p>
-            </div>
-            
-            {/* Aqui vai todo o conteúdo do simulador original */}
+          <div className="space-y-6">
             <div className="text-center">
-              <p className="text-lg text-slate-600 mb-6">
-                Simulador completo com todas as funcionalidades será exibido aqui
-              </p>
+              <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-400 to-green-700 rounded-full flex items-center justify-center">
+                <Home className="w-12 h-12 text-white" />
+              </div>
+              <h2 className="text-2xl font-bold text-white mt-4">{step.title}</h2>
+              <p className="text-green-100">{step.description}</p>
             </div>
+
+            {/* Seleção de Unidade */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold text-white text-center">Escolha sua Casa</h3>
+              <div className="grid grid-cols-1 gap-4">
+                <button
+                  onClick={() => setSelectedUnit('casa2quartos')}
+                  className={`p-4 rounded-xl border-2 transition-all ${
+                    selectedUnit === 'casa2quartos'
+                      ? 'border-green-400 bg-green-500/20'
+                      : 'border-white/20 bg-white/5 hover:bg-white/10'
+                  }`}
+                >
+                  <div className="text-center">
+                    <h4 className="text-lg font-semibold text-white">🏠 Casa 2 Quartos</h4>
+                    <p className="text-2xl font-bold text-green-400">{formatCurrency(units.casa2quartos.valor)}</p>
+                    <p className="text-green-100 text-sm">Terreno 20x80m • 42m²</p>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setSelectedUnit('casa3quartos')}
+                  className={`p-4 rounded-xl border-2 transition-all ${
+                    selectedUnit === 'casa3quartos'
+                      ? 'border-green-400 bg-green-500/20'
+                      : 'border-white/20 bg-white/5 hover:bg-white/10'
+                  }`}
+                >
+                  <div className="text-center">
+                    <h4 className="text-lg font-semibold text-white">🏠 Casa 3 Quartos</h4>
+                    <p className="text-2xl font-bold text-green-400">{formatCurrency(units.casa3quartos.valor)}</p>
+                    <p className="text-green-100 text-sm">Terreno 20x80m • 48m²</p>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            {/* Seleção de Plano */}
+            {selectedUnit && (
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold text-white text-center">Escolha seu Plano</h3>
+                <div className="grid grid-cols-1 gap-4">
+                  <button
+                    onClick={() => setSelectedPlan('plano1')}
+                    className={`p-4 rounded-xl border-2 transition-all ${
+                      selectedPlan === 'plano1'
+                        ? 'border-green-400 bg-green-500/20'
+                        : 'border-white/20 bg-white/5 hover:bg-white/10'
+                    }`}
+                  >
+                    <div className="text-center">
+                      <h4 className="text-lg font-semibold text-white">🏦 Plano Financiamento</h4>
+                      <p className="text-green-100 text-sm">Sinal + Mensais + Financiamento</p>
+                    </div>
+                  </button>
+
+                  <button
+                    onClick={() => setSelectedPlan('plano2')}
+                    className={`p-4 rounded-xl border-2 transition-all ${
+                      selectedPlan === 'plano2'
+                        ? 'border-green-400 bg-green-500/20'
+                        : 'border-white/20 bg-white/5 hover:bg-white/10'
+                    }`}
+                  >
+                    <div className="text-center">
+                      <h4 className="text-lg font-semibold text-white">💳 Plano Venda Direta</h4>
+                      <p className="text-green-100 text-sm">Sinal + Intercaladas + Mensais</p>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Simulação */}
+            {selectedUnit && selectedPlan && (
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold text-white text-center">Sua Simulação</h3>
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 space-y-3">
+                  {(() => {
+                    const unitData = units[selectedUnit];
+                    const planData = unitData[selectedPlan === 'plano1' ? 'plano1' : 'plano2'];
+                    
+                    return (
+                      <>
+                        <div className="flex justify-between items-center">
+                          <span className="text-green-100">Valor Total:</span>
+                          <span className="text-xl font-bold text-white">{formatCurrency(unitData.valor)}</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-green-100">Sinal (8%):</span>
+                          <span className="text-white">{formatCurrency(planData.sinal)}</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-green-100">Mensais (24x):</span>
+                          <span className="text-white">{formatCurrency(planData.parcelasMensais)}</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-green-100">Intercaladas:</span>
+                          <span className="text-white">{formatCurrency(planData.parcelasIntercaladas)}</span>
+                        </div>
+                        {selectedPlan === 'plano1' && (
+                          <div className="flex justify-between items-center">
+                            <span className="text-green-100">Financiamento:</span>
+                            <span className="text-white">{formatCurrency(planData.financiamentoBancario)}</span>
+                          </div>
+                        )}
+                        <div className="pt-3 border-t border-white/20">
+                          <div className="flex justify-between items-center">
+                            <span className="text-lg font-semibold text-green-400">Valor para Início:</span>
+                            <span className="text-2xl font-bold text-white">{formatCurrency(planData.valorInicio)}</span>
+                          </div>
+                        </div>
+                      </>
+                    );
+                  })()}
+                </div>
+
+                {/* Botão WhatsApp */}
+                <button
+                  onClick={sendWhatsAppProposal}
+                  className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-all transform hover:scale-105"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  <span>Enviar Proposta Completa pelo WhatsApp</span>
+                </button>
+
+                {/* Botão Planta */}
+                <button
+                  onClick={() => setShowFloorPlan(!showFloorPlan)}
+                  className="w-full bg-white/10 hover:bg-white/20 text-white font-semibold py-3 px-6 rounded-xl border border-white/20 transition-all"
+                >
+                  {showFloorPlan ? 'Ocultar Planta' : 'Ver Planta da Casa'}
+                </button>
+              </div>
+            )}
+
+            {/* Planta da Casa */}
+            {showFloorPlan && selectedUnit && (
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold text-white text-center">Planta da Casa</h3>
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
+                  <div className="text-center mb-4">
+                    <h4 className="text-lg font-semibold text-white">
+                      {selectedUnit === 'casa2quartos' ? 'Casa 2 Quartos' : 'Casa 3 Quartos'}
+                    </h4>
+                    <p className="text-green-100">
+                      Área: {units[selectedUnit].floorPlan.area} • Terreno: {units[selectedUnit].floorPlan.dimensoes}
+                    </p>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    {Object.entries(units[selectedUnit].floorPlan.especificacoes).map(([room, specs]) => (
+                      <div key={room} className="bg-white/5 rounded-lg p-3 text-center">
+                        <h5 className="font-semibold text-white capitalize mb-1">{room}</h5>
+                        <p className="text-green-200">{specs.area}</p>
+                        <p className="text-green-100 text-xs">{specs.dimensoes}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         );
 
@@ -609,91 +556,72 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700">
-      {/* Header Profissional com Design Moderno */}
-      <header className="bg-gradient-to-r from-blue-950 via-blue-900 to-blue-800 shadow-2xl border-b-4 border-cyan-400 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between">
-            <div className="flex items-center space-x-6 mb-6 sm:mb-0">
-              <div className="w-20 h-20 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-3xl flex items-center justify-center shadow-2xl transform hover:rotate-12 transition-all duration-300">
-                <Home className="w-10 h-10 text-white" />
-              </div>
-              <div>
-                <h1 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-                  LL Construções
-                </h1>
-                <p className="text-cyan-200 text-lg sm:text-xl font-medium">
-                  Simulador Inteligente de Financiamento
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row items-center space-y-3 sm:space-y-0 sm:space-x-8">
-              <div className="flex items-center space-x-3 text-cyan-200 bg-blue-800/50 px-4 py-2 rounded-2xl backdrop-blur-sm">
-                <Phone className="w-5 h-5" />
-                <span className="text-base font-medium">(81) 99379-8551</span>
-              </div>
-              <div className="flex items-center space-x-3 text-cyan-200 bg-blue-800/50 px-4 py-2 rounded-2xl backdrop-blur-sm">
-                <Mail className="w-5 h-5" />
-                <span className="text-base font-medium">contato@llconstrucoes.com</span>
-              </div>
+    <div className="min-h-screen bg-gradient-to-br from-green-600 via-green-700 to-green-900">
+      {/* Header */}
+      <header className="bg-gradient-to-r from-green-800 to-green-900 shadow-lg">
+        <div className="max-w-md mx-auto px-6 py-4">
+          <div className="flex items-center justify-center space-x-3">
+            <Building2 className="w-8 h-8 text-white" />
+            <div>
+              <h1 className="text-xl font-bold text-white">LL Construções</h1>
+              <p className="text-green-200 text-sm">Simulador de Financiamento</p>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Conteúdo da Etapa com Design Moderno */}
-        <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-10 mb-12 border border-white/20">
+      {/* Main Content */}
+      <main className="max-w-md mx-auto px-6 py-8">
+        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 shadow-xl">
           {renderStep()}
         </div>
 
-        {/* Navegação com Design Moderno */}
-        <div className="flex justify-between items-center">
+        {/* Navigation */}
+        <div className="flex justify-between mt-6">
           <button
             onClick={prevStep}
-            disabled={currentStep === 1}
-            className={`flex items-center space-x-3 px-8 py-4 rounded-2xl font-semibold text-lg transition-all transform ${
-              currentStep === 1
-                ? 'bg-white/10 text-white/40 cursor-not-allowed backdrop-blur-sm'
-                : 'bg-gradient-to-r from-blue-700 to-blue-800 text-white hover:from-blue-600 hover:to-blue-700 hover:scale-105 shadow-2xl border border-white/20'
+            disabled={currentStep === 0}
+            className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+              currentStep === 0
+                ? 'bg-white/10 text-white/50 cursor-not-allowed'
+                : 'bg-white/20 hover:bg-white/30 text-white'
             }`}
           >
-            <ArrowLeft className="w-5 h-5" />
-            <span>Etapa Anterior</span>
+            <ChevronLeft className="w-5 h-5 inline mr-2" />
+            Anterior
           </button>
-
-          <div className="text-center">
-            <div className="text-sm text-white/80 mb-2">
-              {currentStep === 1 && "Preencha seu nome completo"}
-              {currentStep === 2 && "Informe seu telefone para contato"}
-              {currentStep === 3 && "Digite seu email válido"}
-              {currentStep === 4 && "Informe sua renda mensal"}
-              {currentStep === 5 && "Escolha seu perfil familiar"}
-              {currentStep === 6 && "Selecione sua preferência de pagamento"}
-              {currentStep === 7 && "Escolha o tipo de entrada"}
-              {currentStep === 8 && "Veja sua recomendação personalizada"}
-              {currentStep === 9 && "Explore a simulação completa"}
-            </div>
-            <div className="text-xs text-white/60">
-              {currentStep < 9 ? "Clique em 'Próxima Etapa' para continuar" : "Você completou todas as etapas!"}
-            </div>
-          </div>
 
           <button
             onClick={nextStep}
-            disabled={currentStep === steps.length}
-            className={`flex items-center space-x-3 px-8 py-4 rounded-2xl font-semibold text-lg transition-all transform ${
-              currentStep === steps.length
-                ? 'bg-white/10 text-white/40 cursor-not-allowed backdrop-blur-sm'
-                : 'bg-gradient-to-r from-cyan-400 to-blue-500 text-white hover:from-cyan-500 hover:to-blue-600 hover:scale-105 shadow-2xl border border-white/20'
+            disabled={currentStep === steps.length - 1}
+            className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+              currentStep === steps.length - 1
+                ? 'bg-white/10 text-white/50 cursor-not-allowed'
+                : 'bg-white/20 hover:bg-white/30 text-white'
             }`}
           >
-            <span>{currentStep === 8 ? 'Ver Simulação' : 'Próxima Etapa'}</span>
-            <ArrowRight className="w-5 h-5" />
+            Próximo
+            <ChevronRight className="w-5 h-5 inline ml-2" />
           </button>
         </div>
+
+        {/* Step Indicator */}
+        <div className="mt-6 text-center">
+          <p className="text-green-200 text-sm">
+            Passo {currentStep + 1} de {steps.length}
+          </p>
+        </div>
       </main>
+
+      {/* Footer */}
+      <footer className="max-w-md mx-auto px-6 py-4 text-center">
+        <p className="text-green-200 text-sm">
+          © 2024 LL Construções • Entrega em 24 meses
+        </p>
+        <p className="text-green-300 text-xs mt-1">
+          WhatsApp: (81) 99379-8551
+        </p>
+      </footer>
     </div>
   );
 }
