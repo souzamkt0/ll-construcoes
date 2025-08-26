@@ -17,6 +17,7 @@ function App() {
   const [selectedPlan, setSelectedPlan] = useState('plano1');
   const [showFloorPlan, setShowFloorPlan] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
+  const [expandFloorPlan, setExpandFloorPlan] = useState(false);
   const [recommendation, setRecommendation] = useState(null);
 
   const units = {
@@ -476,8 +477,8 @@ _Proposta personalizada baseada no seu perfil_`;
                     onClick={() => setSelectedPlan('plano2')}
                     className={`p-4 rounded-xl border-2 transition-all ${
                       selectedPlan === 'plano2'
-                        ? 'border-orange-400 bg-gradient-to-r from-green-100 to-orange-100 shadow-lg'
-                        : 'border-green-200 bg-white hover:bg-green-50 hover:border-green-300'
+                        ? 'border-purple-400 bg-gradient-to-r from-purple-100 to-pink-100 shadow-lg'
+                        : 'border-purple-200 bg-white hover:bg-purple-50 hover:border-purple-300'
                     }`}
                   >
                     <div className="text-center">
@@ -492,7 +493,16 @@ _Proposta personalizada baseada no seu perfil_`;
             {/* Planta da Casa - Movida para o topo */}
             {selectedUnit && (
               <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-gray-800 text-center">🏗️ Planta da Casa</h3>
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xl font-semibold text-gray-800">🏗️ Planta da Casa</h3>
+                  <button
+                    onClick={() => setExpandFloorPlan(!expandFloorPlan)}
+                    className="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                  >
+                    {expandFloorPlan ? '📁 Recolher Detalhes' : '🔍 Ver Detalhes Completos'}
+                  </button>
+                </div>
+                
                 <div className="bg-white border-2 border-green-200 rounded-xl p-4 shadow-lg">
                   <div className="text-center mb-4">
                     <h4 className="text-lg font-semibold text-gray-800">
@@ -503,267 +513,301 @@ _Proposta personalizada baseada no seu perfil_`;
                     </p>
                   </div>
                   
-                  {/* Informações Detalhadas da Planta */}
-                  <div className="space-y-4">
-                    {/* Especificações Técnicas */}
-                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-3 border border-blue-200">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-center">📐 Especificações Técnicas</h5>
-                      <div className="grid grid-cols-2 gap-2 text-sm">
-                        <div className="text-center">
-                          <p className="text-blue-600 font-medium">Terreno</p>
-                          <p className="text-gray-700">20m x 80m</p>
+                  {/* Informações Básicas (sempre visíveis) */}
+                  <div className="grid grid-cols-2 gap-3 mb-4">
+                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-3 border border-blue-200 text-center">
+                      <p className="text-blue-600 font-medium text-sm">Área Total</p>
+                      <p className="text-blue-800 font-bold">{selectedUnit === '2quartos' ? '42m²' : '48m²'}</p>
+                    </div>
+                    <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-3 border border-green-200 text-center">
+                      <p className="text-green-600 font-medium text-sm">Quartos</p>
+                      <p className="text-green-800 font-bold">{selectedUnit === '2quartos' ? '2' : '3'}</p>
+                    </div>
+                    <div className="bg-gradient-to-r from-purple-50 to-violet-50 rounded-lg p-3 border border-purple-200 text-center">
+                      <p className="text-purple-600 font-medium text-sm">Banheiros</p>
+                      <p className="text-purple-800 font-bold">{selectedUnit === '2quartos' ? '1' : '2'}</p>
+                    </div>
+                    <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-lg p-3 border border-orange-200 text-center">
+                      <p className="text-orange-600 font-medium text-sm">Terreno</p>
+                      <p className="text-orange-800 font-bold">160m²</p>
+                    </div>
+                  </div>
+
+                  {/* Informações Detalhadas (expandíveis) */}
+                  {expandFloorPlan && (
+                    <div className="space-y-4 border-t border-green-200 pt-4">
+                      {/* Especificações Técnicas */}
+                      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-3 border border-blue-200">
+                        <h5 className="font-semibold text-blue-800 mb-2 text-center">📐 Especificações Técnicas</h5>
+                        <div className="grid grid-cols-2 gap-2 text-sm">
+                          <div className="text-center">
+                            <p className="text-blue-600 font-medium">Terreno</p>
+                            <p className="text-gray-700">20m x 80m</p>
+                          </div>
+                          <div className="text-center">
+                            <p className="text-blue-600 font-medium">Área Construída</p>
+                            <p className="text-gray-700">{selectedUnit === '2quartos' ? '42m²' : '48m²'}</p>
+                          </div>
+                          <div className="text-center">
+                            <p className="text-blue-600 font-medium">Largura</p>
+                            <p className="text-gray-700">6m</p>
+                          </div>
+                          <div className="text-center">
+                            <p className="text-blue-600 font-medium">Comprimento</p>
+                            <p className="text-gray-700">7m</p>
+                          </div>
                         </div>
-                        <div className="text-center">
-                          <p className="text-blue-600 font-medium">Área Construída</p>
-                          <p className="text-gray-700">{selectedUnit === '2quartos' ? '42m²' : '48m²'}</p>
+                      </div>
+
+                      {/* Ambientes Detalhados */}
+                      <div className="grid grid-cols-1 gap-3">
+                        {/* Sala */}
+                        <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-3 border border-green-200">
+                          <h5 className="font-semibold text-green-800 mb-2 flex items-center">
+                            🛋️ Sala de Estar
+                          </h5>
+                          <div className="grid grid-cols-2 gap-2 text-sm">
+                            <div>
+                              <p className="text-green-600 font-medium">Dimensões:</p>
+                              <p className="text-gray-700">6m x 3m</p>
+                            </div>
+                            <div>
+                              <p className="text-green-600 font-medium">Área:</p>
+                              <p className="text-gray-700">18m²</p>
+                            </div>
+                            <div className="col-span-2">
+                              <p className="text-green-600 font-medium">Características:</p>
+                              <p className="text-gray-700">Integrada com cozinha, iluminação natural, ventilação cruzada</p>
+                            </div>
+                          </div>
                         </div>
-                        <div className="text-center">
-                          <p className="text-blue-600 font-medium">Largura</p>
-                          <p className="text-gray-700">6m</p>
+
+                        {/* Cozinha */}
+                        <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-lg p-3 border border-orange-200">
+                          <h5 className="font-semibold text-orange-800 mb-2 flex items-center">
+                            🍳 Cozinha
+                          </h5>
+                          <div className="grid grid-cols-2 gap-2 text-sm">
+                            <div>
+                              <p className="text-orange-600 font-medium">Dimensões:</p>
+                              <p className="text-gray-700">6m x 2.5m</p>
+                            </div>
+                            <div>
+                              <p className="text-orange-600 font-medium">Área:</p>
+                              <p className="text-gray-700">15m²</p>
+                            </div>
+                            <div className="col-span-2">
+                              <p className="text-orange-600 font-medium">Características:</p>
+                              <p className="text-gray-700">Integrada com sala, armários planejados, bancada de granito</p>
+                            </div>
+                          </div>
                         </div>
-                        <div className="text-center">
-                          <p className="text-blue-600 font-medium">Comprimento</p>
-                          <p className="text-gray-700">7m</p>
+
+                        {/* Quartos */}
+                        {selectedUnit === '2quartos' ? (
+                          <>
+                            <div className="bg-gradient-to-r from-purple-50 to-violet-50 rounded-lg p-3 border border-purple-200">
+                              <h5 className="font-semibold text-purple-800 mb-2 flex items-center">
+                                🛏️ Quarto Principal
+                              </h5>
+                              <div className="grid grid-cols-2 gap-2 text-sm">
+                                <div>
+                                  <p className="text-purple-600 font-medium">Dimensões:</p>
+                                  <p className="text-gray-700">3.5m x 3m</p>
+                                </div>
+                                <div>
+                                  <p className="text-purple-600 font-medium">Área:</p>
+                                  <p className="text-gray-700">10.5m²</p>
+                                </div>
+                                <div className="col-span-2">
+                                  <p className="text-purple-600 font-medium">Características:</p>
+                                  <p className="text-gray-700">Suíte com closet, ventilação natural, iluminação direta</p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="bg-gradient-to-r from-pink-50 to-rose-50 rounded-lg p-3 border border-pink-200">
+                              <h5 className="font-semibold text-pink-800 mb-2 flex items-center">
+                                🛏️ Quarto Secundário
+                              </h5>
+                              <div className="grid grid-cols-2 gap-2 text-sm">
+                                <div>
+                                  <p className="text-pink-600 font-medium">Dimensões:</p>
+                                  <p className="text-gray-700">3m x 3m</p>
+                                </div>
+                                <div>
+                                  <p className="text-pink-600 font-medium">Área:</p>
+                                  <p className="text-gray-700">9m²</p>
+                                </div>
+                                <div className="col-span-2">
+                                  <p className="text-pink-600 font-medium">Características:</p>
+                                  <p className="text-gray-700">Ventilação natural, armário embutido, iluminação lateral</p>
+                                </div>
+                              </div>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div className="bg-gradient-to-r from-purple-50 to-violet-50 rounded-lg p-3 border border-purple-200">
+                              <h5 className="font-semibold text-purple-800 mb-2 flex items-center">
+                                🛏️ Suíte Master
+                              </h5>
+                              <div className="grid grid-cols-2 gap-2 text-sm">
+                                <div>
+                                  <p className="text-purple-600 font-medium">Dimensões:</p>
+                                  <p className="text-gray-700">4m x 3.5m</p>
+                                </div>
+                                <div>
+                                  <p className="text-purple-600 font-medium">Área:</p>
+                                  <p className="text-gray-700">14m²</p>
+                                </div>
+                                <div className="col-span-2">
+                                  <p className="text-purple-600 font-medium">Características:</p>
+                                  <p className="text-gray-700">Suíte completa, closet walk-in, banheiro privativo</p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="bg-gradient-to-r from-pink-50 to-rose-50 rounded-lg p-3 border border-pink-200">
+                              <h5 className="font-semibold text-pink-800 mb-2 flex items-center">
+                                🛏️ Quarto 2
+                              </h5>
+                              <div className="grid grid-cols-2 gap-2 text-sm">
+                                <div>
+                                  <p className="text-pink-600 font-medium">Dimensões:</p>
+                                  <p className="text-gray-700">3.5m x 3m</p>
+                                </div>
+                                <div>
+                                  <p className="text-pink-600 font-medium">Área:</p>
+                                  <p className="text-gray-700">10.5m²</p>
+                                </div>
+                                <div className="col-span-2">
+                                  <p className="text-pink-600 font-medium">Características:</p>
+                                  <p className="text-gray-700">Armário embutido, ventilação natural, iluminação direta</p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg p-3 border border-indigo-200">
+                              <h5 className="font-semibold text-indigo-800 mb-2 flex items-center">
+                                🛏️ Quarto 3
+                              </h5>
+                              <div className="grid grid-cols-2 gap-2 text-sm">
+                                <div>
+                                  <p className="text-indigo-600 font-medium">Dimensões:</p>
+                                  <p className="text-gray-700">3m x 3m</p>
+                                </div>
+                                <div>
+                                  <p className="text-indigo-600 font-medium">Área:</p>
+                                  <p className="text-gray-700">9m²</p>
+                                </div>
+                                <div className="col-span-2">
+                                  <p className="text-indigo-600 font-medium">Características:</p>
+                                  <p className="text-gray-700">Armário embutido, ventilação natural, iluminação lateral</p>
+                                </div>
+                              </div>
+                            </div>
+                          </>
+                        )}
+
+                        {/* Banheiros */}
+                        <div className="bg-gradient-to-r from-cyan-50 to-teal-50 rounded-lg p-3 border border-cyan-200">
+                          <h5 className="font-semibold text-cyan-800 mb-2 flex items-center">
+                            🚿 {selectedUnit === '2quartos' ? 'Banheiro' : 'Banheiro Social'}
+                          </h5>
+                          <div className="grid grid-cols-2 gap-2 text-sm">
+                            <div>
+                              <p className="text-cyan-600 font-medium">Dimensões:</p>
+                              <p className="text-gray-700">2m x 1.5m</p>
+                            </div>
+                            <div>
+                              <p className="text-cyan-600 font-medium">Área:</p>
+                              <p className="text-gray-700">3m²</p>
+                            </div>
+                            <div className="col-span-2">
+                              <p className="text-cyan-600 font-medium">Características:</p>
+                              <p className="text-gray-700">Box de vidro, piso antiderrapante, ventilação natural</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Área de Serviço */}
+                        <div className="bg-gradient-to-r from-gray-50 to-slate-50 rounded-lg p-3 border border-gray-200">
+                          <h5 className="font-semibold text-gray-800 mb-2 flex items-center">
+                            🧺 Área de Serviço
+                          </h5>
+                          <div className="grid grid-cols-2 gap-2 text-sm">
+                            <div>
+                              <p className="text-gray-600 font-medium">Dimensões:</p>
+                              <p className="text-gray-700">2m x 1.5m</p>
+                            </div>
+                            <div>
+                              <p className="text-gray-600 font-medium">Área:</p>
+                              <p className="text-gray-700">3m²</p>
+                            </div>
+                            <div className="col-span-2">
+                              <p className="text-gray-600 font-medium">Características:</p>
+                              <p className="text-gray-700">Tanque de lavar, área para máquina, ventilação</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Área Externa */}
+                        <div className="bg-gradient-to-r from-emerald-50 to-green-50 rounded-lg p-3 border border-emerald-200">
+                          <h5 className="font-semibold text-emerald-800 mb-2 flex items-center">
+                            🌿 Área Externa
+                          </h5>
+                          <div className="grid grid-cols-2 gap-2 text-sm">
+                            <div>
+                              <p className="text-emerald-600 font-medium">Dimensões:</p>
+                              <p className="text-gray-700">6m x 3m</p>
+                            </div>
+                            <div>
+                              <p className="text-emerald-600 font-medium">Área:</p>
+                              <p className="text-gray-700">18m²</p>
+                            </div>
+                            <div className="col-span-2">
+                              <p className="text-emerald-600 font-medium">Características:</p>
+                              <p className="text-gray-700">Quintal com churrasqueira, área gourmet, jardim</p>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
+                  )}
 
-                    {/* Ambientes Detalhados */}
-                    <div className="grid grid-cols-1 gap-3">
-                      {/* Sala */}
-                      <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-3 border border-green-200">
-                        <h5 className="font-semibold text-green-800 mb-2 flex items-center">
-                          🛋️ Sala de Estar
-                        </h5>
-                        <div className="grid grid-cols-2 gap-2 text-sm">
-                          <div>
-                            <p className="text-green-600 font-medium">Dimensões:</p>
-                            <p className="text-gray-700">6m x 3m</p>
-                          </div>
-                          <div>
-                            <p className="text-green-600 font-medium">Área:</p>
-                            <p className="text-gray-700">18m²</p>
-                          </div>
-                          <div className="col-span-2">
-                            <p className="text-green-600 font-medium">Características:</p>
-                            <p className="text-gray-700">Integrada com cozinha, iluminação natural, ventilação cruzada</p>
-                          </div>
-                        </div>
-                      </div>
+                  {/* Mensagem para Corretores */}
+                  <div className="mt-4 pt-4 border-t border-green-200">
+                    <div className="bg-gradient-to-r from-yellow-50 to-amber-50 border-2 border-yellow-200 rounded-lg p-3 text-center">
+                      <h5 className="font-semibold text-yellow-800 mb-2">🏠 É Corretor de Imóveis?</h5>
+                      <p className="text-yellow-700 text-sm mb-3">Entre em contato conosco para parcerias e informações exclusivas!</p>
+                      <button
+                        onClick={() => {
+                          const message = `🏠 *CORRETOR DE IMÓVEIS - LL CONSTRUÇÕES* 🏠
 
-                      {/* Cozinha */}
-                      <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-lg p-3 border border-orange-200">
-                        <h5 className="font-semibold text-orange-800 mb-2 flex items-center">
-                          🍳 Cozinha
-                        </h5>
-                        <div className="grid grid-cols-2 gap-2 text-sm">
-                          <div>
-                            <p className="text-orange-600 font-medium">Dimensões:</p>
-                            <p className="text-gray-700">6m x 2.5m</p>
-                          </div>
-                          <div>
-                            <p className="text-orange-600 font-medium">Área:</p>
-                            <p className="text-gray-700">15m²</p>
-                          </div>
-                          <div className="col-span-2">
-                            <p className="text-orange-600 font-medium">Características:</p>
-                            <p className="text-gray-700">Integrada com sala, armários planejados, bancada de granito</p>
-                          </div>
-                        </div>
-                      </div>
+Olá! Sou corretor de imóveis e gostaria de informações sobre parcerias com a LL Construções.
 
-                      {/* Quartos */}
-                      {selectedUnit === '2quartos' ? (
-                        <>
-                          <div className="bg-gradient-to-r from-purple-50 to-violet-50 rounded-lg p-3 border border-purple-200">
-                            <h5 className="font-semibold text-purple-800 mb-2 flex items-center">
-                              🛏️ Quarto Principal
-                            </h5>
-                            <div className="grid grid-cols-2 gap-2 text-sm">
-                              <div>
-                                <p className="text-purple-600 font-medium">Dimensões:</p>
-                                <p className="text-gray-700">3.5m x 3m</p>
-                              </div>
-                              <div>
-                                <p className="text-purple-600 font-medium">Área:</p>
-                                <p className="text-gray-700">10.5m²</p>
-                              </div>
-                              <div className="col-span-2">
-                                <p className="text-purple-600 font-medium">Características:</p>
-                                <p className="text-gray-700">Suíte com closet, ventilação natural, iluminação direta</p>
-                              </div>
-                            </div>
-                          </div>
+*Interesse:*
+• Parceria comercial
+• Informações sobre empreendimentos
+• Condições especiais para corretores
+• Material de marketing
 
-                          <div className="bg-gradient-to-r from-pink-50 to-rose-50 rounded-lg p-3 border border-pink-200">
-                            <h5 className="font-semibold text-pink-800 mb-2 flex items-center">
-                              🛏️ Quarto Secundário
-                            </h5>
-                            <div className="grid grid-cols-2 gap-2 text-sm">
-                              <div>
-                                <p className="text-pink-600 font-medium">Dimensões:</p>
-                                <p className="text-gray-700">3m x 3m</p>
-                              </div>
-                              <div>
-                                <p className="text-pink-600 font-medium">Área:</p>
-                                <p className="text-gray-700">9m²</p>
-                              </div>
-                              <div className="col-span-2">
-                                <p className="text-pink-600 font-medium">Características:</p>
-                                <p className="text-gray-700">Ventilação natural, armário embutido, iluminação lateral</p>
-                              </div>
-                            </div>
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          <div className="bg-gradient-to-r from-purple-50 to-violet-50 rounded-lg p-3 border border-purple-200">
-                            <h5 className="font-semibold text-purple-800 mb-2 flex items-center">
-                              🛏️ Suíte Master
-                            </h5>
-                            <div className="grid grid-cols-2 gap-2 text-sm">
-                              <div>
-                                <p className="text-purple-600 font-medium">Dimensões:</p>
-                                <p className="text-gray-700">4m x 3.5m</p>
-                              </div>
-                              <div>
-                                <p className="text-purple-600 font-medium">Área:</p>
-                                <p className="text-gray-700">14m²</p>
-                              </div>
-                              <div className="col-span-2">
-                                <p className="text-purple-600 font-medium">Características:</p>
-                                <p className="text-gray-700">Suíte completa, closet walk-in, banheiro privativo</p>
-                              </div>
-                            </div>
-                          </div>
+*Contato:*
+📱 WhatsApp: (81) 99379-8551
+🏢 LL Construções
+📍 Terrenos 20x80m disponíveis
 
-                          <div className="bg-gradient-to-r from-pink-50 to-rose-50 rounded-lg p-3 border border-pink-200">
-                            <h5 className="font-semibold text-pink-800 mb-2 flex items-center">
-                              🛏️ Quarto 2
-                            </h5>
-                            <div className="grid grid-cols-2 gap-2 text-sm">
-                              <div>
-                                <p className="text-pink-600 font-medium">Dimensões:</p>
-                                <p className="text-gray-700">3.5m x 3m</p>
-                              </div>
-                              <div>
-                                <p className="text-pink-600 font-medium">Área:</p>
-                                <p className="text-gray-700">10.5m²</p>
-                              </div>
-                              <div className="col-span-2">
-                                <p className="text-pink-600 font-medium">Características:</p>
-                                <p className="text-gray-700">Armário embutido, ventilação natural, iluminação direta</p>
-                              </div>
-                            </div>
-                          </div>
+Aguardo retorno!`;
 
-                          <div className="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg p-3 border border-indigo-200">
-                            <h5 className="font-semibold text-indigo-800 mb-2 flex items-center">
-                              🛏️ Quarto 3
-                            </h5>
-                            <div className="grid grid-cols-2 gap-2 text-sm">
-                              <div>
-                                <p className="text-indigo-600 font-medium">Dimensões:</p>
-                                <p className="text-gray-700">3m x 3m</p>
-                              </div>
-                              <div>
-                                <p className="text-indigo-600 font-medium">Área:</p>
-                                <p className="text-gray-700">9m²</p>
-                              </div>
-                              <div className="col-span-2">
-                                <p className="text-indigo-600 font-medium">Características:</p>
-                                <p className="text-gray-700">Armário embutido, ventilação natural, iluminação lateral</p>
-                              </div>
-                            </div>
-                          </div>
-                        </>
-                      )}
-
-                      {/* Banheiros */}
-                      <div className="bg-gradient-to-r from-cyan-50 to-teal-50 rounded-lg p-3 border border-cyan-200">
-                        <h5 className="font-semibold text-cyan-800 mb-2 flex items-center">
-                          🚿 {selectedUnit === '2quartos' ? 'Banheiro' : 'Banheiro Social'}
-                        </h5>
-                        <div className="grid grid-cols-2 gap-2 text-sm">
-                          <div>
-                            <p className="text-cyan-600 font-medium">Dimensões:</p>
-                            <p className="text-gray-700">2m x 1.5m</p>
-                          </div>
-                          <div>
-                            <p className="text-cyan-600 font-medium">Área:</p>
-                            <p className="text-gray-700">3m²</p>
-                          </div>
-                          <div className="col-span-2">
-                            <p className="text-cyan-600 font-medium">Características:</p>
-                            <p className="text-gray-700">Box de vidro, piso antiderrapante, ventilação natural</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Área de Serviço */}
-                      <div className="bg-gradient-to-r from-gray-50 to-slate-50 rounded-lg p-3 border border-gray-200">
-                        <h5 className="font-semibold text-gray-800 mb-2 flex items-center">
-                          🧺 Área de Serviço
-                        </h5>
-                        <div className="grid grid-cols-2 gap-2 text-sm">
-                          <div>
-                            <p className="text-gray-600 font-medium">Dimensões:</p>
-                            <p className="text-gray-700">2m x 1.5m</p>
-                          </div>
-                          <div>
-                            <p className="text-gray-600 font-medium">Área:</p>
-                            <p className="text-gray-700">3m²</p>
-                          </div>
-                          <div className="col-span-2">
-                            <p className="text-gray-600 font-medium">Características:</p>
-                            <p className="text-gray-700">Tanque de lavar, área para máquina, ventilação</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Área Externa */}
-                      <div className="bg-gradient-to-r from-emerald-50 to-green-50 rounded-lg p-3 border border-emerald-200">
-                        <h5 className="font-semibold text-emerald-800 mb-2 flex items-center">
-                          🌿 Área Externa
-                        </h5>
-                        <div className="grid grid-cols-2 gap-2 text-sm">
-                          <div>
-                            <p className="text-emerald-600 font-medium">Dimensões:</p>
-                            <p className="text-gray-700">6m x 3m</p>
-                          </div>
-                          <div>
-                            <p className="text-emerald-600 font-medium">Área:</p>
-                            <p className="text-gray-700">18m²</p>
-                          </div>
-                          <div className="col-span-2">
-                            <p className="text-emerald-600 font-medium">Características:</p>
-                            <p className="text-gray-700">Quintal com churrasqueira, área gourmet, jardim</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Resumo da Área */}
-                    <div className="bg-gradient-to-r from-yellow-50 to-amber-50 rounded-lg p-3 border border-yellow-200 text-center">
-                      <h5 className="font-semibold text-yellow-800 mb-2">📊 Resumo da Área</h5>
-                      <div className="grid grid-cols-2 gap-4 text-sm">
-                        <div>
-                          <p className="text-yellow-600 font-medium">Área Total:</p>
-                          <p className="text-gray-700 font-bold">{selectedUnit === '2quartos' ? '42m²' : '48m²'}</p>
-                        </div>
-                        <div>
-                          <p className="text-yellow-600 font-medium">Terreno:</p>
-                          <p className="text-gray-700 font-bold">160m²</p>
-                        </div>
-                        <div>
-                          <p className="text-yellow-600 font-medium">Quartos:</p>
-                          <p className="text-gray-700 font-bold">{selectedUnit === '2quartos' ? '2' : '3'}</p>
-                        </div>
-                        <div>
-                          <p className="text-yellow-600 font-medium">Banheiros:</p>
-                          <p className="text-gray-700 font-bold">{selectedUnit === '2quartos' ? '1' : '2'}</p>
-                        </div>
-                      </div>
+                          const encodedMessage = encodeURIComponent(message);
+                          const whatsappUrl = `https://wa.me/81993798551?text=${encodedMessage}`;
+                          window.open(whatsappUrl, '_blank');
+                        }}
+                        className="bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white px-6 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                      >
+                        💬 Falar com LL Construções
+                      </button>
                     </div>
                   </div>
                 </div>
