@@ -264,41 +264,127 @@ function App() {
             <h2 className="text-2xl font-bold text-gray-800">Escolha seu Plano</h2>
             <p className="text-gray-600">Qual opção de financiamento você prefere?</p>
 
-            <div className="grid grid-cols-1 gap-4">
-              <button
-                onClick={() => {
-                  setFormData(prev => ({ ...prev, selectedPlan: 'vista' }));
-                  nextStep();
-                }}
-                className="p-6 rounded-2xl border-2 border-green-200 bg-white hover:bg-green-50 hover:border-green-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
-              >
-                <div className="text-center space-y-3">
-                  <div className="w-16 h-16 mx-auto bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center shadow-lg">
-                    <span className="text-2xl text-white font-bold">Vista</span>
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-bold text-gray-800">Financiamento à Vista</h4>
-                    <p className="text-2xl font-bold text-green-600">R$ 260.000</p>
-                    <p className="text-gray-600 text-sm">Sem juros, sem burocracia</p>
-                  </div>
-                </div>
-              </button>
-
+            <div className="grid grid-cols-1 gap-6">
+              {/* Plano Financiamento */}
               <button
                 onClick={() => {
                   setFormData(prev => ({ ...prev, selectedPlan: 'financiamento' }));
                   nextStep();
                 }}
-                className="p-6 rounded-2xl border-2 border-blue-200 bg-white hover:bg-blue-50 hover:border-blue-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                className="p-6 rounded-2xl border-2 border-green-200 bg-white hover:bg-green-50 hover:border-green-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-left"
               >
-                <div className="text-center space-y-3">
-                  <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full flex items-center justify-center shadow-lg">
-                    <span className="text-2xl text-white font-bold">Financiamento</span>
+                <div className="space-y-4">
+                  {/* Cabeçalho */}
+                  <div className="text-center">
+                    <div className="w-16 h-16 mx-auto bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center shadow-lg mb-3">
+                      <span className="text-2xl text-white font-bold">💰</span>
+                    </div>
+                    <h4 className="text-xl font-bold text-gray-800">Venda Financiada</h4>
+                    <p className="text-2xl font-bold text-green-600">
+                      R$ {formData.selectedUnit === '2quartos' ? '260.000' : '280.000'}
+                    </p>
                   </div>
-                  <div>
-                    <h4 className="text-xl font-bold text-gray-800">Financiamento em 24 Meses</h4>
-                    <p className="text-2xl font-bold text-blue-600">R$ 280.000</p>
-                    <p className="text-gray-600 text-sm">Juros de 1.5% ao mês</p>
+
+                  {/* Valores Detalhados */}
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-3 border border-green-200">
+                      <p className="text-green-600 font-medium text-sm">Sinal (8%)</p>
+                      <p className="text-green-800 font-bold text-lg">
+                        R$ {formData.selectedUnit === '2quartos' ? '20.800' : '22.400'}
+                      </p>
+                    </div>
+                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-3 border border-blue-200">
+                      <p className="text-blue-600 font-medium text-sm">Mensais (24x)</p>
+                      <p className="text-blue-800 font-bold text-lg">
+                        R$ {formData.selectedUnit === '2quartos' ? '1.679' : '1.808'}
+                      </p>
+                    </div>
+                    <div className="bg-gradient-to-r from-purple-50 to-violet-50 rounded-lg p-3 border border-purple-200">
+                      <p className="text-purple-600 font-medium text-sm">Intercaladas (4x)</p>
+                      <p className="text-purple-800 font-bold text-lg">
+                        R$ {formData.selectedUnit === '2quartos' ? '4.875' : '5.250'}
+                      </p>
+                    </div>
+                    <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-lg p-3 border border-orange-200">
+                      <p className="text-orange-600 font-medium text-sm">Financiamento</p>
+                      <p className="text-orange-800 font-bold text-lg">
+                        R$ {formData.selectedUnit === '2quartos' ? '179.400' : '193.200'}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Valor para Início */}
+                  <div className="bg-gradient-to-r from-yellow-50 to-amber-50 rounded-lg p-3 border border-yellow-200 text-center">
+                    <p className="text-yellow-600 font-medium text-sm">💰 VALOR PARA INÍCIO</p>
+                    <p className="text-yellow-800 font-bold text-xl">
+                      R$ {formData.selectedUnit === '2quartos' ? '22.479' : '24.208'}
+                    </p>
+                    <p className="text-yellow-700 text-sm">(Sinal + 1ª Parcela Mensal)</p>
+                  </div>
+
+                  {/* Características */}
+                  <div className="text-center">
+                    <p className="text-gray-600 text-sm">✅ Entrega em 24 meses • ✅ Financiamento bancário • ✅ Parcelas sem juros</p>
+                  </div>
+                </div>
+              </button>
+
+              {/* Plano Venda Direta */}
+              <button
+                onClick={() => {
+                  setFormData(prev => ({ ...prev, selectedPlan: 'vista' }));
+                  nextStep();
+                }}
+                className="p-6 rounded-2xl border-2 border-blue-200 bg-white hover:bg-blue-50 hover:border-blue-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-left"
+              >
+                <div className="space-y-4">
+                  {/* Cabeçalho */}
+                  <div className="text-center">
+                    <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full flex items-center justify-center shadow-lg mb-3">
+                      <span className="text-2xl text-white font-bold">💳</span>
+                    </div>
+                    <h4 className="text-xl font-bold text-gray-800">Venda Direta</h4>
+                    <p className="text-2xl font-bold text-blue-600">
+                      R$ {formData.selectedUnit === '2quartos' ? '260.000' : '280.000'}
+                    </p>
+                  </div>
+
+                  {/* Valores Detalhados */}
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-3 border border-blue-200">
+                      <p className="text-blue-600 font-medium text-sm">Entrada (30%)</p>
+                      <p className="text-blue-800 font-bold text-lg">
+                        R$ {formData.selectedUnit === '2quartos' ? '78.000' : '84.000'}
+                      </p>
+                    </div>
+                    <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-3 border border-green-200">
+                      <p className="text-green-600 font-medium text-sm">Mensais (30x)</p>
+                      <p className="text-green-800 font-bold text-lg">
+                        R$ {formData.selectedUnit === '2quartos' ? '6.067' : '6.533'}
+                      </p>
+                    </div>
+                    <div className="bg-gradient-to-r from-purple-50 to-violet-50 rounded-lg p-3 border border-purple-200">
+                      <p className="text-purple-600 font-medium text-sm">Sem Intercaladas</p>
+                      <p className="text-purple-800 font-bold text-lg">-</p>
+                    </div>
+                    <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-lg p-3 border border-orange-200">
+                      <p className="text-orange-600 font-medium text-sm">Sem Financiamento</p>
+                      <p className="text-orange-800 font-bold text-lg">-</p>
+                    </div>
+                  </div>
+
+                  {/* Valor para Início */}
+                  <div className="bg-gradient-to-r from-yellow-50 to-amber-50 rounded-lg p-3 border border-yellow-200 text-center">
+                    <p className="text-yellow-600 font-medium text-sm">💰 VALOR PARA INÍCIO</p>
+                    <p className="text-yellow-800 font-bold text-xl">
+                      R$ {formData.selectedUnit === '2quartos' ? '78.000' : '84.000'}
+                    </p>
+                    <p className="text-yellow-700 text-sm">(Entrada de 30%)</p>
+                  </div>
+
+                  {/* Características */}
+                  <div className="text-center">
+                    <p className="text-gray-600 text-sm">✅ Entrega imediata • ✅ Sem juros • ✅ Parcelas fixas</p>
                   </div>
                 </div>
               </button>
