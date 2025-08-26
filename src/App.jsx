@@ -489,6 +489,32 @@ _Proposta personalizada baseada no seu perfil_`;
               </div>
             )}
 
+            {/* Planta da Casa - Movida para o topo */}
+            {selectedUnit && (
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold text-gray-800 text-center">🏗️ Planta da Casa</h3>
+                <div className="bg-white border-2 border-green-200 rounded-xl p-4 shadow-lg">
+                  <div className="text-center mb-4">
+                    <h4 className="text-lg font-semibold text-gray-800">
+                      {selectedUnit === '2quartos' ? 'Casa 2 Quartos' : 'Casa 3 Quartos'}
+                    </h4>
+                    <p className="text-gray-600">
+                      Área: {units[selectedUnit].area} • Terreno: {units[selectedUnit].area}
+                    </p>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    {Object.entries(units[selectedUnit].floorPlan).map(([room, desc]) => (
+                      <div key={room} className="bg-gradient-to-r from-green-50 to-orange-50 rounded-lg p-3 text-center border border-green-200">
+                        <h5 className="font-semibold text-gray-800 capitalize mb-1">{room}</h5>
+                        <p className="text-green-700 font-medium">{desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Simulação */}
             {selectedUnit && selectedPlan && (
               <div className="space-y-4">
@@ -672,40 +698,6 @@ _Proposta personalizada baseada no seu perfil_`;
                   <div className="bg-white rounded-xl p-4 border border-blue-100">
                     <p className="text-blue-600 font-semibold">📱 WhatsApp: (81) 99379-8551</p>
                     <p className="text-gray-600 text-sm">Horário: Segunda a Sexta, 8h às 18h</p>
-                  </div>
-                </div>
-
-                {/* Botão Planta */}
-                <button
-                  onClick={() => setShowFloorPlan(!showFloorPlan)}
-                  className="w-full bg-white hover:bg-green-50 text-gray-800 font-semibold py-3 px-6 rounded-xl border-2 border-green-200 hover:border-green-300 transition-all shadow-md hover:shadow-lg"
-                >
-                  {showFloorPlan ? 'Ocultar Planta' : 'Ver Planta da Casa'}
-                </button>
-              </div>
-            )}
-
-            {/* Planta da Casa */}
-            {showFloorPlan && selectedUnit && (
-              <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-gray-800 text-center">Planta da Casa</h3>
-                <div className="bg-white border-2 border-green-200 rounded-xl p-4 shadow-lg">
-                  <div className="text-center mb-4">
-                    <h4 className="text-lg font-semibold text-gray-800">
-                      {selectedUnit === '2quartos' ? 'Casa 2 Quartos' : 'Casa 3 Quartos'}
-                    </h4>
-                    <p className="text-gray-600">
-                      Área: {units[selectedUnit].area} • Terreno: {units[selectedUnit].area}
-                    </p>
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-3 text-sm">
-                    {Object.entries(units[selectedUnit].floorPlan).map(([room, desc]) => (
-                      <div key={room} className="bg-gradient-to-r from-green-50 to-orange-50 rounded-lg p-3 text-center border border-green-200">
-                        <h5 className="font-semibold text-gray-800 capitalize mb-1">{room}</h5>
-                        <p className="text-green-700 font-medium">{desc}</p>
-                      </div>
-                    ))}
                   </div>
                 </div>
               </div>
