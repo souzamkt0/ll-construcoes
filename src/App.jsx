@@ -97,7 +97,7 @@ function App() {
                   type="tel"
                   value={formData.whatsapp}
                   onChange={(e) => handleInputChange('whatsapp', e.target.value)}
-                  placeholder="(81) 99999-9999"
+                  placeholder="99999-9999"
                   className="w-full pl-10 pr-16 py-3 bg-white border-2 border-gray-200 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 transition-all duration-300 text-sm text-center"
                 />
                 <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
@@ -719,7 +719,7 @@ function App() {
 
 *DADOS DO CLIENTE:*
 👤 Nome: ${formData.nome}
-📱 WhatsApp: +55 ${formData.whatsapp}
+📱 WhatsApp: +55 ${formData.whatsapp.replace(/^\(81\)\s*/, '')}
 💵 Renda: ${formData.renda}
 
 *CASA SELECIONADA:*
