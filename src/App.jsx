@@ -100,6 +100,9 @@ function App() {
                   placeholder="(81) 99999-9999"
                   className="w-full pl-12 pr-4 py-4 bg-white border-2 border-gray-200 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 transition-all duration-300 text-base"
                 />
+                <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                  <span className="text-gray-400 text-sm font-medium">+55</span>
+                </div>
               </div>
               
               <button
@@ -712,7 +715,7 @@ function App() {
 
 *DADOS DO CLIENTE:*
 👤 Nome: ${formData.nome}
-📱 WhatsApp: ${formData.whatsapp}
+📱 WhatsApp: +55 ${formData.whatsapp}
 💵 Renda: ${formData.renda}
 
 *CASA SELECIONADA:*
