@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   User, Phone, Mail, DollarSign, Users, CreditCard, 
   Building2, Home, MapPin, CheckCircle, Send, 
-  ChevronLeft, ChevronRight, ArrowRight, MessageCircle, Calculator
+  ChevronLeft, ChevronRight, ArrowRight, MessageCircle, Calculator, Calendar
 } from 'lucide-react';
 
 function App() {
@@ -20,268 +20,89 @@ function App() {
   const [recommendation, setRecommendation] = useState(null);
 
   const units = {
-    casa2quartos: {
-      valor: 260000,
-      plano1: {
-        sinal: 20800, // 8% do valor total
-        parcelasMensais: 1679.17,
-        totalMensais: 40300.08,
-        parcelasIntercaladas: 4875,
-        totalIntercaladas: 19500,
-        financiamentoBancario: 179400,
-        valorInicio: 22479.17, // Sinal + 1ª mensal
-        // 4 parcelas intercaladas durante 24 meses (a cada 6 meses)
-        intercaladasInfo: {
-          quantidade: 4,
-          frequencia: 'Semestral',
-          valorParcela: 4875,
-          total: 19500,
-          cronograma: [
-            { mes: 6, valor: 4875, descricao: '6º mês', data: 'Julho 2024' },
-            { mes: 12, valor: 4875, descricao: '12º mês', data: 'Janeiro 2025' },
-            { mes: 18, valor: 4875, descricao: '18º mês', data: 'Julho 2025' },
-            { mes: 24, valor: 4875, descricao: '24º mês', data: 'Janeiro 2026' }
-          ]
-        },
-        // 24 parcelas mensais com datas
-        mensaisInfo: {
-          quantidade: 24,
-          frequencia: 'Mensal',
-          valorParcela: 1679.17,
-          total: 40300.08,
-          cronograma: [
-            { mes: 1, valor: 1679.17, data: 'Janeiro 2024' },
-            { mes: 2, valor: 1679.17, data: 'Fevereiro 2024' },
-            { mes: 3, valor: 1679.17, data: 'Março 2024' },
-            { mes: 4, valor: 1679.17, data: 'Abril 2024' },
-            { mes: 5, valor: 1679.17, data: 'Maio 2024' },
-            { mes: 6, valor: 1679.17, data: 'Junho 2024' },
-            { mes: 7, valor: 1679.17, data: 'Julho 2024' },
-            { mes: 8, valor: 1679.17, data: 'Agosto 2024' },
-            { mes: 9, valor: 1679.17, data: 'Setembro 2024' },
-            { mes: 10, valor: 1679.17, data: 'Outubro 2024' },
-            { mes: 11, valor: 1679.17, data: 'Novembro 2024' },
-            { mes: 12, valor: 1679.17, data: 'Dezembro 2024' },
-            { mes: 13, valor: 1679.17, data: 'Janeiro 2025' },
-            { mes: 14, valor: 1679.17, data: 'Fevereiro 2025' },
-            { mes: 15, valor: 1679.17, data: 'Março 2025' },
-            { mes: 16, valor: 1679.17, data: 'Abril 2025' },
-            { mes: 17, valor: 1679.17, data: 'Maio 2025' },
-            { mes: 18, valor: 1679.17, data: 'Junho 2025' },
-            { mes: 19, valor: 1679.17, data: 'Julho 2025' },
-            { mes: 20, valor: 1679.17, data: 'Agosto 2025' },
-            { mes: 21, valor: 1679.17, data: 'Setembro 2025' },
-            { mes: 22, valor: 1679.17, data: 'Outubro 2025' },
-            { mes: 23, valor: 1679.17, data: 'Novembro 2025' },
-            { mes: 24, valor: 1679.17, data: 'Dezembro 2025' }
-          ]
-        }
-      },
-      plano2: {
-        sinal: 30000, // Valor fixo de 30k para plano direto
-        parcelasIntercaladas: 4800,
-        totalIntercaladas: 48000,
-        saldoMensais: 191200,
-        parcelasMensais: 7966.67,
-        totalMensais: 191200,
-        valorInicio: 30000, // Sinal de 30k
-        financiamentoBancario: 0,
-        // 4 parcelas intercaladas durante 24 meses (a cada 6 meses)
-        intercaladasInfo: {
-          quantidade: 4,
-          frequencia: 'Semestral',
-          valorParcela: 4800,
-          total: 48000,
-          cronograma: [
-            { mes: 6, valor: 4800, descricao: '6º mês', data: 'Julho 2024' },
-            { mes: 12, valor: 4800, descricao: '12º mês', data: 'Janeiro 2025' },
-            { mes: 18, valor: 4800, descricao: '18º mês', data: 'Julho 2025' },
-            { mes: 24, valor: 4800, descricao: '24º mês', data: 'Janeiro 2026' }
-          ]
-        },
-        // 24 parcelas mensais com datas
-        mensaisInfo: {
-          quantidade: 24,
-          frequencia: 'Mensal',
-          valorParcela: 7966.67,
-          total: 191200,
-          cronograma: [
-            { mes: 1, valor: 7966.67, data: 'Janeiro 2024' },
-            { mes: 2, valor: 7966.67, data: 'Fevereiro 2024' },
-            { mes: 3, valor: 7966.67, data: 'Março 2024' },
-            { mes: 4, valor: 7966.67, data: 'Abril 2024' },
-            { mes: 5, valor: 7966.67, data: 'Maio 2024' },
-            { mes: 6, valor: 7966.67, data: 'Junho 2024' },
-            { mes: 7, valor: 7966.67, data: 'Julho 2024' },
-            { mes: 8, valor: 7966.67, data: 'Agosto 2024' },
-            { mes: 9, valor: 7966.67, data: 'Setembro 2024' },
-            { mes: 10, valor: 7966.67, data: 'Outubro 2024' },
-            { mes: 11, valor: 7966.67, data: 'Novembro 2024' },
-            { mes: 12, valor: 7966.67, data: 'Dezembro 2024' },
-            { mes: 13, valor: 7966.67, data: 'Janeiro 2025' },
-            { mes: 14, valor: 7966.67, data: 'Fevereiro 2025' },
-            { mes: 15, valor: 7966.67, data: 'Março 2025' },
-            { mes: 16, valor: 7966.67, data: 'Abril 2025' },
-            { mes: 17, valor: 7966.67, data: 'Maio 2025' },
-            { mes: 18, valor: 7966.67, data: 'Junho 2025' },
-            { mes: 19, valor: 7966.67, data: 'Julho 2025' },
-            { mes: 20, valor: 7966.67, data: 'Agosto 2025' },
-            { mes: 21, valor: 7966.67, data: 'Setembro 2025' },
-            { mes: 22, valor: 7966.67, data: 'Outubro 2025' },
-            { mes: 23, valor: 7966.67, data: 'Novembro 2025' },
-            { mes: 24, valor: 7966.67, data: 'Dezembro 2025' }
-          ]
-        }
-      },
+    '2quartos': {
+      name: 'Casa 2 Quartos',
+      price: 260000,
+      area: '20x80',
       floorPlan: {
-        quartos: 2,
-        area: '42m²',
-        dimensoes: '20x80',
-        especificacoes: {
-          sala: { area: '12m²', dimensoes: '4x3m' },
-          cozinha: { area: '8m²', dimensoes: '4x2m' },
-          quarto1: { area: '10m²', dimensoes: '3.3x3m' },
-          quarto2: { area: '9m²', dimensoes: '3x3m' },
-          banheiro: { area: '3m²', dimensoes: '2x1.5m' }
+        '2quartos': '2 quartos, sala, cozinha, banheiro, área de serviço',
+        '3quartos': '3 quartos, sala, cozinha, 2 banheiros, área de serviço'
+      },
+      plans: {
+        plano1: { // Financiamento
+          name: 'Plano Financiamento',
+          sinal: 0.08, // 8%
+          mensais: 24,
+          intercaladas: 4,
+          financiamento: true
+        },
+        plano2: { // Direto
+          name: 'Plano Direto',
+          sinal: 30000,
+          mensais: 30, // Corrigido para 30 meses
+          intercaladas: 4,
+          financiamento: false
         }
+      },
+      intercaladasInfo: {
+        '1': 'Janeiro 2025',
+        '2': 'Julho 2025', 
+        '3': 'Janeiro 2026',
+        '4': 'Julho 2026'
+      },
+      mensaisInfo: {
+        '1': 'Fevereiro 2025', '2': 'Março 2025', '3': 'Abril 2025', '4': 'Maio 2025', '5': 'Junho 2025',
+        '6': 'Agosto 2025', '7': 'Setembro 2025', '8': 'Outubro 2025', '9': 'Novembro 2025', '10': 'Dezembro 2025',
+        '11': 'Fevereiro 2026', '12': 'Março 2026', '13': 'Abril 2026', '14': 'Maio 2026', '15': 'Junho 2026',
+        '16': 'Agosto 2026', '17': 'Setembro 2026', '18': 'Outubro 2026', '19': 'Novembro 2026', '20': 'Dezembro 2026',
+        '21': 'Janeiro 2027', '22': 'Fevereiro 2027', '23': 'Março 2027', '24': 'Abril 2027'
       }
     },
-    casa3quartos: {
-      valor: 280000,
-      plano1: {
-        sinal: 22400, // 8% do valor total
-        parcelasMensais: 1754,
-        totalMensais: 42096,
-        parcelasIntercaladas: 5250,
-        totalIntercaladas: 21000,
-        financiamentoBancario: 193200,
-        valorInicio: 24154, // Sinal + 1ª mensal
-        // 4 parcelas intercaladas durante 24 meses (a cada 6 meses)
-        intercaladasInfo: {
-          quantidade: 4,
-          frequencia: 'Semestral',
-          valorParcela: 5250,
-          total: 21000,
-          cronograma: [
-            { mes: 6, valor: 5250, descricao: '6º mês', data: 'Julho 2024' },
-            { mes: 12, valor: 5250, descricao: '12º mês', data: 'Janeiro 2025' },
-            { mes: 18, valor: 5250, descricao: '18º mês', data: 'Julho 2025' },
-            { mes: 24, valor: 5250, descricao: '24º mês', data: 'Janeiro 2026' }
-          ]
-        },
-        // 24 parcelas mensais com datas
-        mensaisInfo: {
-          quantidade: 24,
-          frequencia: 'Mensal',
-          valorParcela: 1754,
-          total: 42096,
-          cronograma: [
-            { mes: 1, valor: 1754, data: 'Janeiro 2024' },
-            { mes: 2, valor: 1754, data: 'Fevereiro 2024' },
-            { mes: 3, valor: 1754, data: 'Março 2024' },
-            { mes: 4, valor: 1754, data: 'Abril 2024' },
-            { mes: 5, valor: 1754, data: 'Maio 2024' },
-            { mes: 6, valor: 1754, data: 'Junho 2024' },
-            { mes: 7, valor: 1754, data: 'Julho 2024' },
-            { mes: 8, valor: 1754, data: 'Agosto 2024' },
-            { mes: 9, valor: 1754, data: 'Setembro 2024' },
-            { mes: 10, valor: 1754, data: 'Outubro 2024' },
-            { mes: 11, valor: 1754, data: 'Novembro 2024' },
-            { mes: 12, valor: 1754, data: 'Dezembro 2024' },
-            { mes: 13, valor: 1754, data: 'Janeiro 2025' },
-            { mes: 14, valor: 1754, data: 'Fevereiro 2025' },
-            { mes: 15, valor: 1754, data: 'Março 2025' },
-            { mes: 16, valor: 1754, data: 'Abril 2025' },
-            { mes: 17, valor: 1754, data: 'Maio 2025' },
-            { mes: 18, valor: 1754, data: 'Junho 2025' },
-            { mes: 19, valor: 1754, data: 'Julho 2025' },
-            { mes: 20, valor: 1754, data: 'Agosto 2025' },
-            { mes: 21, valor: 1754, data: 'Setembro 2025' },
-            { mes: 22, valor: 1754, data: 'Outubro 2025' },
-            { mes: 23, valor: 1754, data: 'Novembro 2025' },
-            { mes: 24, valor: 1754, data: 'Dezembro 2025' }
-          ]
-        }
-      },
-      plano2: {
-        sinal: 30000, // Valor fixo de 30k para plano direto
-        parcelasIntercaladas: 5200,
-        totalIntercaladas: 52000,
-        saldoMensais: 205600,
-        parcelasMensais: 8566.67,
-        totalMensais: 205600,
-        valorInicio: 30000, // Sinal de 30k
-        financiamentoBancario: 0,
-        // 4 parcelas intercaladas durante 24 meses (a cada 6 meses)
-        intercaladasInfo: {
-          quantidade: 4,
-          frequencia: 'Semestral',
-          valorParcela: 5200,
-          total: 52000,
-          cronograma: [
-            { mes: 6, valor: 5200, descricao: '6º mês', data: 'Julho 2024' },
-            { mes: 12, valor: 5200, descricao: '12º mês', data: 'Janeiro 2025' },
-            { mes: 18, valor: 5200, descricao: '18º mês', data: 'Julho 2025' },
-            { mes: 24, valor: 5200, descricao: '24º mês', data: 'Janeiro 2026' }
-          ]
-        },
-        // 24 parcelas mensais com datas
-        mensaisInfo: {
-          quantidade: 24,
-          frequencia: 'Mensal',
-          valorParcela: 8566.67,
-          total: 205600,
-          cronograma: [
-            { mes: 1, valor: 8566.67, data: 'Janeiro 2024' },
-            { mes: 2, valor: 8566.67, data: 'Fevereiro 2024' },
-            { mes: 3, valor: 8566.67, data: 'Março 2024' },
-            { mes: 4, valor: 8566.67, data: 'Abril 2024' },
-            { mes: 5, valor: 8566.67, data: 'Maio 2024' },
-            { mes: 6, valor: 8566.67, data: 'Junho 2024' },
-            { mes: 7, valor: 8566.67, data: 'Julho 2024' },
-            { mes: 8, valor: 8566.67, data: 'Agosto 2024' },
-            { mes: 9, valor: 8566.67, data: 'Setembro 2024' },
-            { mes: 10, valor: 8566.67, data: 'Outubro 2024' },
-            { mes: 11, valor: 8566.67, data: 'Novembro 2024' },
-            { mes: 12, valor: 8566.67, data: 'Dezembro 2024' },
-            { mes: 13, valor: 8566.67, data: 'Janeiro 2025' },
-            { mes: 14, valor: 8566.67, data: 'Fevereiro 2025' },
-            { mes: 15, valor: 8566.67, data: 'Março 2025' },
-            { mes: 16, valor: 8566.67, data: 'Abril 2025' },
-            { mes: 17, valor: 8566.67, data: 'Maio 2025' },
-            { mes: 18, valor: 8566.67, data: 'Junho 2025' },
-            { mes: 19, valor: 8566.67, data: 'Julho 2025' },
-            { mes: 20, valor: 8566.67, data: 'Agosto 2025' },
-            { mes: 21, valor: 8566.67, data: 'Setembro 2025' },
-            { mes: 22, valor: 8566.67, data: 'Outubro 2025' },
-            { mes: 23, valor: 8566.67, data: 'Novembro 2025' },
-            { mes: 24, valor: 8566.67, data: 'Dezembro 2025' }
-          ]
-        }
-      },
+    '3quartos': {
+      name: 'Casa 3 Quartos',
+      price: 280000,
+      area: '20x80',
       floorPlan: {
-        quartos: 3,
-        area: '48m²',
-        dimensoes: '20x80',
-        especificacoes: {
-          sala: { area: '14m²', dimensoes: '4.5x3m' },
-          cozinha: { area: '9m²', dimensoes: '4.5x2m' },
-          quarto1: { area: '11m²', dimensoes: '3.5x3m' },
-          quarto2: { area: '10m²', dimensoes: '3.3x3m' },
-          quarto3: { area: '9m²', dimensoes: '3x3m' },
-          banheiro: { area: '3m²', dimensoes: '2x1.5m' },
-          suite: { area: '4m²', dimensoes: '2x2m' }
+        '2quartos': '2 quartos, sala, cozinha, banheiro, área de serviço',
+        '3quartos': '3 quartos, sala, cozinha, 2 banheiros, área de serviço'
+      },
+      plans: {
+        plano1: { // Financiamento
+          name: 'Plano Financiamento',
+          sinal: 0.08, // 8%
+          mensais: 24,
+          intercaladas: 4,
+          financiamento: true
+        },
+        plano2: { // Direto
+          name: 'Plano Direto',
+          sinal: 30000,
+          mensais: 30, // Corrigido para 30 meses
+          intercaladas: 4,
+          financiamento: false
         }
+      },
+      intercaladasInfo: {
+        '1': 'Janeiro 2025',
+        '2': 'Julho 2025',
+        '3': 'Janeiro 2026', 
+        '4': 'Julho 2026'
+      },
+      mensaisInfo: {
+        '1': 'Fevereiro 2025', '2': 'Março 2025', '3': 'Abril 2025', '4': 'Maio 2025', '5': 'Junho 2025',
+        '6': 'Agosto 2025', '7': 'Setembro 2025', '8': 'Outubro 2025', '9': 'Novembro 2025', '10': 'Dezembro 2025',
+        '11': 'Fevereiro 2026', '12': 'Março 2026', '13': 'Abril 2026', '14': 'Maio 2026', '15': 'Junho 2026',
+        '16': 'Agosto 2026', '17': 'Setembro 2026', '18': 'Outubro 2026', '19': 'Novembro 2026', '20': 'Dezembro 2026',
+        '21': 'Janeiro 2027', '22': 'Fevereiro 2027', '23': 'Março 2027', '24': 'Abril 2027'
       }
     }
   };
 
   const steps = [
-    { title: 'Nome', description: 'Como podemos te chamar?' },
-    { title: 'WhatsApp', description: 'Seu número para receber a proposta' },
-    { title: 'Renda', description: 'Sua faixa de renda mensal' },
-    { title: 'Preferência', description: 'Como prefere comprar?' },
-    { title: 'Simulação Completa', description: 'Detalhes da sua proposta' }
+    { title: 'Nome', description: 'Como devemos chamar você?' },
+    { title: 'WhatsApp', description: 'Seu número para contato' },
+    { title: 'Renda Mensal', description: 'Qual sua faixa de renda?' },
+    { title: 'Simulação Completa', description: 'Sua proposta personalizada' }
   ];
 
   const nextStep = () => {
@@ -304,25 +125,25 @@ function App() {
     // Lógica para outras preferências
     if (formData.renda === 'ate2k') {
       return {
-        unit: 'casa2quartos',
+        unit: '2quartos',
         plan: 'plano1',
         reasoning: 'Com sua renda, recomendamos a casa de 2 quartos com financiamento bancário para diluir os custos'
       };
     } else if (formData.renda === '2k3k') {
       return {
-        unit: 'casa2quartos',
+        unit: '2quartos',
         plan: formData.preferencia === 'vendaDireta' ? 'plano2' : 'plano1',
         reasoning: 'Sua renda permite escolher entre financiamento ou venda direta na casa de 2 quartos'
       };
     } else if (formData.renda === '3k5k') {
       return {
-        unit: 'casa3quartos',
+        unit: '3quartos',
         plan: formData.preferencia === 'vendaDireta' ? 'plano2' : 'plano1',
         reasoning: 'Com sua renda, você pode optar pela casa de 3 quartos em qualquer modalidade'
       };
     } else {
       return {
-        unit: 'casa3quartos',
+        unit: '3quartos',
         plan: 'plano1',
         reasoning: 'Sua renda permite escolher a casa de 3 quartos com financiamento bancário'
       };
@@ -340,12 +161,12 @@ function App() {
   const sendWhatsAppProposal = () => {
     const { unit, plan, reasoning } = recommendation || generateRecommendation();
     const unitData = units[unit];
-    const planData = unitData[plan === 'plano1' ? 'plano1' : 'plano2'];
+    const planData = unitData.plans[plan];
     
     const message = `🏠 *PROPOSTA PERSONALIZADA LL CONSTRUÇÕES* 🏠
 
-*${unit === 'casa2quartos' ? 'Casa 2 Quartos' : 'Casa 3 Quartos'}*
-💰 Valor: ${formatCurrency(unitData.valor)}
+*${unitData.name}*
+💰 Valor: ${formatCurrency(unitData.price)}
 
 *Dados do Cliente:*
 👤 Nome: ${formData.name}
@@ -356,23 +177,23 @@ function App() {
 🎯 ${reasoning}
 
 *Plano de Pagamento Recomendado:*
-${plan === 'plano1' ? '🏦 Plano Financiamento' : '💳 Plano Venda Direta'}
+${planData.financiamento ? '🏦 Plano Financiamento' : '💳 Plano Venda Direta'}
 
 💳 Sinal (8%): ${formatCurrency(planData.sinal)}
-📅 Mensais (24x): ${formatCurrency(planData.parcelasMensais)}
-🔄 Intercaladas (4x): ${formatCurrency(planData.parcelasIntercaladas)}
+📅 Mensais (24x): ${formatCurrency(planData.mensais)}
+🔄 Intercaladas (4x): ${formatCurrency(planData.intercaladas)}
 
 *📅 Cronograma das Intercaladas (24 meses):*
-• 6º mês (Julho 2024): ${formatCurrency(planData.intercaladasInfo.cronograma[0].valor)}
-• 12º mês (Janeiro 2025): ${formatCurrency(planData.intercaladasInfo.cronograma[1].valor)}
-• 18º mês (Julho 2025): ${formatCurrency(planData.intercaladasInfo.cronograma[2].valor)}
-• 24º mês (Janeiro 2026): ${formatCurrency(planData.intercaladasInfo.cronograma[3].valor)}
+• 6º mês (Julho 2024): ${formatCurrency(planData.intercaladasInfo['1'])}
+• 12º mês (Janeiro 2025): ${formatCurrency(planData.intercaladasInfo['2'])}
+• 18º mês (Julho 2025): ${formatCurrency(planData.intercaladasInfo['3'])}
+• 24º mês (Janeiro 2026): ${formatCurrency(planData.intercaladasInfo['4'])}
 
 *📅 Cronograma das Mensais (24 meses):*
-• 1º mês (Jan 2024) até 24º mês (Dez 2025): ${formatCurrency(planData.parcelasMensais)} cada
+• 1º mês (Jan 2024) até 24º mês (Dez 2025): ${formatCurrency(planData.mensais)} cada
 
-${plan === 'plano1' ? `🏦 Financiamento: ${formatCurrency(planData.financiamentoBancario)}` : ''}
-🚀 Valor para Início: ${formatCurrency(planData.valorInicio)}
+${planData.financiamento ? `🏦 Financiamento: ${formatCurrency(planData.sinal)}` : ''}
+🚀 Valor para Início: ${formatCurrency(planData.sinal)}
 
 *Cronograma da Obra:*
 🏗️ Início: Janeiro 2024
@@ -501,17 +322,18 @@ _Proposta personalizada baseada no seu perfil_`;
               <button
                 onClick={() => {
                   handleInputChange('renda', 'ate2k');
+                  setFormData({ ...formData, renda: 'ate2k', preferencia: 'vendaFinanciada' });
                   nextStep();
                 }}
-                className="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl hover:from-blue-100 hover:to-indigo-100 hover:border-blue-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
+                className="p-4 sm:p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl hover:from-blue-100 hover:to-indigo-100 hover:border-blue-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
               >
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
+                <div className="flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
+                  <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mx-auto sm:mx-0">
                     <DollarSign className="w-6 h-6 text-white" />
                   </div>
-                  <div className="text-left">
-                    <h3 className="text-xl font-bold text-gray-800 mb-1">💰 Até R$ 2.000</h3>
-                    <p className="text-gray-600">Clique para continuar</p>
+                  <div className="text-center sm:text-left">
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-1">💰 Até R$ 2.000</h3>
+                    <p className="text-gray-600 text-sm sm:text-base">Clique para continuar</p>
                   </div>
                 </div>
               </button>
@@ -519,17 +341,18 @@ _Proposta personalizada baseada no seu perfil_`;
               <button
                 onClick={() => {
                   handleInputChange('renda', '2k3k');
+                  setFormData({ ...formData, renda: '2k3k', preferencia: 'vendaFinanciada' });
                   nextStep();
                 }}
-                className="p-6 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl hover:from-green-100 hover:to-emerald-100 hover:border-green-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
+                className="p-4 sm:p-6 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl hover:from-green-100 hover:to-emerald-100 hover:border-green-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
               >
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                <div className="flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
+                  <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mx-auto sm:mx-0">
                     <DollarSign className="w-6 h-6 text-white" />
                   </div>
-                  <div className="text-left">
-                    <h3 className="text-xl font-bold text-gray-800 mb-1">💰 R$ 2.000 - R$ 3.000</h3>
-                    <p className="text-gray-600">Clique para continuar</p>
+                  <div className="text-center sm:text-left">
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-1">💰 R$ 2.000 - R$ 3.000</h3>
+                    <p className="text-gray-600 text-sm sm:text-base">Clique para continuar</p>
                   </div>
                 </div>
               </button>
@@ -537,17 +360,18 @@ _Proposta personalizada baseada no seu perfil_`;
               <button
                 onClick={() => {
                   handleInputChange('renda', '3k5k');
+                  setFormData({ ...formData, renda: '3k5k', preferencia: 'vendaFinanciada' });
                   nextStep();
                 }}
-                className="p-6 bg-gradient-to-r from-purple-50 to-violet-50 border-2 border-purple-200 rounded-2xl hover:from-purple-100 hover:to-violet-100 hover:border-purple-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
+                className="p-4 sm:p-6 bg-gradient-to-r from-purple-50 to-violet-50 border-2 border-purple-200 rounded-2xl hover:from-purple-100 hover:to-violet-100 hover:border-purple-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
               >
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center">
+                <div className="flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
+                  <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mx-auto sm:mx-0">
                     <DollarSign className="w-6 h-6 text-white" />
                   </div>
-                  <div className="text-left">
-                    <h3 className="text-xl font-bold text-gray-800 mb-1">💰 R$ 3.000 - R$ 5.000</h3>
-                    <p className="text-gray-600">Clique para continuar</p>
+                  <div className="text-center sm:text-left">
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-1">💰 R$ 3.000 - R$ 5.000</h3>
+                    <p className="text-gray-600 text-sm sm:text-base">Clique para continuar</p>
                   </div>
                 </div>
               </button>
@@ -555,17 +379,18 @@ _Proposta personalizada baseada no seu perfil_`;
               <button
                 onClick={() => {
                   handleInputChange('renda', 'acima5k');
+                  setFormData({ ...formData, renda: 'acima5k', preferencia: 'vendaFinanciada' });
                   nextStep();
                 }}
-                className="p-6 bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl hover:from-amber-100 hover:to-orange-100 hover:border-amber-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
+                className="p-4 sm:p-6 bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl hover:from-amber-100 hover:to-orange-100 hover:border-amber-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
               >
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-amber-500 rounded-full flex items-center justify-center">
+                <div className="flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
+                  <div className="w-12 h-12 bg-amber-500 rounded-full flex items-center justify-center mx-auto sm:mx-0">
                     <DollarSign className="w-6 h-6 text-white" />
                   </div>
-                  <div className="text-left">
-                    <h3 className="text-xl font-bold text-gray-800 mb-1">💰 Acima de R$ 5.000</h3>
-                    <p className="text-gray-600">Clique para continuar</p>
+                  <div className="text-center sm:text-left">
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-1">💰 Acima de R$ 5.000</h3>
+                    <p className="text-gray-600 text-sm sm:text-base">Clique para continuar</p>
                   </div>
                 </div>
               </button>
@@ -573,56 +398,7 @@ _Proposta personalizada baseada no seu perfil_`;
           </div>
         );
 
-      case 3: // Preferência
-        return (
-          <div className="space-y-8">
-            <div className="text-center space-y-3">
-              <div className="w-28 h-28 mx-auto bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-2xl">
-                <CreditCard className="w-14 h-14 text-white" />
-              </div>
-              <h3 className="text-3xl font-bold text-gray-800">Como prefere comprar?</h3>
-              <p className="text-gray-600 text-lg">Escolha a modalidade que melhor se adapta ao seu perfil</p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Venda Financiada */}
-              <button
-                onClick={() => {
-                  setFormData({ ...formData, preferencia: 'vendaFinanciada' });
-                  setCurrentStep(4); // Vai direto para simulação
-                }}
-                className="bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 hover:from-blue-600 hover:via-indigo-600 hover:to-purple-600 text-white font-bold py-8 px-6 rounded-3xl transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl border-2 border-blue-400/20"
-              >
-                <div className="text-center space-y-4">
-                  <div className="w-16 h-16 mx-auto bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                    <Building2 className="w-8 h-8 text-white" />
-                  </div>
-                  <h4 className="text-xl font-bold">Venda Financiada</h4>
-                  <p className="text-sm opacity-90 leading-relaxed">Sinal 8% + Mensais + Intercaladas + Financiamento</p>
-                </div>
-              </button>
-
-              {/* Venda Direta */}
-              <button
-                onClick={() => {
-                  setFormData({ ...formData, preferencia: 'vendaDireta' });
-                  setCurrentStep(4); // Vai direto para simulação
-                }}
-                className="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-600 text-white font-bold py-8 px-6 rounded-3xl transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl border-2 border-emerald-400/20"
-              >
-                <div className="text-center space-y-4">
-                  <div className="w-16 h-16 mx-auto bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                    <CreditCard className="w-8 h-8 text-white" />
-                  </div>
-                  <h4 className="text-xl font-bold">Venda Direta</h4>
-                  <p className="text-sm opacity-90 leading-relaxed">Sinal R$ 30k + Mensais + Intercaladas</p>
-                </div>
-              </button>
-            </div>
-          </div>
-        );
-
-      case 4: // Simulação Completa
+      case 3: // Simulação Completa
         return (
           <div className="space-y-6">
             <div className="text-center">
@@ -638,31 +414,31 @@ _Proposta personalizada baseada no seu perfil_`;
               <h3 className="text-xl font-semibold text-gray-800 text-center">Escolha sua Casa</h3>
               <div className="grid grid-cols-1 gap-4">
                 <button
-                  onClick={() => setSelectedUnit('casa2quartos')}
+                  onClick={() => setSelectedUnit('2quartos')}
                   className={`p-4 rounded-xl border-2 transition-all ${
-                    selectedUnit === 'casa2quartos'
+                    selectedUnit === '2quartos'
                       ? 'border-orange-400 bg-gradient-to-r from-green-100 to-orange-100 shadow-lg'
                       : 'border-green-200 bg-white hover:bg-green-50 hover:border-green-300'
                   }`}
                 >
                   <div className="text-center">
                     <h4 className="text-lg font-semibold text-gray-800">🏠 Casa 2 Quartos</h4>
-                    <p className="text-2xl font-bold text-green-600">{formatCurrency(units.casa2quartos.valor)}</p>
+                    <p className="text-2xl font-bold text-green-600">{formatCurrency(units['2quartos'].price)}</p>
                     <p className="text-gray-600 text-sm">Terreno 20x80m • 42m²</p>
                   </div>
                 </button>
 
                 <button
-                  onClick={() => setSelectedUnit('casa3quartos')}
+                  onClick={() => setSelectedUnit('3quartos')}
                   className={`p-4 rounded-xl border-2 transition-all ${
-                    selectedUnit === 'casa3quartos'
+                    selectedUnit === '3quartos'
                       ? 'border-orange-400 bg-gradient-to-r from-green-100 to-orange-100 shadow-lg'
                       : 'border-green-200 bg-white hover:bg-green-50 hover:border-green-300'
                   }`}
                 >
                   <div className="text-center">
                     <h4 className="text-lg font-semibold text-gray-800">🏠 Casa 3 Quartos</h4>
-                    <p className="text-2xl font-bold text-green-600">{formatCurrency(units.casa3quartos.valor)}</p>
+                    <p className="text-2xl font-bold text-green-600">{formatCurrency(units['3quartos'].price)}</p>
                     <p className="text-gray-600 text-sm">Terreno 20x80m • 48m²</p>
                   </div>
                 </button>
@@ -734,36 +510,45 @@ _Proposta personalizada baseada no seu perfil_`;
                 <div className="bg-white border-2 border-green-200 rounded-xl p-4 space-y-3 shadow-lg">
                   {(() => {
                     const unitData = units[selectedUnit];
-                    const planData = unitData[selectedPlan === 'plano1' ? 'plano1' : 'plano2'];
+                    const planData = unitData.plans[selectedPlan];
+                    
+                    if (!planData) return null;
+                    
+                    // Calcular valores baseados na nova estrutura
+                    const sinal = planData.financiamento ? unitData.price * planData.sinal : planData.sinal;
+                    const valorMensal = planData.financiamento 
+                      ? (unitData.price * 0.69) / 24 
+                      : (unitData.price - planData.sinal - (sinal * 4)) / planData.mensais;
+                    const valorIntercalada = sinal;
                     
                     return (
                       <>
                         <div className="flex justify-between items-center">
                           <span className="text-gray-700 font-medium">Valor Total:</span>
-                          <span className="text-xl font-bold text-gray-800">{formatCurrency(unitData.valor)}</span>
+                          <span className="text-xl font-bold text-gray-800">{formatCurrency(unitData.price)}</span>
                         </div>
                         <div className="flex justify-between items-center">
-                          <span className="text-gray-700 font-medium">Sinal (8%):</span>
-                          <span className="text-gray-800">{formatCurrency(planData.sinal)}</span>
+                          <span className="text-gray-700 font-medium">Sinal:</span>
+                          <span className="text-gray-800">{formatCurrency(sinal)}</span>
                         </div>
                         <div className="flex justify-between items-center">
-                          <span className="text-gray-700 font-medium">Mensais (24x):</span>
-                          <span className="text-gray-800">{formatCurrency(planData.parcelasMensais)}</span>
+                          <span className="text-gray-700 font-medium">Mensais ({planData.mensais}x):</span>
+                          <span className="text-gray-800">{formatCurrency(valorMensal)}</span>
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-gray-700 font-medium">Intercaladas (4x):</span>
-                          <span className="text-gray-800">{formatCurrency(planData.parcelasIntercaladas)}</span>
+                          <span className="text-gray-800">{formatCurrency(valorIntercalada)}</span>
                         </div>
-                        {selectedPlan === 'plano1' && (
+                        {planData.financiamento && (
                           <div className="flex justify-between items-center">
                             <span className="text-gray-700 font-medium">Financiamento:</span>
-                            <span className="text-gray-800">{formatCurrency(planData.financiamentoBancario)}</span>
+                            <span className="text-gray-800">{formatCurrency(unitData.price * 0.69)}</span>
                           </div>
                         )}
                         <div className="pt-3 border-t border-green-200">
                           <div className="flex justify-between items-center">
                             <span className="text-lg font-semibold text-green-600">Valor para Início:</span>
-                            <span className="text-2xl font-bold text-gray-800">{formatCurrency(planData.valorInicio)}</span>
+                            <span className="text-2xl font-bold text-gray-800">{formatCurrency(sinal + valorMensal)}</span>
                           </div>
                         </div>
                       </>
@@ -777,28 +562,31 @@ _Proposta personalizada baseada no seu perfil_`;
                   <div className="grid grid-cols-2 gap-3">
                     {(() => {
                       const unitData = units[selectedUnit];
-                      const planData = unitData[selectedPlan === 'plano1' ? 'plano1' : 'plano2'];
+                      const planData = unitData.plans[selectedPlan];
                       
                       if (!planData) return null;
                       
-                      return planData.intercaladasInfo.cronograma.map((item, index) => (
-                        <div key={index} className="bg-white rounded-lg p-3 text-center border border-blue-200">
-                          <p className="text-blue-600 font-bold text-sm">{item.descricao}</p>
-                          <p className="text-gray-800 font-semibold">{formatCurrency(item.valor)}</p>
-                          <p className="text-blue-500 font-medium text-xs">{item.data}</p>
-                          <p className="text-gray-500 text-xs">Obra: {item.mes} meses</p>
-                        </div>
-                      ));
+                      return Object.entries(planData.intercaladasInfo).map(([key, value]) => {
+                        const sinal = planData.financiamento ? unitData.price * planData.sinal : planData.sinal;
+                        return (
+                          <div key={key} className="bg-white rounded-lg p-3 text-center border border-blue-200">
+                            <p className="text-blue-600 font-bold text-sm">{value}</p>
+                            <p className="text-gray-800 font-semibold">{formatCurrency(sinal)}</p>
+                            <p className="text-blue-500 font-medium text-xs">Obra: {key} meses</p>
+                          </div>
+                        );
+                      });
                     })()}
                   </div>
                   <div className="mt-3 pt-3 border-t border-blue-200 text-center">
                     <p className="text-blue-700 font-medium">
                       Total Intercaladas: {(() => {
                         const unitData = units[selectedUnit];
-                        const planData = unitData[selectedPlan === 'plano1' ? 'plano1' : 'plano2'];
+                        const planData = unitData.plans[selectedPlan];
                         
                         if (!planData) return 'R$ 0,00';
-                        return formatCurrency(planData.intercaladasInfo.total);
+                        const sinal = planData.financiamento ? unitData.price * planData.sinal : planData.sinal;
+                        return formatCurrency(sinal * 4);
                       })()}
                     </p>
                     <p className="text-blue-600 text-sm">4 parcelas semestrais durante 24 meses</p>
@@ -806,21 +594,28 @@ _Proposta personalizada baseada no seu perfil_`;
                   </div>
                 </div>
 
-                {/* Cronograma das Mensais */}
-                <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-4 shadow-lg">
-                  <h4 className="text-lg font-semibold text-green-700 mb-3 text-center">📅 Cronograma das Mensais (24x)</h4>
-                  <div className="grid grid-cols-3 gap-2 max-h-48 overflow-y-auto">
+                {/* Parcelas Mensais */}
+                <div className="space-y-3">
+                  <h4 className="text-lg font-semibold text-gray-800 flex items-center space-x-2">
+                    <Calendar className="w-5 h-5 text-green-600" />
+                    <span>Parcelas Mensais ({planData.mensais}x)</span>
+                  </h4>
+                  <div className="grid grid-cols-6 gap-2 max-h-40 overflow-y-auto">
                     {(() => {
                       const unitData = units[selectedUnit];
-                      const planData = unitData[selectedPlan === 'plano1' ? 'plano1' : 'plano2'];
+                      const planData = unitData.plans[selectedPlan];
                       
                       if (!planData) return null;
                       
-                      return planData.mensaisInfo.cronograma.map((item, index) => (
-                        <div key={index} className="bg-white rounded-lg p-2 text-center border border-green-200">
-                          <p className="text-green-600 font-bold text-xs">{item.mes}º</p>
-                          <p className="text-gray-800 font-semibold text-xs">{formatCurrency(item.valor)}</p>
-                          <p className="text-green-500 font-medium text-xs">{item.data}</p>
+                      const valorMensal = planData.financiamento 
+                        ? (unitData.price * 0.69) / 24 
+                        : (unitData.price - planData.sinal - (planData.sinal * 4)) / planData.mensais;
+                      
+                      return Object.entries(planData.mensaisInfo).map(([key, value]) => (
+                        <div key={key} className="bg-white rounded-lg p-2 text-center border border-green-200">
+                          <p className="text-green-600 font-bold text-xs">{key}º</p>
+                          <p className="text-gray-800 font-semibold text-xs">{formatCurrency(valorMensal)}</p>
+                          <p className="text-green-500 font-medium text-xs">{value}</p>
                         </div>
                       ));
                     })()}
@@ -829,10 +624,13 @@ _Proposta personalizada baseada no seu perfil_`;
                     <p className="text-green-700 font-medium">
                       Total Mensais: {(() => {
                         const unitData = units[selectedUnit];
-                        const planData = unitData[selectedPlan === 'plano1' ? 'plano1' : 'plano2'];
+                        const planData = unitData.plans[selectedPlan];
                         
                         if (!planData) return 'R$ 0,00';
-                        return formatCurrency(planData.mensaisInfo.total);
+                        const valorMensal = planData.financiamento 
+                          ? (unitData.price * 0.69) / 24 
+                          : (unitData.price - planData.sinal - (planData.sinal * 4)) / planData.mensais;
+                        return formatCurrency(valorMensal * planData.mensais);
                       })()}
                     </p>
                     <p className="text-green-600 text-sm">24 parcelas mensais durante a obra</p>
@@ -840,13 +638,28 @@ _Proposta personalizada baseada no seu perfil_`;
                 </div>
 
                 {/* Botão WhatsApp */}
-                <button
-                  onClick={sendWhatsAppProposal}
-                  className="w-full bg-gradient-to-r from-green-500 to-orange-500 hover:from-green-600 hover:to-orange-600 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
-                >
-                  <MessageCircle className="w-5 h-5" />
-                  <span>Enviar Proposta pelo WhatsApp</span>
-                </button>
+                <div className="text-center">
+                  <button
+                    onClick={sendWhatsAppProposal}
+                    className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center space-x-3 mx-auto"
+                  >
+                    <MessageCircle className="w-6 h-6" />
+                    <span>Enviar Proposta via WhatsApp</span>
+                  </button>
+                </div>
+
+                {/* Mensagem de Contato */}
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-6 text-center">
+                  <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center mb-4">
+                    <Phone className="w-8 h-8 text-white" />
+                  </div>
+                  <h4 className="text-xl font-bold text-gray-800 mb-2">📞 Em breve LL Construções entra em contato!</h4>
+                  <p className="text-gray-600 mb-3">Nossa equipe comercial analisará sua proposta e entrará em contato para agendar uma visita e fechar negócio.</p>
+                  <div className="bg-white rounded-xl p-4 border border-blue-100">
+                    <p className="text-blue-600 font-semibold">📱 WhatsApp: (81) 99379-8551</p>
+                    <p className="text-gray-600 text-sm">Horário: Segunda a Sexta, 8h às 18h</p>
+                  </div>
+                </div>
 
                 {/* Botão Planta */}
                 <button
@@ -876,19 +689,18 @@ _Proposta personalizada baseada no seu perfil_`;
                 <div className="bg-white border-2 border-green-200 rounded-xl p-4 shadow-lg">
                   <div className="text-center mb-4">
                     <h4 className="text-lg font-semibold text-gray-800">
-                      {selectedUnit === 'casa2quartos' ? 'Casa 2 Quartos' : 'Casa 3 Quartos'}
+                      {selectedUnit === '2quartos' ? 'Casa 2 Quartos' : 'Casa 3 Quartos'}
                     </h4>
                     <p className="text-gray-600">
-                      Área: {units[selectedUnit].floorPlan.area} • Terreno: {units[selectedUnit].floorPlan.dimensoes}
+                      Área: {units[selectedUnit].area} • Terreno: {units[selectedUnit].area}
                     </p>
                   </div>
                   
                   <div className="grid grid-cols-2 gap-3 text-sm">
-                    {Object.entries(units[selectedUnit].floorPlan.especificacoes).map(([room, specs]) => (
+                    {Object.entries(units[selectedUnit].floorPlan).map(([room, desc]) => (
                       <div key={room} className="bg-gradient-to-r from-green-50 to-orange-50 rounded-lg p-3 text-center border border-green-200">
                         <h5 className="font-semibold text-gray-800 capitalize mb-1">{room}</h5>
-                        <p className="text-green-700 font-medium">{specs.area}</p>
-                        <p className="text-gray-600 text-xs">{specs.dimensoes}</p>
+                        <p className="text-green-700 font-medium">{desc}</p>
                       </div>
                     ))}
                   </div>
