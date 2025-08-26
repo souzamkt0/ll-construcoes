@@ -3,7 +3,7 @@ import {
   User, Phone, Mail, DollarSign, Users, CreditCard, 
   Building2, Home, MapPin, CheckCircle, Send, 
   ChevronLeft, ChevronRight, ArrowRight, MessageCircle, Calculator, Calendar,
-  TrendingUp, Shield, Award, Plus, Minus, ThumbsUp, AlertTriangle, Heart, CheckCircle2
+  Shield, Award, Plus, Minus, ThumbsUp, AlertTriangle, Heart, CheckCircle2
 } from 'lucide-react';
 
 function App() {
@@ -44,21 +44,7 @@ function App() {
     }));
   };
 
-  // Função para calcular chance de aprovação
-  const calculateApprovalChance = () => {
-    let chance = 85; // Base inicial
-    
-    // Ajustes baseados na renda
-    if (formData.renda === 'ate2k') chance += 5;
-    else if (formData.renda === '2k3k') chance += 10;
-    else if (formData.renda === '3k5k') chance += 15;
-    else if (formData.renda === 'acima5k') chance += 20;
-    
-    // Ajustes baseados no plano
-    if (formData.selectedPlan === 'vista') chance += 10;
-    
-    return Math.min(chance, 98); // Máximo de 98%
-  };
+
 
   const renderStep = () => {
     switch (currentStep) {
@@ -438,31 +424,7 @@ function App() {
               <p className="text-gray-600 text-xs">Sua proposta personalizada está sendo preparada...</p>
             </div>
 
-            {/* Medidor de Chance de Aprovação */}
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-200 shadow-lg">
-              <h3 className="text-lg font-semibold text-gray-800 mb-3 text-center flex items-center justify-center">
-                <TrendingUp className="w-5 h-5 mr-2 text-blue-600" />
-                Chance de Aprovação
-              </h3>
-              <div className="relative">
-                <div className="w-full bg-gray-200 rounded-full h-4 mb-3">
-                  <div 
-                    className="bg-gradient-to-r from-blue-500 to-blue-600 h-4 rounded-full transition-all duration-1000 ease-out flex items-center justify-end pr-2"
-                    style={{ width: `${calculateApprovalChance()}%` }}
-                  >
-                    <span className="text-white text-xs font-bold">{calculateApprovalChance()}%</span>
-                  </div>
-                </div>
-                <div className="text-center">
-                  <p className="text-blue-600 font-bold text-lg">{calculateApprovalChance()}% de chance de aprovação!</p>
-                  <p className="text-gray-600 text-sm">
-                    {calculateApprovalChance() >= 95 ? "🎉 Excelente! Sua aprovação é praticamente garantida!" :
-                     calculateApprovalChance() >= 85 ? "👍 Muito boa! Alta probabilidade de aprovação." :
-                     "💪 Boa chance! Vamos trabalhar para conseguir sua aprovação."}
-                  </p>
-                </div>
-              </div>
-            </div>
+
             
             {/* Resumo da Simulação */}
             <div className="bg-white border-2 border-green-200 rounded-xl p-4 shadow-lg">
