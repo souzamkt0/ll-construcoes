@@ -13,8 +13,8 @@ function App() {
     renda: '',
     preferencia: ''
   });
-  const [selectedUnit, setSelectedUnit] = useState('');
-  const [selectedPlan, setSelectedPlan] = useState('');
+  const [selectedUnit, setSelectedUnit] = useState('2quartos');
+  const [selectedPlan, setSelectedPlan] = useState('plano1');
   const [showFloorPlan, setShowFloorPlan] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [recommendation, setRecommendation] = useState(null);
@@ -487,14 +487,12 @@ _Proposta personalizada baseada no seu perfil_`;
                 <h3 className="text-xl font-semibold text-gray-800 text-center">Sua Simulação</h3>
                 
                 {/* Título do Plano Personalizado */}
-                {formData.preferencia === 'personalizada' && formData.valorDisponivel && (
-                  <div className="bg-gradient-to-r from-purple-100 to-purple-200 border-2 border-purple-300 rounded-xl p-4 text-center shadow-lg">
-                    <h4 className="text-xl font-bold text-purple-700 mb-2">🎯 PLANO PERSONALIZADO</h4>
-                    <p className="text-purple-600 font-medium">
-                      Entrada de {formatCurrency(formData.valorDisponivel)} • Parcelas Reduzidas
-                    </p>
-                  </div>
-                )}
+                <div className="bg-gradient-to-r from-purple-100 to-purple-200 border-2 border-purple-300 rounded-xl p-4 text-center shadow-lg">
+                  <h4 className="text-xl font-bold text-purple-700 mb-2">🎯 PLANO RECOMENDADO</h4>
+                  <p className="text-purple-600 font-medium">
+                    Baseado no seu perfil de renda e preferências
+                  </p>
+                </div>
                 
                 {/* Dados do Cliente */}
                 <div className="bg-gradient-to-r from-green-100 to-orange-100 border-2 border-green-300 rounded-xl p-4 text-center shadow-lg">
@@ -667,17 +665,6 @@ _Proposta personalizada baseada no seu perfil_`;
                   className="w-full bg-white hover:bg-green-50 text-gray-800 font-semibold py-3 px-6 rounded-xl border-2 border-green-200 hover:border-green-300 transition-all shadow-md hover:shadow-lg"
                 >
                   {showFloorPlan ? 'Ocultar Planta' : 'Ver Planta da Casa'}
-                </button>
-
-                {/* Nova Opção: Montar Proposta */}
-                <button
-                  onClick={() => {
-                    // Aqui você pode adicionar lógica para montar uma proposta personalizada
-                    alert('Proposta personalizada sendo montada!');
-                  }}
-                  className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
-                >
-                  <span>🎯 Montar Proposta Personalizada</span>
                 </button>
               </div>
             )}
