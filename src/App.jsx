@@ -230,9 +230,9 @@ _Proposta personalizada baseada no seu perfil_`;
             <div className="w-28 h-28 mx-auto bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-500 rounded-full flex items-center justify-center shadow-2xl">
               <User className="w-14 h-14 text-white" />
             </div>
-            <div className="space-y-3">
-              <h2 className="text-3xl font-bold text-gray-800">{step.title}</h2>
-              <p className="text-gray-600 text-lg">{step.description}</p>
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-gray-800 mb-4">👋 Olá!</h2>
+              <p className="text-gray-600 text-lg">Como podemos te chamar?</p>
             </div>
             
             <div className="space-y-6">
@@ -277,8 +277,8 @@ _Proposta personalizada baseada no seu perfil_`;
               <MessageCircle className="w-14 h-14 text-white" />
             </div>
             <div className="space-y-3">
-              <h2 className="text-3xl font-bold text-gray-800">{step.title}</h2>
-              <p className="text-gray-600 text-lg">{step.description}</p>
+              <h2 className="text-3xl font-bold text-gray-800">📱 WhatsApp</h2>
+              <p className="text-gray-600 text-lg">Olá {formData.nome}! Qual seu WhatsApp?</p>
             </div>
             
             <div className="space-y-6">
@@ -323,8 +323,8 @@ _Proposta personalizada baseada no seu perfil_`;
               <DollarSign className="w-10 h-10 text-white" />
             </div>
             <div className="space-y-2">
-              <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
-              <p className="text-gray-600 text-base">{step.description}</p>
+              <h2 className="text-2xl font-bold text-gray-800">💰 Renda Mensal</h2>
+              <p className="text-gray-600 text-base">Olá {formData.nome}! Qual sua renda mensal?</p>
             </div>
             
             <div className="grid grid-cols-1 gap-3">
@@ -992,7 +992,7 @@ Aguardo retorno!`;
                   <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center mb-4">
                     <Phone className="w-8 h-8 text-white" />
                   </div>
-                  <h4 className="text-xl font-bold text-gray-800 mb-2">📞 Em breve LL Construções entra em contato!</h4>
+                  <h4 className="text-xl font-bold text-gray-800 mb-2">🙏 Obrigado, em breve entraremos em contato!</h4>
                   <p className="text-gray-600 mb-3">Nossa equipe comercial analisará sua proposta e entrará em contato para agendar uma visita e fechar negócio.</p>
                   <div className="bg-white rounded-xl p-4 border border-blue-100">
                     <p className="text-blue-600 font-semibold">📱 WhatsApp: (81) 99379-8551</p>
@@ -1011,6 +1011,7 @@ Aguardo retorno!`;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+      <div className="container mx-auto px-4 py-8">
       {/* Header */}
       <header className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 shadow-2xl">
         <div className="max-w-md mx-auto px-6 py-6">
@@ -1097,6 +1098,7 @@ Aguardo retorno!`;
           </div>
         </div>
       </footer>
+    </div>
     </div>
   );
 }
