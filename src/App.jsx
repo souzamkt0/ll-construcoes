@@ -55,7 +55,8 @@ function App() {
         '6': 'Agosto 2025', '7': 'Setembro 2025', '8': 'Outubro 2025', '9': 'Novembro 2025', '10': 'Dezembro 2025',
         '11': 'Fevereiro 2026', '12': 'Março 2026', '13': 'Abril 2026', '14': 'Maio 2026', '15': 'Junho 2026',
         '16': 'Agosto 2026', '17': 'Setembro 2026', '18': 'Outubro 2026', '19': 'Novembro 2026', '20': 'Dezembro 2026',
-        '21': 'Janeiro 2027', '22': 'Fevereiro 2027', '23': 'Março 2027', '24': 'Abril 2027'
+        '21': 'Janeiro 2027', '22': 'Fevereiro 2027', '23': 'Março 2027', '24': 'Abril 2027', '25': 'Maio 2027',
+        '26': 'Junho 2027', '27': 'Julho 2027', '28': 'Agosto 2027', '29': 'Setembro 2027', '30': 'Outubro 2027'
       }
     },
     '3quartos': {
@@ -93,7 +94,8 @@ function App() {
         '6': 'Agosto 2025', '7': 'Setembro 2025', '8': 'Outubro 2025', '9': 'Novembro 2025', '10': 'Dezembro 2025',
         '11': 'Fevereiro 2026', '12': 'Março 2026', '13': 'Abril 2026', '14': 'Maio 2026', '15': 'Junho 2026',
         '16': 'Agosto 2026', '17': 'Setembro 2026', '18': 'Outubro 2026', '19': 'Novembro 2026', '20': 'Dezembro 2026',
-        '21': 'Janeiro 2027', '22': 'Fevereiro 2027', '23': 'Março 2027', '24': 'Abril 2027'
+        '21': 'Janeiro 2027', '22': 'Fevereiro 2027', '23': 'Março 2027', '24': 'Abril 2027', '25': 'Maio 2027',
+        '26': 'Junho 2027', '27': 'Julho 2027', '28': 'Agosto 2027', '29': 'Setembro 2027', '30': 'Outubro 2027'
       }
     }
   };
@@ -315,31 +317,31 @@ _Proposta personalizada baseada no seu perfil_`;
 
       case 2: // Renda
         return (
-          <div className="text-center space-y-8">
-            <div className="w-28 h-28 mx-auto bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-2xl">
-              <DollarSign className="w-14 h-14 text-white" />
+          <div className="text-center space-y-6">
+            <div className="w-20 h-20 mx-auto bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-2xl">
+              <DollarSign className="w-10 h-10 text-white" />
             </div>
-            <div className="space-y-3">
-              <h2 className="text-3xl font-bold text-gray-800">{step.title}</h2>
-              <p className="text-gray-600 text-lg">{step.description}</p>
+            <div className="space-y-2">
+              <h2 className="text-2xl font-bold text-gray-800">{step.title}</h2>
+              <p className="text-gray-600 text-base">{step.description}</p>
             </div>
             
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 gap-3">
               <button
                 onClick={() => {
                   handleInputChange('renda', 'ate2k');
                   setFormData({ ...formData, renda: 'ate2k', preferencia: 'vendaFinanciada' });
                   nextStep();
                 }}
-                className="p-4 sm:p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl hover:from-blue-100 hover:to-indigo-100 hover:border-blue-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
+                className="p-3 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl hover:from-blue-100 hover:to-indigo-100 hover:border-blue-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
-                  <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mx-auto sm:mx-0">
-                    <DollarSign className="w-6 h-6 text-white" />
+                <div className="flex items-center justify-center space-x-3">
+                  <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+                    <DollarSign className="w-5 h-5 text-white" />
                   </div>
-                  <div className="text-center sm:text-left">
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-1">💰 Até R$ 2.000</h3>
-                    <p className="text-gray-600 text-sm sm:text-base">Clique para continuar</p>
+                  <div className="text-left">
+                    <h3 className="text-base font-bold text-gray-800">💰 Até R$ 2.000</h3>
+                    <p className="text-gray-600 text-sm">Clique para continuar</p>
                   </div>
                 </div>
               </button>
@@ -350,15 +352,15 @@ _Proposta personalizada baseada no seu perfil_`;
                   setFormData({ ...formData, renda: '2k3k', preferencia: 'vendaFinanciada' });
                   nextStep();
                 }}
-                className="p-4 sm:p-6 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl hover:from-green-100 hover:to-emerald-100 hover:border-green-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
+                className="p-3 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl hover:from-green-100 hover:to-emerald-100 hover:border-green-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
-                  <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mx-auto sm:mx-0">
-                    <DollarSign className="w-6 h-6 text-white" />
+                <div className="flex items-center justify-center space-x-3">
+                  <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                    <DollarSign className="w-5 h-5 text-white" />
                   </div>
-                  <div className="text-center sm:text-left">
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-1">💰 R$ 2.000 - R$ 3.000</h3>
-                    <p className="text-gray-600 text-sm sm:text-base">Clique para continuar</p>
+                  <div className="text-left">
+                    <h3 className="text-base font-bold text-gray-800">💰 R$ 2.000 - R$ 3.000</h3>
+                    <p className="text-gray-600 text-sm">Clique para continuar</p>
                   </div>
                 </div>
               </button>
@@ -369,15 +371,15 @@ _Proposta personalizada baseada no seu perfil_`;
                   setFormData({ ...formData, renda: '3k5k', preferencia: 'vendaFinanciada' });
                   nextStep();
                 }}
-                className="p-4 sm:p-6 bg-gradient-to-r from-purple-50 to-violet-50 border-2 border-purple-200 rounded-2xl hover:from-purple-100 hover:to-violet-100 hover:border-purple-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
+                className="p-3 bg-gradient-to-r from-purple-50 to-violet-50 border-2 border-purple-200 rounded-xl hover:from-purple-100 hover:to-violet-100 hover:border-purple-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
-                  <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mx-auto sm:mx-0">
-                    <DollarSign className="w-6 h-6 text-white" />
+                <div className="flex items-center justify-center space-x-3">
+                  <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center">
+                    <DollarSign className="w-5 h-5 text-white" />
                   </div>
-                  <div className="text-center sm:text-left">
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-1">💰 R$ 3.000 - R$ 5.000</h3>
-                    <p className="text-gray-600 text-sm sm:text-base">Clique para continuar</p>
+                  <div className="text-left">
+                    <h3 className="text-base font-bold text-gray-800">💰 R$ 3.000 - R$ 5.000</h3>
+                    <p className="text-gray-600 text-sm">Clique para continuar</p>
                   </div>
                 </div>
               </button>
@@ -388,15 +390,15 @@ _Proposta personalizada baseada no seu perfil_`;
                   setFormData({ ...formData, renda: 'acima5k', preferencia: 'vendaFinanciada' });
                   nextStep();
                 }}
-                className="p-4 sm:p-6 bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl hover:from-amber-100 hover:to-orange-100 hover:border-amber-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
+                className="p-3 bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200 rounded-xl hover:from-amber-100 hover:to-orange-100 hover:border-amber-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
-                  <div className="w-12 h-12 bg-amber-500 rounded-full flex items-center justify-center mx-auto sm:mx-0">
-                    <DollarSign className="w-6 h-6 text-white" />
+                <div className="flex items-center justify-center space-x-3">
+                  <div className="w-10 h-10 bg-amber-500 rounded-full flex items-center justify-center">
+                    <DollarSign className="w-5 h-5 text-white" />
                   </div>
-                  <div className="text-center sm:text-left">
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-1">💰 Acima de R$ 5.000</h3>
-                    <p className="text-gray-600 text-sm sm:text-base">Clique para continuar</p>
+                  <div className="text-left">
+                    <h3 className="text-base font-bold text-gray-800">💰 Acima de R$ 5.000</h3>
+                    <p className="text-gray-600 text-sm">Clique para continuar</p>
                   </div>
                 </div>
               </button>
