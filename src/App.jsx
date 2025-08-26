@@ -3,7 +3,9 @@ import {
   User, Phone, Mail, DollarSign, Users, CreditCard, 
   Building2, Home, MapPin, CheckCircle, Send, 
   ChevronLeft, ChevronRight, ArrowRight, MessageCircle, Calculator, Calendar,
-  Shield, Award, Plus, Minus, ThumbsUp, AlertTriangle, Heart, CheckCircle2
+  Shield, Award, Plus, Minus, ThumbsUp, AlertTriangle, Heart, CheckCircle2,
+  Clock, Timer, Zap, Star, Crown, Target, TrendingUp, Briefcase, Key, 
+  PresentationChart, Eye, Handshake, BadgeCheck, Sparkles, Gift
 } from 'lucide-react';
 
 function App() {
@@ -51,39 +53,86 @@ function App() {
       case 0: // Nome
         return (
           <div className="text-center space-y-6 px-4">
-            <div className="w-20 h-20 mx-auto bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-500 rounded-full flex items-center justify-center shadow-2xl">
-              <User className="w-10 h-10 text-white" />
-            </div>
-            <div className="text-center mb-6">
-              <h2 className="text-lg font-bold text-gray-800 mb-2">👋 Olá!</h2>
-              <p className="text-gray-600 text-xs">Como podemos te chamar?</p>
-            </div>
-            
-            <div className="space-y-4">
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <User className="w-5 h-5 text-gray-400" />
+            {/* Header Premium */}
+            <div className="relative bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800 rounded-2xl p-6 text-white overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-600/20 to-blue-600/20"></div>
+              <div className="relative z-10">
+                <div className="w-16 h-16 mx-auto bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-xl flex items-center justify-center shadow-xl mb-4">
+                  <Crown className="w-8 h-8 text-white" />
                 </div>
-                <input
-                  type="text"
-                  value={formData.nome}
-                  onChange={(e) => handleInputChange('nome', e.target.value)}
-                  placeholder="Digite seu nome completo"
-                  className="w-full pl-12 pr-4 py-4 bg-white border-2 border-gray-200 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-300 text-base"
-                />
+                <h2 className="text-xl font-bold mb-2">👋 Bem-vindo(a)!</h2>
+                <p className="text-slate-300 text-sm mb-2">Consultoria Imobiliária Exclusiva</p>
+                <div className="flex items-center justify-center space-x-2">
+                  <Star className="w-4 h-4 text-yellow-400" />
+                  <span className="text-yellow-300 text-xs font-medium">Atendimento VIP</span>
+                  <Star className="w-4 h-4 text-yellow-400" />
+                </div>
+              </div>
+            </div>
+
+            {/* Formulário Premium */}
+            <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl p-6 border border-slate-200 shadow-lg">
+              <div className="flex items-center justify-center space-x-2 mb-4">
+                <Briefcase className="w-5 h-5 text-slate-600" />
+                <h3 className="text-lg font-bold text-slate-800">Dados do Cliente</h3>
               </div>
               
-              <button
-                onClick={nextStep}
-                disabled={!formData.nome.trim()}
-                className={`w-full py-4 px-6 rounded-xl font-bold text-base transition-all duration-300 ${
-                  formData.nome.trim()
-                    ? 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105'
-                    : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                }`}
-              >
-                Continuar
-              </button>
+              <div className="space-y-4">
+                <div className="relative">
+                  <label className="block text-slate-700 text-sm font-semibold mb-2">Nome Completo *</label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                      <User className="w-5 h-5 text-slate-400" />
+                    </div>
+                    <input
+                      type="text"
+                      value={formData.nome}
+                      onChange={(e) => handleInputChange('nome', e.target.value)}
+                      placeholder="Seu nome completo"
+                      className="w-full pl-12 pr-4 py-4 bg-white border-2 border-slate-300 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 text-base font-medium shadow-sm"
+                    />
+                  </div>
+                </div>
+                
+                <button
+                  onClick={nextStep}
+                  disabled={!formData.nome.trim()}
+                  className={`w-full py-4 px-6 rounded-xl font-bold text-base transition-all duration-300 shadow-lg ${
+                    formData.nome.trim()
+                      ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-emerald-200 hover:shadow-xl transform hover:scale-105 border-2 border-emerald-400'
+                      : 'bg-slate-200 text-slate-400 cursor-not-allowed border-2 border-slate-300'
+                  }`}
+                >
+                  {formData.nome.trim() ? (
+                    <div className="flex items-center justify-center space-x-2">
+                      <Sparkles className="w-5 h-5" />
+                      <span>INICIAR CONSULTORIA</span>
+                      <Sparkles className="w-5 h-5" />
+                    </div>
+                  ) : (
+                    'Preencha seu nome'
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* Benefícios Premium */}
+            <div className="grid grid-cols-3 gap-3">
+              <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-lg p-3 border border-emerald-200">
+                <Shield className="w-6 h-6 text-emerald-600 mx-auto mb-1" />
+                <p className="text-xs font-semibold text-emerald-800 text-center">Garantia</p>
+                <p className="text-xs text-emerald-600 text-center">5 Anos</p>
+              </div>
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-3 border border-blue-200">
+                <Calendar className="w-6 h-6 text-blue-600 mx-auto mb-1" />
+                <p className="text-xs font-semibold text-blue-800 text-center">Entrega</p>
+                <p className="text-xs text-blue-600 text-center">24 Meses</p>
+              </div>
+              <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-3 border border-purple-200">
+                <Crown className="w-6 h-6 text-purple-600 mx-auto mb-1" />
+                <p className="text-xs font-semibold text-purple-800 text-center">Atendimento</p>
+                <p className="text-xs text-purple-600 text-center">VIP</p>
+              </div>
             </div>
           </div>
         );
@@ -91,42 +140,82 @@ function App() {
       case 1: // WhatsApp
         return (
           <div className="text-center space-y-6 px-4">
-            <div className="w-20 h-20 mx-auto bg-gradient-to-br from-green-500 via-emerald-500 to-teal-500 rounded-full flex items-center justify-center shadow-2xl">
-              <MessageCircle className="w-10 h-10 text-white" />
-            </div>
-            <div className="space-y-2">
-              <h2 className="text-xl font-bold text-gray-800">📱 WhatsApp</h2>
-              <p className="text-gray-600 text-xs">Olá {formData.nome}! Qual seu WhatsApp?</p>
-            </div>
-            
-            <div className="space-y-4">
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <MessageCircle className="w-5 h-5 text-gray-400" />
+            {/* Header Premium */}
+            <div className="relative bg-gradient-to-br from-emerald-600 via-emerald-700 to-emerald-800 rounded-2xl p-6 text-white overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-green-600/20 to-teal-600/20"></div>
+              <div className="relative z-10">
+                <div className="w-16 h-16 mx-auto bg-gradient-to-br from-green-400 to-emerald-500 rounded-xl flex items-center justify-center shadow-xl mb-4">
+                  <MessageCircle className="w-8 h-8 text-white" />
                 </div>
-                <input
-                  type="tel"
-                  value={formData.whatsapp}
-                  onChange={(e) => handleInputChange('whatsapp', e.target.value)}
-                  placeholder="99999-9999"
-                  className="w-full pl-10 pr-16 py-3 bg-white border-2 border-gray-200 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 transition-all duration-300 text-sm text-center"
-                />
-                <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-                  <span className="text-gray-500 text-xs font-medium">+55</span>
-                </div>
+                <h2 className="text-xl font-bold mb-2">📱 Contato Premium</h2>
+                <p className="text-emerald-100 text-sm">Olá {formData.nome}! Vamos conectar você ao nosso time</p>
+              </div>
+            </div>
+
+            {/* Formulário Premium */}
+            <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl p-6 border border-slate-200 shadow-lg">
+              <div className="flex items-center justify-center space-x-2 mb-4">
+                <Phone className="w-5 h-5 text-slate-600" />
+                <h3 className="text-lg font-bold text-slate-800">WhatsApp Verificado</h3>
               </div>
               
-              <button
-                onClick={nextStep}
-                disabled={!formData.whatsapp.trim()}
-                className={`w-full py-4 px-6 rounded-xl font-bold text-base transition-all duration-300 ${
-                  formData.whatsapp.trim()
-                    ? 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105'
-                    : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                }`}
-              >
-                Continuar
-              </button>
+              <div className="space-y-4">
+                <div className="relative">
+                  <label className="block text-slate-700 text-sm font-semibold mb-2">Número WhatsApp *</label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                      <span className="text-emerald-600 text-sm font-bold">🇧🇷 +55</span>
+                    </div>
+                    <input
+                      type="tel"
+                      value={formData.whatsapp}
+                      onChange={(e) => handleInputChange('whatsapp', e.target.value)}
+                      placeholder="(81) 99999-9999"
+                      className="w-full pl-20 pr-4 py-4 bg-white border-2 border-slate-300 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 text-base font-medium shadow-sm text-center"
+                    />
+                    <div className="absolute inset-y-0 right-0 pr-4 flex items-center">
+                      <MessageCircle className="w-5 h-5 text-emerald-500" />
+                    </div>
+                  </div>
+                  <p className="text-slate-500 text-xs mt-2 text-center">
+                    📞 Nosso consultor entrará em contato em até 1 hora
+                  </p>
+                </div>
+                
+                <button
+                  onClick={nextStep}
+                  disabled={!formData.whatsapp.trim()}
+                  className={`w-full py-4 px-6 rounded-xl font-bold text-base transition-all duration-300 shadow-lg ${
+                    formData.whatsapp.trim()
+                      ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-emerald-200 hover:shadow-xl transform hover:scale-105 border-2 border-emerald-400'
+                      : 'bg-slate-200 text-slate-400 cursor-not-allowed border-2 border-slate-300'
+                  }`}
+                >
+                  {formData.whatsapp.trim() ? (
+                    <div className="flex items-center justify-center space-x-2">
+                      <MessageCircle className="w-5 h-5" />
+                      <span>CONECTAR AGORA</span>
+                      <MessageCircle className="w-5 h-5" />
+                    </div>
+                  ) : (
+                    'Informe seu WhatsApp'
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* Garantias de Segurança */}
+            <div className="grid grid-cols-2 gap-3">
+              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-3 border border-emerald-200">
+                <Shield className="w-6 h-6 text-emerald-600 mx-auto mb-1" />
+                <p className="text-xs font-semibold text-emerald-800 text-center">Dados</p>
+                <p className="text-xs text-emerald-600 text-center">Protegidos</p>
+              </div>
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-3 border border-blue-200">
+                <BadgeCheck className="w-6 h-6 text-blue-600 mx-auto mb-1" />
+                <p className="text-xs font-semibold text-blue-800 text-center">Atendimento</p>
+                <p className="text-xs text-blue-600 text-center">Verificado</p>
+              </div>
             </div>
           </div>
         );
@@ -829,87 +918,174 @@ _Interessado em agendar uma visita e fechar negócio!_ 🏠✨`;
       case 6: // Página de Agradecimento
         return (
           <div className="text-center space-y-6 px-4">
-            {/* Ícone de Sucesso */}
-            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-2xl">
-              <CheckCircle2 className="w-12 h-12 text-white" />
-            </div>
-            
-            {/* Mensagem Principal */}
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-gray-800">🎉 Proposta Enviada!</h2>
-              <p className="text-lg text-blue-600 font-semibold">
-                Obrigado, {formData.nome}!
-              </p>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Sua proposta foi enviada com sucesso e nossa equipe está analisando todas as informações fornecidas.
-              </p>
-            </div>
-
-            {/* Card de Informações */}
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200 shadow-lg">
-              <div className="space-y-4">
-                <div className="flex items-center justify-center space-x-2">
-                  <Clock className="w-5 h-5 text-blue-600" />
-                  <h3 className="text-lg font-bold text-blue-800">Prazo de Resposta</h3>
+            {/* Header Premium */}
+            <div className="relative bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 rounded-2xl p-8 text-white overflow-hidden shadow-2xl">
+              <div className="absolute inset-0 bg-black/20"></div>
+              <div className="relative z-10">
+                <div className="w-20 h-20 mx-auto bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-full flex items-center justify-center shadow-2xl mb-4">
+                  <CheckCircle2 className="w-10 h-10 text-white" />
                 </div>
-                <div className="text-center">
-                  <p className="text-2xl font-bold text-blue-600">24 horas úteis</p>
-                  <p className="text-gray-600 text-sm">Você receberá nossa resposta em até 1 dia útil</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Mensagem Motivacional */}
-            <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-6 text-white shadow-lg">
-              <div className="space-y-3">
-                <div className="flex items-center justify-center space-x-2">
-                  <Heart className="w-5 h-5" />
-                  <h3 className="text-lg font-bold">Sua Casa dos Sonhos Te Espera!</h3>
-                </div>
-                <p className="text-blue-100 text-sm leading-relaxed">
-                  Sabemos como é importante realizar o sonho da casa própria. Nossa equipe está trabalhando para tornar isso realidade para você e sua família!
+                <h2 className="text-2xl font-bold mb-2">✅ Proposta Enviada com Sucesso!</h2>
+                <p className="text-lg text-emerald-300 font-semibold mb-1">
+                  Parabéns, {formData.nome}!
                 </p>
-                <div className="flex items-center justify-center space-x-2 pt-2">
-                  <Award className="w-4 h-4" />
-                  <p className="text-blue-100 text-xs font-medium">
-                    Mais de 98% dos nossos clientes ficam satisfeitos
-                  </p>
+                <p className="text-blue-100 text-sm">
+                  Sua reserva foi registrada em nosso sistema
+                </p>
+              </div>
+            </div>
+
+            {/* Alerta de Urgência - Últimas Unidades */}
+            <div className="bg-gradient-to-r from-orange-500 to-red-500 rounded-xl p-6 text-white shadow-xl border-2 border-orange-300 animate-pulse">
+              <div className="flex items-center justify-center space-x-3 mb-3">
+                <Timer className="w-6 h-6" />
+                <h3 className="text-xl font-bold">🚨 ÚLTIMAS UNIDADES!</h3>
+                <Timer className="w-6 h-6" />
+              </div>
+              <p className="text-orange-100 font-medium text-lg mb-2">
+                Restam apenas poucas unidades disponíveis
+              </p>
+              <p className="text-white text-sm font-semibold">
+                ⚡ Garanta a sua agora mesmo antes que seja tarde!
+              </p>
+            </div>
+
+            {/* Informações de Entrega */}
+            <div className="bg-gradient-to-r from-emerald-50 to-emerald-100 rounded-xl p-6 border-2 border-emerald-200 shadow-lg">
+              <div className="flex items-center justify-center space-x-3 mb-4">
+                <Key className="w-6 h-6 text-emerald-600" />
+                <h3 className="text-xl font-bold text-emerald-800">Entrega das Chaves</h3>
+              </div>
+              <div className="bg-white rounded-lg p-4 border border-emerald-200">
+                <div className="flex items-center justify-center space-x-2 mb-2">
+                  <Calendar className="w-5 h-5 text-emerald-600" />
+                  <span className="text-emerald-800 font-bold text-xl">24 MESES</span>
+                </div>
+                <p className="text-gray-600 text-sm">
+                  Prazo garantido com multa por atraso
+                </p>
+              </div>
+            </div>
+
+            {/* Cards de Benefícios Premium */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 border border-blue-200 shadow-lg">
+                <div className="flex flex-col items-center">
+                  <Crown className="w-8 h-8 text-blue-600 mb-2" />
+                  <h4 className="text-sm font-bold text-blue-800">Atendimento VIP</h4>
+                  <p className="text-xs text-blue-600 text-center">Consultor exclusivo</p>
+                </div>
+              </div>
+              
+              <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl p-4 border border-emerald-200 shadow-lg">
+                <div className="flex flex-col items-center">
+                  <Shield className="w-8 h-8 text-emerald-600 mb-2" />
+                  <h4 className="text-sm font-bold text-emerald-800">Garantia Total</h4>
+                  <p className="text-xs text-emerald-600 text-center">5 anos cobertura</p>
+                </div>
+              </div>
+              
+              <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4 border border-purple-200 shadow-lg">
+                <div className="flex flex-col items-center">
+                  <Zap className="w-8 h-8 text-purple-600 mb-2" />
+                  <h4 className="text-sm font-bold text-purple-800">Resposta Rápida</h4>
+                  <p className="text-xs text-purple-600 text-center">24h úteis</p>
+                </div>
+              </div>
+              
+              <div className="bg-gradient-to-br from-amber-50 to-amber-100 rounded-xl p-4 border border-amber-200 shadow-lg">
+                <div className="flex flex-col items-center">
+                  <Handshake className="w-8 h-8 text-amber-600 mb-2" />
+                  <h4 className="text-sm font-bold text-amber-800">Negociação</h4>
+                  <p className="text-xs text-amber-600 text-center">Condições especiais</p>
                 </div>
               </div>
             </div>
 
-            {/* Call to Action */}
-            <div className="space-y-4">
-              <div className="bg-white border-2 border-blue-200 rounded-xl p-4 shadow-lg">
-                <h4 className="text-lg font-bold text-gray-800 mb-2">📱 Fique Conectado</h4>
-                <p className="text-gray-600 text-sm mb-3">
-                  Acompanhe seu WhatsApp para receber nossa resposta oficial
-                </p>
-                <div className="text-blue-600 font-medium text-sm">
-                  📞 {formData.whatsapp}
+            {/* Status Premium */}
+            <div className="bg-gradient-to-r from-slate-800 to-slate-900 rounded-xl p-6 text-white shadow-xl">
+              <div className="flex items-center justify-center space-x-3 mb-4">
+                <BadgeCheck className="w-6 h-6 text-emerald-400" />
+                <h3 className="text-lg font-bold">Status da Proposta</h3>
+              </div>
+              <div className="bg-slate-700 rounded-lg p-4 mb-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-300">Cliente:</span>
+                  <span className="font-bold text-white">{formData.nome}</span>
+                </div>
+                <div className="flex items-center justify-between mt-2">
+                  <span className="text-slate-300">WhatsApp:</span>
+                  <span className="font-bold text-emerald-400">{formData.whatsapp}</span>
+                </div>
+                <div className="flex items-center justify-between mt-2">
+                  <span className="text-slate-300">Status:</span>
+                  <span className="bg-emerald-500 text-white px-3 py-1 rounded-full text-xs font-bold">EM ANÁLISE</span>
                 </div>
               </div>
+            </div>
 
-              {/* Botão de Contato Adicional */}
+            {/* Call to Action Premium */}
+            <div className="space-y-4">
               <button
                 onClick={() => {
-                  const quickMessage = `Olá! Acabei de enviar minha proposta através do simulador da LL Construções. Gostaria de saber se há alguma informação adicional que posso fornecer para agilizar o processo. Obrigado(a)!`;
+                  const quickMessage = `🏠 LL CONSTRUÇÕES - URGENTE!
+                  
+Olá! Acabei de enviar minha proposta e gostaria de GARANTIR minha unidade o quanto antes, pois soube que restam poucas disponíveis.
+
+👤 Nome: ${formData.nome}
+📱 Contato: ${formData.whatsapp}
+🏠 Interesse: ${formData.selectedUnit === '2quartos' ? 'Casa 2 Quartos' : 'Casa 3 Quartos'}
+
+Posso agendar uma reunião ainda hoje para fechar negócio? Tenho urgência em garantir minha casa dos sonhos!
+
+Aguardo retorno imediato! 🚀`;
                   const encodedMessage = encodeURIComponent(quickMessage);
                   const phoneNumber = formData.whatsapp.replace(/\D/g, '');
                   const whatsappUrl = `https://wa.me/55${phoneNumber}?text=${encodedMessage}`;
                   window.open(whatsappUrl, '_blank');
                 }}
-                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center space-x-3"
+                className="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold py-5 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl flex items-center justify-center space-x-3 border-2 border-emerald-400"
               >
-                <MessageCircle className="w-5 h-5" />
-                <span>Falar Agora com Consultor</span>
+                <Sparkles className="w-6 h-6" />
+                <span className="text-lg">FALAR COM CONSULTOR AGORA</span>
+                <Sparkles className="w-6 h-6" />
+              </button>
+              
+              <button
+                onClick={() => {
+                  const urgentMessage = `🚨 ÚLTIMA CHANCE - LL CONSTRUÇÕES
+
+Quero GARANTIR minha unidade AGORA! Vi que restam poucas unidades e não posso perder essa oportunidade.
+
+Preciso de atendimento PRIORITÁRIO para:
+✅ Confirmar disponibilidade
+✅ Reservar minha unidade  
+✅ Agendar assinatura hoje mesmo
+
+Nome: ${formData.nome}
+Unidade: ${formData.selectedUnit === '2quartos' ? 'Casa 2 Quartos - R$ 260.000' : 'Casa 3 Quartos - R$ 280.000'}
+
+ME CHAME URGENTE! ⚡`;
+                  const encodedMessage = encodeURIComponent(urgentMessage);
+                  const phoneNumber = formData.whatsapp.replace(/\D/g, '');
+                  const whatsappUrl = `https://wa.me/55${phoneNumber}?text=${encodedMessage}`;
+                  window.open(whatsappUrl, '_blank');
+                }}
+                className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center space-x-3 animate-pulse"
+              >
+                <Timer className="w-5 h-5" />
+                <span>🚨 GARANTIR MINHA UNIDADE AGORA</span>
               </button>
             </div>
 
-            {/* Footer da Página */}
-            <div className="pt-6 border-t border-blue-200">
-              <p className="text-gray-500 text-xs">
-                © 2024 LL Construções • Realizando sonhos há mais de 10 anos
+            {/* Footer Premium */}
+            <div className="bg-gradient-to-r from-slate-100 to-slate-200 rounded-xl p-4 border border-slate-300">
+              <div className="flex items-center justify-center space-x-2 mb-2">
+                <Crown className="w-4 h-4 text-slate-600" />
+                <span className="text-slate-700 font-bold text-sm">LL CONSTRUÇÕES</span>
+              </div>
+              <p className="text-slate-600 text-xs">
+                © 2024 • Mais de 10 anos realizando sonhos • Entrega garantida em 24 meses
               </p>
             </div>
           </div>
@@ -921,25 +1097,32 @@ _Interessado em agendar uma visita e fechar negócio!_ 🏠✨`;
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-blue-100 to-indigo-200">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header Minimalista */}
-        <header className="bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 shadow-lg">
-          <div className="max-w-md mx-auto px-6 py-4">
-            <div className="flex items-center justify-center space-x-3">
-              <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
-                <Building2 className="w-5 h-5 text-white" />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200">
+      <div className="container mx-auto px-4 py-6">
+        {/* Header Premium Imobiliário */}
+        <header className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 shadow-2xl rounded-2xl mb-6 overflow-hidden">
+          <div className="max-w-md mx-auto px-6 py-6 relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 to-indigo-900/20"></div>
+            <div className="relative z-10 flex items-center justify-center space-x-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-xl flex items-center justify-center shadow-xl">
+                <Building2 className="w-7 h-7 text-white" />
               </div>
               <div className="text-center">
-                <h1 className="text-lg font-bold text-white tracking-wide">LL Construções</h1>
+                <h1 className="text-xl font-bold text-white tracking-wide">LL CONSTRUÇÕES</h1>
+                <p className="text-emerald-300 text-sm font-medium">Premium Real Estate</p>
+              </div>
+              <div className="flex flex-col items-center">
+                <Star className="w-5 h-5 text-yellow-400" />
+                <span className="text-yellow-300 text-xs font-bold">VIP</span>
               </div>
             </div>
           </div>
         </header>
 
         {/* Main Content */}
-        <main className="max-w-md mx-auto px-6 py-8">
-          <div className="bg-white/95 backdrop-blur-sm border border-blue-200/50 rounded-2xl p-6 shadow-xl">
+        <main className="max-w-md mx-auto px-6 py-6">
+          <div className="bg-white border-2 border-slate-200 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 via-blue-500 to-purple-500"></div>
             {renderStep()}
           </div>
 
