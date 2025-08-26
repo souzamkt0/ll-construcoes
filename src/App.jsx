@@ -44,8 +44,8 @@ function App() {
               <User className="w-10 h-10 text-white" />
             </div>
             <div className="text-center mb-6">
-              <h2 className="text-xl font-bold text-gray-800 mb-2">👋 Olá!</h2>
-              <p className="text-gray-600 text-sm">Como podemos te chamar?</p>
+              <h2 className="text-lg font-bold text-gray-800 mb-2">👋 Olá!</h2>
+              <p className="text-gray-600 text-xs">Como podemos te chamar?</p>
             </div>
             
             <div className="space-y-4">
@@ -85,7 +85,7 @@ function App() {
             </div>
             <div className="space-y-2">
               <h2 className="text-xl font-bold text-gray-800">📱 WhatsApp</h2>
-              <p className="text-gray-600 text-sm">Olá {formData.nome}! Qual seu WhatsApp?</p>
+              <p className="text-gray-600 text-xs">Olá {formData.nome}! Qual seu WhatsApp?</p>
             </div>
             
             <div className="space-y-4">
@@ -98,10 +98,10 @@ function App() {
                   value={formData.whatsapp}
                   onChange={(e) => handleInputChange('whatsapp', e.target.value)}
                   placeholder="(81) 99999-9999"
-                  className="w-full pl-12 pr-4 py-4 bg-white border-2 border-gray-200 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 transition-all duration-300 text-base"
+                  className="w-full pl-10 pr-16 py-3 bg-white border-2 border-gray-200 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 transition-all duration-300 text-sm text-center"
                 />
                 <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-                  <span className="text-gray-400 text-sm font-medium">+55</span>
+                  <span className="text-gray-500 text-xs font-medium">+55</span>
                 </div>
               </div>
               
@@ -127,8 +127,8 @@ function App() {
               <DollarSign className="w-10 h-10 text-white" />
             </div>
             <div className="space-y-2">
-              <h2 className="text-xl font-bold text-gray-800">💰 Renda Mensal</h2>
-              <p className="text-gray-600 text-sm">Olá {formData.nome}! Qual sua renda mensal?</p>
+              <h2 className="text-lg font-bold text-gray-800">💰 Renda Mensal</h2>
+              <p className="text-gray-600 text-xs">Olá {formData.nome}! Qual sua renda mensal?</p>
             </div>
             
             <div className="space-y-3">
@@ -213,8 +213,10 @@ function App() {
             <div className="w-20 h-20 mx-auto bg-gradient-to-br from-green-500 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
               <Home className="w-10 h-10 text-white" />
             </div>
-            <h2 className="text-xl font-bold text-gray-800">Escolha sua Casa</h2>
-            <p className="text-gray-600 text-sm">Qual unidade você prefere para sua futura casa?</p>
+            <div className="text-center space-y-3">
+              <h2 className="text-lg font-bold text-gray-800">Escolha sua Casa</h2>
+              <p className="text-gray-600 text-xs">Qual unidade você prefere para sua futura casa?</p>
+            </div>
 
             <div className="space-y-4">
               <button
@@ -264,8 +266,10 @@ function App() {
             <div className="w-20 h-20 mx-auto bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-xl">
               <CreditCard className="w-10 h-10 text-white" />
             </div>
-            <h2 className="text-xl font-bold text-gray-800">Escolha seu Plano</h2>
-            <p className="text-gray-600 text-sm">Qual opção de financiamento você prefere?</p>
+            <div className="text-center space-y-3">
+              <h2 className="text-lg font-bold text-gray-800">Escolha seu Plano</h2>
+              <p className="text-gray-600 text-xs">Qual opção de financiamento você prefere?</p>
+            </div>
 
             <div className="space-y-4">
               {/* Plano Financiamento */}
@@ -405,8 +409,8 @@ function App() {
               <div className="w-20 h-20 mx-auto bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-xl">
                 <Home className="w-10 h-10 text-white" />
               </div>
-              <h2 className="text-xl font-bold text-gray-800">Simulação Completa</h2>
-              <p className="text-gray-600 text-sm">Sua proposta personalizada está sendo preparada...</p>
+              <h2 className="text-lg font-bold text-gray-800">Simulação Completa</h2>
+              <p className="text-gray-600 text-xs">Sua proposta personalizada está sendo preparada...</p>
             </div>
             
             {/* Resumo da Simulação */}
