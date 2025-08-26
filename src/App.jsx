@@ -604,7 +604,11 @@ _Proposta personalizada baseada no seu perfil_`;
                 <div className="space-y-3">
                   <h4 className="text-lg font-semibold text-gray-800 flex items-center space-x-2">
                     <Calendar className="w-5 h-5 text-green-600" />
-                    <span>Parcelas Mensais ({planData.mensais}x)</span>
+                    <span>Parcelas Mensais ({(() => {
+                      const unitData = units[selectedUnit];
+                      const planData = unitData.plans[selectedPlan];
+                      return planData ? planData.mensais : 0;
+                    })()}x)</span>
                   </h4>
                   <div className="grid grid-cols-6 gap-2 max-h-40 overflow-y-auto">
                     {(() => {
@@ -639,7 +643,11 @@ _Proposta personalizada baseada no seu perfil_`;
                         return formatCurrency(valorMensal * planData.mensais);
                       })()}
                     </p>
-                    <p className="text-green-600 text-sm">24 parcelas mensais durante a obra</p>
+                    <p className="text-green-600 text-sm">{(() => {
+                      const unitData = units[selectedUnit];
+                      const planData = unitData.plans[selectedPlan];
+                      return planData ? `${planData.mensais} parcelas mensais durante a obra` : 'Parcelas mensais durante a obra';
+                    })()}</p>
                   </div>
                 </div>
 
