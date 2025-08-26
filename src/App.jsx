@@ -420,75 +420,101 @@ _Proposta personalizada baseada no seu perfil_`;
 
             {/* Seleção de Unidade */}
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-gray-800 text-center">Escolha sua Casa</h3>
+              <h3 className="text-xl font-semibold text-gray-800 text-center">🏠 Escolha sua Casa</h3>
+              
               <div className="grid grid-cols-1 gap-4">
+                {/* Casa 2 Quartos */}
                 <button
                   onClick={() => setSelectedUnit('2quartos')}
-                  className={`p-4 rounded-xl border-2 transition-all ${
+                  className={`p-6 rounded-2xl border-2 transition-all duration-300 transform hover:scale-105 ${
                     selectedUnit === '2quartos'
-                      ? 'border-orange-400 bg-gradient-to-r from-green-100 to-orange-100 shadow-lg'
-                      : 'border-green-200 bg-white hover:bg-green-50 hover:border-green-300'
+                      ? 'border-green-400 bg-gradient-to-r from-green-50 to-emerald-50 shadow-xl'
+                      : 'border-green-200 bg-white hover:bg-green-50 hover:border-green-300 shadow-lg hover:shadow-xl'
                   }`}
                 >
-                  <div className="text-center">
-                    <h4 className="text-lg font-semibold text-gray-800">🏠 Casa 2 Quartos</h4>
-                    <p className="text-2xl font-bold text-green-600">{formatCurrency(units['2quartos'].price)}</p>
-                    <p className="text-gray-600 text-sm">Terreno 20x80m • 42m²</p>
+                  <div className="text-center space-y-3">
+                    <div className="w-16 h-16 mx-auto bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center shadow-lg">
+                      <span className="text-2xl text-white font-bold">2</span>
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold text-gray-800">Casa 2 Quartos</h4>
+                      <p className="text-2xl font-bold text-green-600">R$ 260.000</p>
+                      <p className="text-gray-600 text-sm">Área: 42m² • Terreno: 160m²</p>
+                    </div>
                   </div>
                 </button>
 
+                {/* Casa 3 Quartos */}
                 <button
                   onClick={() => setSelectedUnit('3quartos')}
-                  className={`p-4 rounded-xl border-2 transition-all ${
+                  className={`p-6 rounded-2xl border-2 transition-all duration-300 transform hover:scale-105 ${
                     selectedUnit === '3quartos'
-                      ? 'border-orange-400 bg-gradient-to-r from-green-100 to-orange-100 shadow-lg'
-                      : 'border-green-200 bg-white hover:bg-green-50 hover:border-green-300'
+                      ? 'border-blue-600 bg-gradient-to-r from-blue-50 to-indigo-50 shadow-xl'
+                      : 'border-blue-200 bg-white hover:bg-blue-50 hover:border-blue-300 shadow-lg hover:shadow-xl'
                   }`}
                 >
-                  <div className="text-center">
-                    <h4 className="text-lg font-semibold text-gray-800">🏠 Casa 3 Quartos</h4>
-                    <p className="text-2xl font-bold text-green-600">{formatCurrency(units['3quartos'].price)}</p>
-                    <p className="text-gray-600 text-sm">Terreno 20x80m • 48m²</p>
+                  <div className="text-center space-y-3">
+                    <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full flex items-center justify-center shadow-lg">
+                      <span className="text-2xl text-white font-bold">3</span>
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold text-gray-800">Casa 3 Quartos</h4>
+                      <p className="text-2xl font-bold text-blue-600">R$ 280.000</p>
+                      <p className="text-gray-600 text-sm">Área: 48m² • Terreno: 160m²</p>
+                    </div>
                   </div>
                 </button>
               </div>
             </div>
 
             {/* Seleção de Plano */}
-            {selectedUnit && (
-              <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-gray-800 text-center">Escolha seu Plano</h3>
-                <div className="grid grid-cols-1 gap-4">
-                  <button
-                    onClick={() => setSelectedPlan('plano1')}
-                    className={`p-4 rounded-xl border-2 transition-all ${
-                      selectedPlan === 'plano1'
-                        ? 'border-orange-400 bg-gradient-to-r from-green-100 to-orange-100 shadow-lg'
-                        : 'border-green-200 bg-white hover:bg-green-50 hover:border-green-300'
-                    }`}
-                  >
-                    <div className="text-center">
-                      <h4 className="text-lg font-semibold text-gray-800">🏦 Plano Financiamento</h4>
-                      <p className="text-gray-600 text-sm">Sinal + Mensais + Financiamento</p>
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold text-gray-800 text-center">💳 Escolha seu Plano</h3>
+              
+              <div className="grid grid-cols-1 gap-4">
+                {/* Plano Financiamento */}
+                <button
+                  onClick={() => setSelectedPlan('plano1')}
+                  className={`p-6 rounded-2xl border-2 transition-all duration-300 transform hover:scale-105 ${
+                    selectedPlan === 'plano1'
+                      ? 'border-green-400 bg-gradient-to-r from-green-50 to-emerald-50 shadow-xl'
+                      : 'border-green-200 bg-white hover:bg-green-50 hover:border-green-300 shadow-lg hover:shadow-xl'
+                  }`}
+                >
+                  <div className="text-center space-y-3">
+                    <div className="w-16 h-16 mx-auto bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center shadow-lg">
+                      <span className="text-2xl text-white">🏦</span>
                     </div>
-                  </button>
+                    <div>
+                      <h4 className="text-xl font-bold text-gray-800">Plano Financiamento</h4>
+                      <p className="text-gray-600 text-sm">Sinal + Mensais + Intercaladas + Banco</p>
+                      <p className="text-lg font-semibold text-green-600">Entrada: 8%</p>
+                    </div>
+                  </div>
+                </button>
 
-                  <button
-                    onClick={() => setSelectedPlan('plano2')}
-                    className={`p-4 rounded-xl border-2 transition-all ${
-                      selectedPlan === 'plano2'
-                        ? 'border-purple-400 bg-gradient-to-r from-purple-100 to-pink-100 shadow-lg'
-                        : 'border-purple-200 bg-white hover:bg-purple-50 hover:border-purple-300'
-                    }`}
-                  >
-                    <div className="text-center">
-                      <h4 className="text-lg font-semibold text-gray-800">💳 Plano Venda Direta</h4>
-                      <p className="text-gray-600 text-sm">Sinal + Intercaladas + Mensais</p>
+                {/* Plano Venda Direta */}
+                <button
+                  onClick={() => setSelectedPlan('plano2')}
+                  className={`p-6 rounded-2xl border-2 transition-all duration-300 transform hover:scale-105 ${
+                    selectedPlan === 'plano2'
+                      ? 'border-blue-600 bg-gradient-to-r from-blue-50 to-indigo-50 shadow-xl'
+                      : 'border-blue-200 bg-white hover:bg-blue-50 hover:border-blue-300 shadow-lg hover:shadow-xl'
+                  }`}
+                >
+                  <div className="text-center space-y-3">
+                    <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full flex items-center justify-center shadow-lg">
+                      <span className="text-2xl text-white">💳</span>
                     </div>
-                  </button>
-                </div>
+                    <div>
+                      <h4 className="text-xl font-bold text-gray-800">Plano Venda Direta</h4>
+                      <p className="text-gray-600 text-sm">Sinal + Intercaladas + Mensais</p>
+                      <p className="text-lg font-semibold text-blue-600">Entrada: 20%</p>
+                    </div>
+                  </div>
+                </button>
               </div>
-            )}
+            </div>
 
             {/* Planta da Casa - Movida para o topo */}
             {selectedUnit && (
