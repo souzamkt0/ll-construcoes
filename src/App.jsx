@@ -159,9 +159,18 @@ function App() {
   };
 
   const sendWhatsAppProposal = () => {
-    const { unit, plan, reasoning } = recommendation || generateRecommendation();
-    const unitData = units[unit];
-    const planData = unitData.plans[plan];
+    const unitData = units[selectedUnit];
+    const planData = unitData.plans[selectedPlan];
+    
+    if (!unitData || !planData) {
+      alert('Por favor, selecione uma unidade e um plano primeiro!');
+      return;
+    }
+    
+    const sinal = planData.financiamento ? unitData.price * planData.sinal : planData.sinal;
+    const valorMensal = planData.financiamento 
+      ? (unitData.price * 0.69) / 24 
+      : (unitData.price - planData.sinal - (planData.sinal * 4)) / planData.mensais;
     
     const message = `🏠 *PROPOSTA PERSONALIZADA LL CONSTRUÇÕES* 🏠
 
@@ -171,29 +180,26 @@ function App() {
 *Dados do Cliente:*
 👤 Nome: ${formData.name}
 📱 WhatsApp: ${formData.whatsapp}
-💵 Renda: ${formData.renda}
+💵 Renda: ${formData.renda === 'ate2k' ? 'Até R$ 2.000' : formData.renda === '2k3k' ? 'R$ 2.000 - R$ 3.000' : formData.renda === '3k5k' ? 'R$ 3.000 - R$ 5.000' : 'Acima de R$ 5.000'}
 
-*Recomendação do Sistema:*
-🎯 ${reasoning}
-
-*Plano de Pagamento Recomendado:*
+*Plano de Pagamento Selecionado:*
 ${planData.financiamento ? '🏦 Plano Financiamento' : '💳 Plano Venda Direta'}
 
-💳 Sinal (8%): ${formatCurrency(planData.sinal)}
-📅 Mensais (24x): ${formatCurrency(planData.mensais)}
-🔄 Intercaladas (4x): ${formatCurrency(planData.intercaladas)}
+💳 Sinal: ${formatCurrency(sinal)}
+📅 Mensais (${planData.mensais}x): ${formatCurrency(valorMensal)}
+🔄 Intercaladas (4x): ${formatCurrency(sinal)}
 
 *📅 Cronograma das Intercaladas (24 meses):*
-• 6º mês (Julho 2024): ${formatCurrency(planData.intercaladasInfo['1'])}
-• 12º mês (Janeiro 2025): ${formatCurrency(planData.intercaladasInfo['2'])}
-• 18º mês (Julho 2025): ${formatCurrency(planData.intercaladasInfo['3'])}
-• 24º mês (Janeiro 2026): ${formatCurrency(planData.intercaladasInfo['4'])}
+• 6º mês (Julho 2024): ${formatCurrency(sinal)}
+• 12º mês (Janeiro 2025): ${formatCurrency(sinal)}
+• 18º mês (Julho 2025): ${formatCurrency(sinal)}
+• 24º mês (Janeiro 2026): ${formatCurrency(sinal)}
 
-*📅 Cronograma das Mensais (24 meses):*
-• 1º mês (Jan 2024) até 24º mês (Dez 2025): ${formatCurrency(planData.mensais)} cada
+*📅 Cronograma das Mensais (${planData.mensais} meses):*
+• 1º mês (Jan 2024) até ${planData.mensais}º mês: ${formatCurrency(valorMensal)} cada
 
-${planData.financiamento ? `🏦 Financiamento: ${formatCurrency(planData.sinal)}` : ''}
-🚀 Valor para Início: ${formatCurrency(planData.sinal)}
+${planData.financiamento ? `🏦 Financiamento: ${formatCurrency(unitData.price * 0.69)}` : ''}
+🚀 Valor para Início: ${formatCurrency(sinal + valorMensal)}
 
 *Cronograma da Obra:*
 🏗️ Início: Janeiro 2024
@@ -562,7 +568,7 @@ _Proposta personalizada baseada no seu perfil_`;
                       const unitData = units[selectedUnit];
                       const planData = unitData.plans[selectedPlan];
                       
-                      if (!planData) return null;
+                      if (!planData || !planData.intercaladasInfo) return null;
                       
                       return Object.entries(planData.intercaladasInfo).map(([key, value]) => {
                         const sinal = planData.financiamento ? unitData.price * planData.sinal : planData.sinal;
@@ -603,7 +609,7 @@ _Proposta personalizada baseada no seu perfil_`;
                       const unitData = units[selectedUnit];
                       const planData = unitData.plans[selectedPlan];
                       
-                      if (!planData) return null;
+                      if (!planData || !planData.mensaisInfo) return null;
                       
                       const valorMensal = planData.financiamento 
                         ? (unitData.price * 0.69) / 24 
