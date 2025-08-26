@@ -364,8 +364,10 @@ function App() {
                       </p>
                     </div>
                     <div className="bg-gradient-to-r from-purple-50 to-violet-50 rounded-lg p-3 border border-purple-200">
-                      <p className="text-purple-600 font-medium text-sm">Sem Intercaladas</p>
-                      <p className="text-purple-800 font-bold text-lg">-</p>
+                      <p className="text-purple-600 font-medium text-sm">Intercaladas (4x)</p>
+                      <p className="text-purple-800 font-bold text-lg">
+                        R$ {formData.selectedUnit === '2quartos' ? '4.875' : '5.250'}
+                      </p>
                     </div>
                     <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-lg p-3 border border-orange-200">
                       <p className="text-orange-600 font-medium text-sm">Sem Financiamento</p>
@@ -377,14 +379,14 @@ function App() {
                   <div className="bg-gradient-to-r from-yellow-50 to-amber-50 rounded-lg p-3 border border-yellow-200 text-center">
                     <p className="text-yellow-600 font-medium text-sm">💰 VALOR PARA INÍCIO</p>
                     <p className="text-yellow-800 font-bold text-xl">
-                      R$ {formData.selectedUnit === '2quartos' ? '78.000' : '84.000'}
+                      R$ {formData.selectedUnit === '2quartos' ? '82.875' : '89.250'}
                     </p>
-                    <p className="text-yellow-700 text-sm">(Entrada de 30%)</p>
+                    <p className="text-yellow-700 text-sm">(Entrada + 1ª Intercalada)</p>
                   </div>
 
                   {/* Características */}
                   <div className="text-center">
-                    <p className="text-gray-600 text-sm">✅ Entrega imediata • ✅ Sem juros • ✅ Parcelas fixas</p>
+                    <p className="text-gray-600 text-sm">✅ Entrega em 24 meses • ✅ Sem juros • ✅ Parcelas fixas • ✅ 4 intercaladas durante obra</p>
                   </div>
                 </div>
               </button>
