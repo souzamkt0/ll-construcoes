@@ -69,6 +69,89 @@ function App() {
     return 'R$ 3.500,00';
   };
 
+  // Função para calcular simulação baseada na renda
+  const calculateFinancingSimulation = (rendaFaixa, housePrice) => {
+    // Converter faixa de renda para valor numérico (valor máximo da faixa)
+    const rendaValues = {
+      'ate2k': 2000,
+      'ate3k': 3000,
+      'ate4k': 4000,
+      'ate5k': 5000,
+      'ate7k': 7000,
+      'ate10k': 10000
+    };
+
+    const rendaMaxima = rendaValues[rendaFaixa] || 3000;
+    
+    // Regras do financiamento habitacional
+    const parcelaMaxima = rendaMaxima * 0.30; // 30% da renda máxima
+    const entradaMinima = housePrice * 0.10; // 10% mínimo de entrada
+    const entradaRecomendada = housePrice * 0.20; // 20% recomendado
+    const taxaJuros = 0.0079; // 0.79% ao mês (aproximadamente 9.9% ao ano)
+    
+    // Calcular financiamento com entrada mínima e recomendada
+    const valorFinanciadoMinimo = housePrice - entradaMinima;
+    const valorFinanciadoRecomendado = housePrice - entradaRecomendada;
+    
+    // Calcular parcelas para diferentes prazos (180, 240, 300, 360 meses)
+    const calcularParcela = (valorFinanciado, meses) => {
+      const parcela = valorFinanciado * (taxaJuros * Math.pow(1 + taxaJuros, meses)) / (Math.pow(1 + taxaJuros, meses) - 1);
+      return parcela;
+    };
+
+    // Encontrar o melhor prazo baseado na capacidade de pagamento
+    const prazos = [180, 240, 300, 360]; // 15, 20, 25, 30 anos
+    let melhorOpcao = null;
+    
+    for (let prazo of prazos) {
+      const parcelaMinima = calcularParcela(valorFinanciadoMinimo, prazo);
+      const parcelaRecomendada = calcularParcela(valorFinanciadoRecomendado, prazo);
+      
+      if (parcelaRecomendada <= parcelaMaxima) {
+        melhorOpcao = {
+          prazoMeses: prazo,
+          prazoAnos: prazo / 12,
+          entrada: entradaRecomendada,
+          valorFinanciado: valorFinanciadoRecomendado,
+          parcela: parcelaRecomendada,
+          tipo: 'recomendada'
+        };
+        break;
+      } else if (parcelaMinima <= parcelaMaxima) {
+        melhorOpcao = {
+          prazoMeses: prazo,
+          prazoAnos: prazo / 12,
+          entrada: entradaMinima,
+          valorFinanciado: valorFinanciadoMinimo,
+          parcela: parcelaMinima,
+          tipo: 'minima'
+        };
+      }
+    }
+
+    // Verificar se consegue financiar
+    const podeFinanciar = melhorOpcao !== null;
+    
+    // Calcular dados adicionais
+    const rendaUtilizada = melhorOpcao ? (melhorOpcao.parcela / rendaMaxima) * 100 : 0;
+    const totalPago = melhorOpcao ? melhorOpcao.entrada + (melhorOpcao.parcela * melhorOpcao.prazoMeses) : 0;
+    const totalJuros = melhorOpcao ? totalPago - housePrice : 0;
+
+    return {
+      podeFinanciar,
+      rendaMaxima,
+      parcelaMaxima,
+      melhorOpcao,
+      rendaUtilizada,
+      totalPago,
+      totalJuros,
+      statusAprovacao: podeFinanciar ? 'APROVADO' : 'REQUER ANÁLISE',
+      recomendacao: podeFinanciar ? 
+        `Você pode financiar este imóvel com ${melhorOpcao.tipo === 'recomendada' ? 'condições excelentes' : 'entrada mínima'}!` :
+        'Para este imóvel, recomendamos avaliar outras opções ou aumentar a entrada.'
+    };
+  };
+
 
 
   const renderStep = () => {
@@ -561,6 +644,9 @@ function App() {
         );
 
       case 5: // Simulação Completa
+        const housePrice = formData.selectedUnit === '2quartos' ? 260000 : 280000;
+        const simulation = calculateFinancingSimulation(formData.renda, housePrice);
+        
         return (
           <div className="space-y-4 px-4">
             {/* Cabeçalho */}
@@ -569,20 +655,126 @@ function App() {
                 <Home className="w-10 h-10 text-white" />
               </div>
               <h2 className="text-lg font-bold text-gray-800">Simulação Completa</h2>
-              <p className="text-gray-600 text-xs">Sua proposta personalizada está sendo preparada...</p>
+              <p className="text-gray-600 text-xs">Análise personalizada baseada na sua renda</p>
             </div>
 
+            {/* Status de Aprovação */}
+            <div className={`border-2 rounded-xl p-4 shadow-lg ${simulation.podeFinanciar ? 'bg-green-50 border-green-200' : 'bg-yellow-50 border-yellow-200'}`}>
+              <div className="text-center space-y-2">
+                <div className={`w-16 h-16 mx-auto rounded-full flex items-center justify-center ${simulation.podeFinanciar ? 'bg-green-500' : 'bg-yellow-500'}`}>
+                  {simulation.podeFinanciar ? (
+                    <CheckCircle className="w-8 h-8 text-white" />
+                  ) : (
+                    <AlertCircle className="w-8 h-8 text-white" />
+                  )}
+                </div>
+                <h3 className={`text-lg font-bold ${simulation.podeFinanciar ? 'text-green-700' : 'text-yellow-700'}`}>
+                  {simulation.statusAprovacao}
+                </h3>
+                <p className={`text-sm ${simulation.podeFinanciar ? 'text-green-600' : 'text-yellow-600'}`}>
+                  {simulation.recomendacao}
+                </p>
+              </div>
+            </div>
 
+            {/* Análise Financeira Detalhada */}
+            <div className="bg-white border-2 border-blue-200 rounded-xl p-4 shadow-lg">
+              <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                <Calculator className="w-5 h-5 mr-2 text-blue-600" />
+                💰 Análise Financeira
+              </h3>
+              
+              <div className="grid grid-cols-2 gap-3 text-sm mb-4">
+                <div className="bg-blue-50 rounded-lg p-3">
+                  <p className="text-blue-600 font-medium">Sua Renda Máxima</p>
+                  <p className="text-xl font-bold text-blue-800">R$ {simulation.rendaMaxima.toLocaleString('pt-BR')}</p>
+                </div>
+                <div className="bg-blue-50 rounded-lg p-3">
+                  <p className="text-blue-600 font-medium">Capacidade de Parcela</p>
+                  <p className="text-xl font-bold text-blue-800">R$ {simulation.parcelaMaxima.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</p>
+                  <p className="text-xs text-blue-600">30% da renda</p>
+                </div>
+              </div>
+
+              {simulation.podeFinanciar && simulation.melhorOpcao && (
+                <div className="space-y-3">
+                  <h4 className="font-semibold text-gray-700 border-b pb-1">🎯 Sua Melhor Opção de Financiamento:</h4>
+                  
+                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-3 border border-green-200">
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      <div>
+                        <p className="text-green-600 font-medium">Entrada ({simulation.melhorOpcao.tipo === 'recomendada' ? '20%' : '10%'})</p>
+                        <p className="text-lg font-bold text-green-800">R$ {simulation.melhorOpcao.entrada.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</p>
+                      </div>
+                      <div>
+                        <p className="text-green-600 font-medium">Parcela Mensal</p>
+                        <p className="text-lg font-bold text-green-800">R$ {simulation.melhorOpcao.parcela.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</p>
+                      </div>
+                      <div>
+                        <p className="text-green-600 font-medium">Prazo</p>
+                        <p className="text-lg font-bold text-green-800">{simulation.melhorOpcao.prazoAnos} anos</p>
+                      </div>
+                      <div>
+                        <p className="text-green-600 font-medium">% da Renda Utilizada</p>
+                        <p className="text-lg font-bold text-green-800">{simulation.rendaUtilizada.toFixed(1)}%</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Resumo Total */}
+                  <div className="bg-gray-50 rounded-lg p-3 border">
+                    <h5 className="font-medium text-gray-700 mb-2">📊 Resumo Total do Investimento:</h5>
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div>
+                        <p className="text-gray-600">Valor do Imóvel:</p>
+                        <p className="font-bold text-gray-800">R$ {housePrice.toLocaleString('pt-BR')}</p>
+                      </div>
+                      <div>
+                        <p className="text-gray-600">Total Pago:</p>
+                        <p className="font-bold text-gray-800">R$ {simulation.totalPago.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</p>
+                      </div>
+                      <div>
+                        <p className="text-gray-600">Juros Totais:</p>
+                        <p className="font-bold text-red-600">R$ {simulation.totalJuros.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</p>
+                      </div>
+                      <div>
+                        <p className="text-gray-600">Taxa de Juros:</p>
+                        <p className="font-bold text-blue-600">0,79% a.m.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {!simulation.podeFinanciar && (
+                <div className="bg-yellow-50 rounded-lg p-3 border border-yellow-200">
+                  <h4 className="font-semibold text-yellow-700 mb-2">💡 Alternativas Recomendadas:</h4>
+                  <ul className="text-sm text-yellow-600 space-y-1">
+                    <li>• Considere aumentar a entrada para reduzir a parcela</li>
+                    <li>• Avalie a casa de 2 quartos (menor valor)</li>
+                    <li>• Consulte sobre programas sociais de habitação</li>
+                    <li>• Entre em contato para condições especiais</li>
+                  </ul>
+                </div>
+              )}
+            </div>
             
             {/* Resumo da Simulação */}
             <div className="bg-white border-2 border-green-200 rounded-xl p-4 shadow-lg">
-              <h3 className="text-lg font-semibold text-gray-800 mb-3 text-center">Resumo da Simulação</h3>
+              <h3 className="text-lg font-semibold text-gray-800 mb-3 text-center">📋 Dados da Proposta</h3>
               <div className="space-y-2 text-sm">
                 <p><strong>Nome:</strong> {formData.nome}</p>
                 <p><strong>WhatsApp:</strong> {formData.whatsapp}</p>
-                <p><strong>Renda:</strong> {getRendaValue()}</p>
-                <p><strong>Casa Selecionada:</strong> {formData.selectedUnit === '2quartos' ? '2 Quartos' : '3 Quartos'}</p>
-                <p><strong>Plano Selecionado:</strong> {formData.selectedPlan === 'vista' ? 'Venda Direta' : 'Venda Financiada'}</p>
+                <p><strong>Faixa de Renda:</strong> {
+                  formData.renda === 'ate2k' ? 'Até R$ 2.000' :
+                  formData.renda === 'ate3k' ? 'Até R$ 3.000' :
+                  formData.renda === 'ate4k' ? 'Até R$ 4.000' :
+                  formData.renda === 'ate5k' ? 'Até R$ 5.000' :
+                  formData.renda === 'ate7k' ? 'Até R$ 7.000' :
+                  formData.renda === 'ate10k' ? 'Até R$ 10.000' : 'Não informado'
+                }</p>
+                <p><strong>Casa Escolhida:</strong> {formData.selectedUnit === '2quartos' ? '2 Quartos (R$ 260.000)' : '3 Quartos (R$ 280.000)'}</p>
+                <p><strong>Plano:</strong> {formData.selectedPlan === 'vista' ? 'Venda Direta' : 'Venda Financiada'}</p>
               </div>
             </div>
 
