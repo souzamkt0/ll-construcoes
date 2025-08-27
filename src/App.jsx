@@ -64,20 +64,9 @@ function App() {
     }
   };
 
-  // Função para converter renda em valor numérico
+  // Função para converter renda em valor numérico fixo
   const getRendaValue = () => {
-    switch (formData.renda) {
-      case 'ate2k':
-        return 'R$ 1.500,00';
-      case '2k3k':
-        return 'R$ 2.500,00';
-      case '3k5k':
-        return 'R$ 4.000,00';
-      case 'acima5k':
-        return 'R$ 7.500,00';
-      default:
-        return 'Não informado';
-    }
+    return 'R$ 3.500,00';
   };
 
 
