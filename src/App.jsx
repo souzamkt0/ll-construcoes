@@ -5,7 +5,7 @@ import {
   ChevronLeft, ChevronRight, ArrowRight, MessageCircle, Calculator, Calendar,
   Shield, Award, Plus, Minus, ThumbsUp, AlertTriangle, Heart, CheckCircle2,
   Clock, Timer, Zap, Star, Crown, Target, TrendingUp, Briefcase, Key, 
-  PresentationChart, Eye, Handshake, BadgeCheck, Sparkles, Gift
+  PresentationChart, Eye, BadgeCheck, Sparkles, Gift
 } from 'lucide-react';
 
 function App() {
@@ -995,7 +995,7 @@ _Interessado em agendar uma visita e fechar negócio!_ 🏠✨`;
               
               <div className="bg-gradient-to-br from-amber-50 to-amber-100 rounded-xl p-4 border border-amber-200 shadow-lg">
                 <div className="flex flex-col items-center">
-                  <Handshake className="w-8 h-8 text-amber-600 mb-2" />
+                  <Award className="w-8 h-8 text-amber-600 mb-2" />
                   <h4 className="text-sm font-bold text-amber-800">Negociação</h4>
                   <p className="text-xs text-amber-600 text-center">Condições especiais</p>
                 </div>
