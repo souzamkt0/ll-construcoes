@@ -46,6 +46,24 @@ function App() {
     }));
   };
 
+  // Função para validar se pode avançar para próxima página
+  const canProceedToNextStep = () => {
+    switch (currentStep) {
+      case 0: // Nome
+        return formData.nome.trim().length >= 2;
+      case 1: // WhatsApp
+        return formData.whatsapp.trim().length >= 8;
+      case 2: // Renda
+        return formData.renda !== '';
+      case 3: // Casa
+        return formData.selectedUnit !== undefined;
+      case 4: // Plano
+        return formData.selectedPlan !== undefined;
+      default:
+        return true;
+    }
+  };
+
 
 
   const renderStep = () => {
@@ -1100,22 +1118,22 @@ ME CHAME URGENTE! ⚡`;
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">
       <div className="container mx-auto px-4 py-6">
         {/* Header Premium Imobiliário */}
-        <header className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 shadow-2xl rounded-2xl mb-6 overflow-hidden">
-          <div className="max-w-md mx-auto px-6 py-6 relative">
+        <header className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 shadow-2xl rounded-xl sm:rounded-2xl mb-4 sm:mb-6 overflow-hidden">
+          <div className="max-w-md mx-auto px-3 sm:px-6 py-4 sm:py-6 relative">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 to-indigo-900/20"></div>
             <button 
               onClick={() => setCurrentStep(0)}
-              className="relative z-10 flex items-center justify-center space-x-4 w-full hover:scale-105 transition-transform duration-300 cursor-pointer"
+              className="relative z-10 flex items-center justify-center space-x-2 sm:space-x-4 w-full hover:scale-105 transition-transform duration-300 cursor-pointer"
             >
-              <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-xl flex items-center justify-center shadow-xl hover:shadow-2xl transition-shadow">
-                <Building2 className="w-7 h-7 text-white" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-xl hover:shadow-2xl transition-shadow">
+                <Building2 className="w-5 h-5 sm:w-7 sm:h-7 text-white" />
               </div>
-              <div className="text-center">
-                <h1 className="text-xl font-bold text-white tracking-wide hover:text-emerald-300 transition-colors">LL CONSTRUÇÕES</h1>
-                <p className="text-emerald-300 text-sm font-medium">Premium Real Estate</p>
+              <div className="text-center flex-1">
+                <h1 className="text-base sm:text-xl font-bold text-white tracking-wide hover:text-emerald-300 transition-colors">LL CONSTRUÇÕES</h1>
+                <p className="text-emerald-300 text-xs sm:text-sm font-medium">Premium Real Estate</p>
               </div>
               <div className="flex flex-col items-center">
-                <Star className="w-5 h-5 text-yellow-400" />
+                <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400" />
                 <span className="text-yellow-300 text-xs font-bold">VIP</span>
               </div>
             </button>
@@ -1123,52 +1141,54 @@ ME CHAME URGENTE! ⚡`;
         </header>
 
         {/* Main Content */}
-        <main className="max-w-md mx-auto px-6 py-6">
-          <div className="bg-white border border-blue-200/30 rounded-3xl p-8 shadow-2xl backdrop-blur-sm relative overflow-hidden ring-1 ring-white/20">
-            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-emerald-400 via-blue-500 to-purple-500 rounded-t-3xl"></div>
-            <div className="absolute inset-0 bg-gradient-to-br from-white/95 to-blue-50/90 rounded-3xl"></div>
+        <main className="max-w-md mx-auto px-3 sm:px-6 py-4 sm:py-6">
+          <div className="bg-white border border-blue-200/30 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl backdrop-blur-sm relative overflow-hidden ring-1 ring-white/20">
+            <div className="absolute top-0 left-0 w-full h-1 sm:h-2 bg-gradient-to-r from-emerald-400 via-blue-500 to-purple-500 rounded-t-2xl sm:rounded-t-3xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-white/95 to-blue-50/90 rounded-2xl sm:rounded-3xl"></div>
             <div className="relative z-10">
               {renderStep()}
             </div>
           </div>
 
           {/* Navigation */}
-          <div className="flex justify-between mt-8 gap-4">
+          <div className="flex flex-col sm:flex-row justify-between mt-6 sm:mt-8 gap-3 sm:gap-4">
             <button
               onClick={prevStep}
               disabled={currentStep === 0}
-              className={`flex-1 px-6 py-4 rounded-2xl font-bold text-base transition-all duration-300 border-2 ${
+              className={`flex-1 px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base transition-all duration-300 border-2 ${
                 currentStep === 0
                   ? 'bg-slate-700/50 text-slate-400 cursor-not-allowed border-slate-600/50'
                   : 'bg-white/10 text-white border-white/30 hover:bg-white/20 hover:border-white/50 shadow-lg hover:shadow-xl transform hover:scale-105 backdrop-blur-sm'
               }`}
             >
-              <ChevronLeft className="w-5 h-5 inline mr-2" />
-              Anterior
+              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 inline mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Anterior</span>
+              <span className="sm:hidden">Voltar</span>
             </button>
 
             <button
               onClick={nextStep}
-              disabled={currentStep === steps.length - 1}
-              className={`flex-1 px-6 py-4 rounded-2xl font-bold text-base transition-all duration-300 border-2 ${
-                currentStep === steps.length - 1
+              disabled={currentStep === steps.length - 1 || !canProceedToNextStep()}
+              className={`flex-1 px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base transition-all duration-300 border-2 ${
+                currentStep === steps.length - 1 || !canProceedToNextStep()
                   ? 'bg-slate-700/50 text-slate-400 cursor-not-allowed border-slate-600/50'
                   : 'bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white border-emerald-400 shadow-lg hover:shadow-xl transform hover:scale-105'
               }`}
             >
-              Próximo
-              <ChevronRight className="w-5 h-5 inline ml-2" />
+              <span className="hidden sm:inline">Próximo</span>
+              <span className="sm:hidden">Avançar</span>
+              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 inline ml-1 sm:ml-2" />
             </button>
           </div>
 
           {/* Step Indicator */}
-          <div className="mt-8 text-center">
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20">
-              <div className="flex items-center justify-center space-x-3 mb-3">
+          <div className="mt-6 sm:mt-8 text-center">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-white/20">
+              <div className="flex items-center justify-center space-x-2 sm:space-x-3 mb-2 sm:mb-3 overflow-x-auto">
                 {steps.map((_, index) => (
                   <div
                     key={index}
-                    className={`w-4 h-4 rounded-full transition-all duration-500 relative ${
+                    className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full transition-all duration-500 relative flex-shrink-0 ${
                       index === currentStep
                         ? 'bg-gradient-to-r from-emerald-400 to-emerald-500 scale-125 shadow-lg shadow-emerald-500/50'
                         : index < currentStep
@@ -1177,15 +1197,15 @@ ME CHAME URGENTE! ⚡`;
                     }`}
                   >
                     {index < currentStep && (
-                      <CheckCircle className="w-3 h-3 text-white absolute inset-0 m-auto" />
+                      <CheckCircle className="w-2 h-2 sm:w-3 sm:h-3 text-white absolute inset-0 m-auto" />
                     )}
                   </div>
                 ))}
               </div>
-              <p className="text-white font-bold text-sm">
+              <p className="text-white font-bold text-xs sm:text-sm">
                 Passo {currentStep + 1} de {steps.length}
               </p>
-              <p className="text-white/70 text-xs mt-1">
+              <p className="text-white/70 text-xs mt-1 break-words">
                 {steps[currentStep]}
               </p>
             </div>
@@ -1193,21 +1213,22 @@ ME CHAME URGENTE! ⚡`;
         </main>
 
         {/* Footer */}
-        <footer className="max-w-md mx-auto px-6 py-6 text-center">
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-white/20">
+        <footer className="max-w-md mx-auto px-3 sm:px-6 py-4 sm:py-6 text-center">
+          <div className="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 shadow-lg border border-white/20">
             <div className="flex items-center justify-center space-x-2 mb-2">
-              <Crown className="w-4 h-4 text-emerald-400" />
-              <p className="text-white font-bold text-sm">
+              <Crown className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-400" />
+              <p className="text-white font-bold text-xs sm:text-sm">
                 LL CONSTRUÇÕES
               </p>
-              <Crown className="w-4 h-4 text-emerald-400" />
+              <Crown className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-400" />
             </div>
-            <p className="text-white/80 text-xs">
-              © 2024 • Entrega garantida em 24 meses • Premium Real Estate
+            <p className="text-white/80 text-xs leading-relaxed">
+              © 2024 • Entrega garantida em 24 meses<br className="sm:hidden" />
+              <span className="hidden sm:inline"> • </span>Premium Real Estate
             </p>
-            <div className="flex items-center justify-center space-x-2 mt-3 bg-emerald-500/20 rounded-lg p-2">
-              <MessageCircle className="w-4 h-4 text-emerald-400" />
-              <p className="text-emerald-400 text-xs font-medium">
+            <div className="flex flex-col sm:flex-row items-center justify-center space-y-1 sm:space-y-0 sm:space-x-2 mt-3 bg-emerald-500/20 rounded-lg p-2">
+              <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-400" />
+              <p className="text-emerald-400 text-xs font-medium text-center">
                 Atendimento VIP: (81) 99379-8551
               </p>
             </div>
