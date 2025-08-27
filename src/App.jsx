@@ -1103,19 +1103,22 @@ ME CHAME URGENTE! ⚡`;
         <header className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 shadow-2xl rounded-2xl mb-6 overflow-hidden">
           <div className="max-w-md mx-auto px-6 py-6 relative">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 to-indigo-900/20"></div>
-            <div className="relative z-10 flex items-center justify-center space-x-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-xl flex items-center justify-center shadow-xl">
+            <button 
+              onClick={() => setCurrentStep(0)}
+              className="relative z-10 flex items-center justify-center space-x-4 w-full hover:scale-105 transition-transform duration-300 cursor-pointer"
+            >
+              <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-xl flex items-center justify-center shadow-xl hover:shadow-2xl transition-shadow">
                 <Building2 className="w-7 h-7 text-white" />
               </div>
               <div className="text-center">
-                <h1 className="text-xl font-bold text-white tracking-wide">LL CONSTRUÇÕES</h1>
+                <h1 className="text-xl font-bold text-white tracking-wide hover:text-emerald-300 transition-colors">LL CONSTRUÇÕES</h1>
                 <p className="text-emerald-300 text-sm font-medium">Premium Real Estate</p>
               </div>
               <div className="flex flex-col items-center">
                 <Star className="w-5 h-5 text-yellow-400" />
                 <span className="text-yellow-300 text-xs font-bold">VIP</span>
               </div>
-            </div>
+            </button>
           </div>
         </header>
 
