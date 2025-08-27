@@ -275,7 +275,7 @@ function App() {
 
               <button
                 onClick={() => {
-                  handleInputChange('renda', '2k3k');
+                  handleInputChange('renda', 'ate3k');
                   nextStep();
                 }}
                 className="w-full p-3 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl hover:from-green-100 hover:to-emerald-100 hover:border-green-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
@@ -285,7 +285,7 @@ function App() {
                     <DollarSign className="w-5 h-5 text-white" />
                   </div>
                   <div className="text-left">
-                    <h3 className="text-base font-bold text-gray-800">💰 R$ 2.000 - R$ 3.000</h3>
+                    <h3 className="text-base font-bold text-gray-800">💰 Até R$ 3.000</h3>
                     <p className="text-gray-600 text-sm">Clique para continuar</p>
                   </div>
                 </div>
@@ -293,7 +293,7 @@ function App() {
 
               <button
                 onClick={() => {
-                  handleInputChange('renda', '3k5k');
+                  handleInputChange('renda', 'ate4k');
                   nextStep();
                 }}
                 className="w-full p-3 bg-gradient-to-r from-orange-50 to-amber-50 border-2 border-orange-200 rounded-xl hover:from-orange-100 hover:to-amber-100 hover:border-orange-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
@@ -303,7 +303,7 @@ function App() {
                     <DollarSign className="w-5 h-5 text-white" />
                   </div>
                   <div className="text-left">
-                    <h3 className="text-base font-bold text-gray-800">💰 R$ 3.000 - R$ 5.000</h3>
+                    <h3 className="text-base font-bold text-gray-800">💰 Até R$ 4.000</h3>
                     <p className="text-gray-600 text-sm">Clique para continuar</p>
                   </div>
                 </div>
@@ -311,7 +311,7 @@ function App() {
 
               <button
                 onClick={() => {
-                  handleInputChange('renda', 'acima5k');
+                  handleInputChange('renda', 'ate5k');
                   nextStep();
                 }}
                 className="w-full p-3 bg-gradient-to-r from-red-50 to-pink-50 border-2 border-red-200 rounded-xl hover:from-red-100 hover:to-pink-100 hover:border-red-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
@@ -321,8 +321,44 @@ function App() {
                     <DollarSign className="w-5 h-5 text-white" />
                   </div>
                   <div className="text-left">
-                    <h3 className="text-base font-bold text-gray-800">💰 Acima de R$ 5.000</h3>
+                    <h3 className="text-base font-bold text-gray-800">💰 Até R$ 5.000</h3>
                     <p className="text-gray-600 text-sm">Clique para continuar</p>
+                  </div>
+                </div>
+              </button>
+
+              <button
+                onClick={() => {
+                  handleInputChange('renda', 'ate7k');
+                  nextStep();
+                }}
+                className="w-full p-3 bg-gradient-to-r from-purple-50 to-violet-50 border-2 border-purple-200 rounded-xl hover:from-purple-100 hover:to-violet-100 hover:border-purple-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
+              >
+                <div className="flex items-center justify-center space-x-3">
+                  <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center">
+                    <DollarSign className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="text-base font-bold text-gray-800">💰 Até R$ 7.000</h3>
+                    <p className="text-gray-600 text-sm">Clique para continuar</p>
+                  </div>
+                </div>
+              </button>
+
+              <button
+                onClick={() => {
+                  handleInputChange('renda', 'ate10k');
+                  nextStep();
+                }}
+                className="w-full p-3 bg-gradient-to-r from-indigo-50 to-blue-50 border-2 border-indigo-200 rounded-xl hover:from-indigo-100 hover:to-blue-100 hover:border-indigo-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
+              >
+                <div className="flex items-center justify-center space-x-3">
+                  <div className="w-10 h-10 bg-indigo-500 rounded-full flex items-center justify-center">
+                    <Crown className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="text-base font-bold text-gray-800">💰 Até R$ 10.000</h3>
+                    <p className="text-gray-600 text-sm">Premium - Clique para continuar</p>
                   </div>
                 </div>
               </button>
