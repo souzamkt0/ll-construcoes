@@ -1097,7 +1097,7 @@ ME CHAME URGENTE! ⚡`;
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200">
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">
       <div className="container mx-auto px-4 py-6">
         {/* Header Premium Imobiliário */}
         <header className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 shadow-2xl rounded-2xl mb-6 overflow-hidden">
