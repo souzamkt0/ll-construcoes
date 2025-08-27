@@ -64,6 +64,22 @@ function App() {
     }
   };
 
+  // Função para converter renda em valor numérico
+  const getRendaValue = () => {
+    switch (formData.renda) {
+      case 'ate2k':
+        return 'R$ 1.500,00';
+      case '2k3k':
+        return 'R$ 2.500,00';
+      case '3k5k':
+        return 'R$ 4.000,00';
+      case 'acima5k':
+        return 'R$ 7.500,00';
+      default:
+        return 'Não informado';
+    }
+  };
+
 
 
   const renderStep = () => {
@@ -539,7 +555,7 @@ function App() {
               <div className="space-y-2 text-sm">
                 <p><strong>Nome:</strong> {formData.nome}</p>
                 <p><strong>WhatsApp:</strong> {formData.whatsapp}</p>
-                <p><strong>Renda:</strong> {formData.renda}</p>
+                <p><strong>Renda:</strong> {getRendaValue()}</p>
                 <p><strong>Casa Selecionada:</strong> {formData.selectedUnit === '2quartos' ? '2 Quartos' : '3 Quartos'}</p>
                 <p><strong>Plano Selecionado:</strong> {formData.selectedPlan === 'vista' ? 'Venda Direta' : 'Venda Financiada'}</p>
               </div>
@@ -866,7 +882,7 @@ function App() {
 *DADOS DO CLIENTE:*
 👤 Nome: ${formData.nome}
 📱 WhatsApp: +55 ${formData.whatsapp.replace(/^\(81\)\s*/, '')}
-💵 Renda: ${formData.renda}
+💵 Renda Mensal: ${getRendaValue()}
 
 *CASA SELECIONADA:*
 🏠 ${formData.selectedUnit === '2quartos' ? '2 Quartos' : '3 Quartos'}
