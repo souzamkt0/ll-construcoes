@@ -14,7 +14,9 @@ function App() {
     nome: '',
     whatsapp: '',
     renda: '',
-    preferencia: ''
+    preferencia: '',
+    selectedUnit: undefined,
+    selectedPlan: undefined
   });
   const [expandedSections, setExpandedSections] = useState({});
 
