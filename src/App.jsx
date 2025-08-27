@@ -73,9 +73,7 @@ function App() {
   const calculateFinancingSimulation = (rendaFaixa, housePrice) => {
     // Converter faixa de renda para valor numérico (valor máximo da faixa)
     const rendaValues = {
-      'ate2k': 2000,
-      'ate3k': 3000,
-      'ate4k': 4000,
+      'acima4k': 4500, // Valor médio para "acima de 4k"
       'ate5k': 5000,
       'ate7k': 7000,
       'ate10k': 10000
@@ -165,7 +163,7 @@ function App() {
               <div className="relative z-10">
                 <div className="w-16 h-16 mx-auto bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-xl flex items-center justify-center shadow-xl mb-4">
                   <Crown className="w-8 h-8 text-white" />
-                </div>
+            </div>
                 <h2 className="text-xl font-bold mb-2">👋 Bem-vindo(a)!</h2>
                 <p className="text-slate-300 text-sm mb-2">Consultoria Imobiliária Exclusiva</p>
                 <div className="flex items-center justify-center space-x-2">
@@ -181,30 +179,30 @@ function App() {
               <div className="flex items-center justify-center space-x-2 mb-4">
                 <Briefcase className="w-5 h-5 text-slate-600" />
                 <h3 className="text-lg font-bold text-slate-800">Dados do Cliente</h3>
-              </div>
-              
-              <div className="space-y-4">
+            </div>
+            
+            <div className="space-y-4">
                 <div className="relative">
                   <label className="block text-slate-700 text-sm font-semibold mb-2">Nome Completo *</label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                       <User className="w-5 h-5 text-slate-400" />
-                    </div>
-                    <input
-                      type="text"
-                      value={formData.nome}
-                      onChange={(e) => handleInputChange('nome', e.target.value)}
+                </div>
+                <input
+                  type="text"
+                  value={formData.nome}
+                  onChange={(e) => handleInputChange('nome', e.target.value)}
                       placeholder="Seu nome completo"
                       className="w-full pl-12 pr-4 py-4 bg-white border-2 border-slate-300 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 text-base font-medium shadow-sm"
-                    />
+                />
                   </div>
-                </div>
-                
-                <button
-                  onClick={nextStep}
-                  disabled={!formData.nome.trim()}
+              </div>
+              
+              <button
+                onClick={nextStep}
+                disabled={!formData.nome.trim()}
                   className={`w-full py-4 px-6 rounded-xl font-bold text-base transition-all duration-300 shadow-lg ${
-                    formData.nome.trim()
+                  formData.nome.trim()
                       ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-emerald-200 hover:shadow-xl transform hover:scale-105 border-2 border-emerald-400'
                       : 'bg-slate-200 text-slate-400 cursor-not-allowed border-2 border-slate-300'
                   }`}
@@ -218,7 +216,7 @@ function App() {
                   ) : (
                     'Preencha seu nome'
                   )}
-                </button>
+              </button>
               </div>
             </div>
 
@@ -252,7 +250,7 @@ function App() {
               <div className="relative z-10">
                 <div className="w-16 h-16 mx-auto bg-gradient-to-br from-green-400 to-emerald-500 rounded-xl flex items-center justify-center shadow-xl mb-4">
                   <MessageCircle className="w-8 h-8 text-white" />
-                </div>
+            </div>
                 <h2 className="text-xl font-bold mb-2">📱 Contato Premium</h2>
                 <p className="text-emerald-100 text-sm">Olá {formData.nome}! Vamos conectar você ao nosso time</p>
               </div>
@@ -263,36 +261,36 @@ function App() {
               <div className="flex items-center justify-center space-x-2 mb-4">
                 <Phone className="w-5 h-5 text-slate-600" />
                 <h3 className="text-lg font-bold text-slate-800">WhatsApp Verificado</h3>
-              </div>
-              
-              <div className="space-y-4">
+            </div>
+            
+            <div className="space-y-4">
                 <div className="relative">
                   <label className="block text-slate-700 text-sm font-semibold mb-2">Número WhatsApp *</label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                       <span className="text-emerald-600 text-sm font-bold">🇧🇷 +55</span>
-                    </div>
-                    <input
-                      type="tel"
-                      value={formData.whatsapp}
-                      onChange={(e) => handleInputChange('whatsapp', e.target.value)}
+                </div>
+                <input
+                  type="tel"
+                  value={formData.whatsapp}
+                  onChange={(e) => handleInputChange('whatsapp', e.target.value)}
                       placeholder="(81) 99999-9999"
                       className="w-full pl-20 pr-4 py-4 bg-white border-2 border-slate-300 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 text-base font-medium shadow-sm text-center"
-                    />
+                />
                     <div className="absolute inset-y-0 right-0 pr-4 flex items-center">
                       <MessageCircle className="w-5 h-5 text-emerald-500" />
-                    </div>
+                </div>
                   </div>
                   <p className="text-slate-500 text-xs mt-2 text-center">
                     📞 Nosso consultor entrará em contato em até 1 hora
                   </p>
-                </div>
-                
-                <button
-                  onClick={nextStep}
-                  disabled={!formData.whatsapp.trim()}
+              </div>
+              
+              <button
+                onClick={nextStep}
+                disabled={!formData.whatsapp.trim()}
                   className={`w-full py-4 px-6 rounded-xl font-bold text-base transition-all duration-300 shadow-lg ${
-                    formData.whatsapp.trim()
+                  formData.whatsapp.trim()
                       ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-emerald-200 hover:shadow-xl transform hover:scale-105 border-2 border-emerald-400'
                       : 'bg-slate-200 text-slate-400 cursor-not-allowed border-2 border-slate-300'
                   }`}
@@ -306,7 +304,7 @@ function App() {
                   ) : (
                     'Informe seu WhatsApp'
                   )}
-                </button>
+              </button>
               </div>
             </div>
 
@@ -340,43 +338,7 @@ function App() {
             <div className="space-y-3">
               <button
                 onClick={() => {
-                  handleInputChange('renda', 'ate2k');
-                  nextStep();
-                }}
-                className="w-full p-3 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl hover:from-blue-100 hover:to-indigo-100 hover:border-blue-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
-              >
-                <div className="flex items-center justify-center space-x-3">
-                  <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
-                    <DollarSign className="w-5 h-5 text-white" />
-                  </div>
-                  <div className="text-left">
-                    <h3 className="text-base font-bold text-gray-800">💰 Até R$ 2.000</h3>
-                    <p className="text-gray-600 text-sm">Clique para continuar</p>
-                  </div>
-                </div>
-              </button>
-
-              <button
-                onClick={() => {
-                  handleInputChange('renda', 'ate3k');
-                  nextStep();
-                }}
-                className="w-full p-3 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl hover:from-green-100 hover:to-emerald-100 hover:border-green-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
-              >
-                <div className="flex items-center justify-center space-x-3">
-                  <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                    <DollarSign className="w-5 h-5 text-white" />
-                  </div>
-                  <div className="text-left">
-                    <h3 className="text-base font-bold text-gray-800">💰 Até R$ 3.000</h3>
-                    <p className="text-gray-600 text-sm">Clique para continuar</p>
-                  </div>
-                </div>
-              </button>
-
-              <button
-                onClick={() => {
-                  handleInputChange('renda', 'ate4k');
+                  handleInputChange('renda', 'acima4k');
                   nextStep();
                 }}
                 className="w-full p-3 bg-gradient-to-r from-orange-50 to-amber-50 border-2 border-orange-200 rounded-xl hover:from-orange-100 hover:to-amber-100 hover:border-orange-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
@@ -386,7 +348,7 @@ function App() {
                     <DollarSign className="w-5 h-5 text-white" />
                   </div>
                   <div className="text-left">
-                    <h3 className="text-base font-bold text-gray-800">💰 Até R$ 4.000</h3>
+                    <h3 className="text-base font-bold text-gray-800">💰 Acima de R$ 4.000</h3>
                     <p className="text-gray-600 text-sm">Clique para continuar</p>
                   </div>
                 </div>
@@ -766,9 +728,7 @@ function App() {
                 <p><strong>Nome:</strong> {formData.nome}</p>
                 <p><strong>WhatsApp:</strong> {formData.whatsapp}</p>
                 <p><strong>Faixa de Renda:</strong> {
-                  formData.renda === 'ate2k' ? 'Até R$ 2.000' :
-                  formData.renda === 'ate3k' ? 'Até R$ 3.000' :
-                  formData.renda === 'ate4k' ? 'Até R$ 4.000' :
+                  formData.renda === 'acima4k' ? 'Acima de R$ 4.000' :
                   formData.renda === 'ate5k' ? 'Até R$ 5.000' :
                   formData.renda === 'ate7k' ? 'Até R$ 7.000' :
                   formData.renda === 'ate10k' ? 'Até R$ 10.000' : 'Não informado'
@@ -825,9 +785,9 @@ function App() {
 
               {expandedSections.housePlan && (
                 <>
-                  {/* Especificações Técnicas */}
-                  <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-3 border border-blue-200 mb-3">
-                    <h5 className="font-semibold text-blue-800 mb-2 text-center text-sm">📐 Especificações Técnicas</h5>
+              {/* Especificações Técnicas */}
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-3 border border-blue-200 mb-3">
+                <h5 className="font-semibold text-blue-800 mb-2 text-center text-sm">📐 Especificações Técnicas</h5>
                 <div className="grid grid-cols-2 gap-2 text-xs">
                   <div className="text-center">
                     <p className="text-blue-600 font-medium">Terreno</p>
@@ -1063,28 +1023,28 @@ function App() {
                 </div>
               </div>
 
-                  {/* Resumo da Área */}
+              {/* Resumo da Área */}
                   <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-3 border border-blue-200 text-center mt-3">
                     <h5 className="font-semibold text-blue-800 mb-2 text-sm">📊 Resumo da Área</h5>
-                    <div className="grid grid-cols-2 gap-3 text-xs">
-                      <div>
+                <div className="grid grid-cols-2 gap-3 text-xs">
+                  <div>
                         <p className="text-blue-600 font-medium">Área Total:</p>
                         <p className="text-blue-800 font-bold">{formData.selectedUnit === '2quartos' ? '42m²' : '48m²'}</p>
-                      </div>
-                      <div>
+                  </div>
+                  <div>
                         <p className="text-blue-600 font-medium">Terreno:</p>
                         <p className="text-blue-800 font-bold">160m²</p>
-                      </div>
-                      <div>
+                  </div>
+                  <div>
                         <p className="text-blue-600 font-medium">Quartos:</p>
                         <p className="text-blue-800 font-bold">{formData.selectedUnit === '2quartos' ? '2' : '3'}</p>
-                      </div>
-                      <div>
+                  </div>
+                  <div>
                         <p className="text-blue-600 font-medium">Banheiros:</p>
                         <p className="text-blue-800 font-bold">{formData.selectedUnit === '2quartos' ? '1' : '2'}</p>
-                      </div>
-                    </div>
                   </div>
+                </div>
+              </div>
                 </>
               )}
             </div>
@@ -1368,7 +1328,7 @@ ME CHAME URGENTE! ⚡`;
               <div className="flex flex-col items-center">
                 <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400" />
                 <span className="text-yellow-300 text-xs font-bold">VIP</span>
-              </div>
+            </div>
             </button>
           </div>
         </header>
@@ -1379,7 +1339,7 @@ ME CHAME URGENTE! ⚡`;
             <div className="absolute top-0 left-0 w-full h-1 sm:h-2 bg-gradient-to-r from-emerald-400 via-blue-500 to-purple-500 rounded-t-2xl sm:rounded-t-3xl"></div>
             <div className="absolute inset-0 bg-gradient-to-br from-white/95 to-blue-50/90 rounded-2xl sm:rounded-3xl"></div>
             <div className="relative z-10">
-              {renderStep()}
+            {renderStep()}
             </div>
           </div>
 
@@ -1418,13 +1378,13 @@ ME CHAME URGENTE! ⚡`;
           <div className="mt-6 sm:mt-8 text-center">
             <div className="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-white/20">
               <div className="flex items-center justify-center space-x-2 sm:space-x-3 mb-2 sm:mb-3 overflow-x-auto">
-                {steps.map((_, index) => (
-                  <div
-                    key={index}
+              {steps.map((_, index) => (
+                <div
+                  key={index}
                     className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full transition-all duration-500 relative flex-shrink-0 ${
-                      index === currentStep
+                    index === currentStep
                         ? 'bg-gradient-to-r from-emerald-400 to-emerald-500 scale-125 shadow-lg shadow-emerald-500/50'
-                        : index < currentStep
+                      : index < currentStep
                         ? 'bg-emerald-400 shadow-md'
                         : 'bg-white/30 border-2 border-white/50'
                     }`}
@@ -1433,14 +1393,14 @@ ME CHAME URGENTE! ⚡`;
                       <CheckCircle className="w-2 h-2 sm:w-3 sm:h-3 text-white absolute inset-0 m-auto" />
                     )}
                   </div>
-                ))}
-              </div>
+              ))}
+            </div>
               <p className="text-white font-bold text-xs sm:text-sm">
-                Passo {currentStep + 1} de {steps.length}
-              </p>
+              Passo {currentStep + 1} de {steps.length}
+            </p>
               <p className="text-white/70 text-xs mt-1 break-words">
                 {steps[currentStep]}
-              </p>
+            </p>
             </div>
           </div>
         </main>
