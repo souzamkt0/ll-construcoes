@@ -5,7 +5,7 @@ import {
   ChevronLeft, ChevronRight, ArrowRight, MessageCircle, Calculator, Calendar,
   Shield, Award, Plus, Minus, ThumbsUp, AlertTriangle, Heart, CheckCircle2,
   Clock, Timer, Zap, Star, Crown, Target, TrendingUp, Briefcase, Key, 
-  PresentationChart, Eye, BadgeCheck, Sparkles, Gift
+  PresentationChart, Eye, BadgeCheck, Sparkles, Gift, AlertCircle
 } from 'lucide-react';
 
 function App() {
