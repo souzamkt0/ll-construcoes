@@ -1121,20 +1121,23 @@ ME CHAME URGENTE! ⚡`;
 
         {/* Main Content */}
         <main className="max-w-md mx-auto px-6 py-6">
-          <div className="bg-white border-2 border-slate-200 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 via-blue-500 to-purple-500"></div>
-            {renderStep()}
+          <div className="bg-white border border-blue-200/30 rounded-3xl p-8 shadow-2xl backdrop-blur-sm relative overflow-hidden ring-1 ring-white/20">
+            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-emerald-400 via-blue-500 to-purple-500 rounded-t-3xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-white/95 to-blue-50/90 rounded-3xl"></div>
+            <div className="relative z-10">
+              {renderStep()}
+            </div>
           </div>
 
           {/* Navigation */}
-          <div className="flex justify-between mt-8">
+          <div className="flex justify-between mt-8 gap-4">
             <button
               onClick={prevStep}
               disabled={currentStep === 0}
-              className={`px-6 py-4 rounded-2xl font-semibold transition-all duration-300 ${
+              className={`flex-1 px-6 py-4 rounded-2xl font-bold text-base transition-all duration-300 border-2 ${
                 currentStep === 0
-                  ? 'bg-white/20 text-gray-400 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white shadow-lg hover:shadow-xl transform hover:scale-105'
+                  ? 'bg-slate-700/50 text-slate-400 cursor-not-allowed border-slate-600/50'
+                  : 'bg-white/10 text-white border-white/30 hover:bg-white/20 hover:border-white/50 shadow-lg hover:shadow-xl transform hover:scale-105 backdrop-blur-sm'
               }`}
             >
               <ChevronLeft className="w-5 h-5 inline mr-2" />
@@ -1144,10 +1147,10 @@ ME CHAME URGENTE! ⚡`;
             <button
               onClick={nextStep}
               disabled={currentStep === steps.length - 1}
-              className={`px-6 py-4 rounded-2xl font-semibold transition-all duration-300 ${
+              className={`flex-1 px-6 py-4 rounded-2xl font-bold text-base transition-all duration-300 border-2 ${
                 currentStep === steps.length - 1
-                  ? 'bg-white/20 text-gray-400 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105'
+                  ? 'bg-slate-700/50 text-slate-400 cursor-not-allowed border-slate-600/50'
+                  : 'bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white border-emerald-400 shadow-lg hover:shadow-xl transform hover:scale-105'
               }`}
             >
               Próximo
@@ -1157,36 +1160,52 @@ ME CHAME URGENTE! ⚡`;
 
           {/* Step Indicator */}
           <div className="mt-8 text-center">
-            <div className="flex items-center justify-center space-x-2 mb-3">
-              {steps.map((_, index) => (
-                <div
-                  key={index}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentStep
-                      ? 'bg-gradient-to-r from-blue-500 to-blue-600 scale-125'
-                      : index < currentStep
-                      ? 'bg-blue-400'
-                      : 'bg-gray-300'
-                  }`}
-                />
-              ))}
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20">
+              <div className="flex items-center justify-center space-x-3 mb-3">
+                {steps.map((_, index) => (
+                  <div
+                    key={index}
+                    className={`w-4 h-4 rounded-full transition-all duration-500 relative ${
+                      index === currentStep
+                        ? 'bg-gradient-to-r from-emerald-400 to-emerald-500 scale-125 shadow-lg shadow-emerald-500/50'
+                        : index < currentStep
+                        ? 'bg-emerald-400 shadow-md'
+                        : 'bg-white/30 border-2 border-white/50'
+                    }`}
+                  >
+                    {index < currentStep && (
+                      <CheckCircle className="w-3 h-3 text-white absolute inset-0 m-auto" />
+                    )}
+                  </div>
+                ))}
+              </div>
+              <p className="text-white font-bold text-sm">
+                Passo {currentStep + 1} de {steps.length}
+              </p>
+              <p className="text-white/70 text-xs mt-1">
+                {steps[currentStep]}
+              </p>
             </div>
-            <p className="text-gray-600 font-medium text-sm">
-              Passo {currentStep + 1} de {steps.length}
-            </p>
           </div>
         </main>
 
         {/* Footer */}
         <footer className="max-w-md mx-auto px-6 py-6 text-center">
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-lg">
-            <p className="text-gray-700 font-medium text-sm">
-              © 2024 LL Construções • Entrega em 24 meses
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-white/20">
+            <div className="flex items-center justify-center space-x-2 mb-2">
+              <Crown className="w-4 h-4 text-emerald-400" />
+              <p className="text-white font-bold text-sm">
+                LL CONSTRUÇÕES
+              </p>
+              <Crown className="w-4 h-4 text-emerald-400" />
+            </div>
+            <p className="text-white/80 text-xs">
+              © 2024 • Entrega garantida em 24 meses • Premium Real Estate
             </p>
-            <div className="flex items-center justify-center space-x-2 mt-2">
-              <MessageCircle className="w-4 h-4 text-green-600" />
-              <p className="text-green-600 text-sm font-medium">
-                WhatsApp: (81) 99379-8551
+            <div className="flex items-center justify-center space-x-2 mt-3 bg-emerald-500/20 rounded-lg p-2">
+              <MessageCircle className="w-4 h-4 text-emerald-400" />
+              <p className="text-emerald-400 text-xs font-medium">
+                Atendimento VIP: (81) 99379-8551
               </p>
             </div>
           </div>
